@@ -1,8 +1,9 @@
+/* eslint-disable import/no-named-as-default */
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import './index.css';
-import App from './App'; // Import App from App.js
+import App from './App';
 
-const container = document.getElementById('root');
-const root = createRoot(container);
-root.render(<App />); // Render App
+const rootElement = document.getElementById('root');
+const root = createRoot(rootElement);
+root.render(<App />);

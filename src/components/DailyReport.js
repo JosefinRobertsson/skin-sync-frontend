@@ -11,37 +11,41 @@ function DailyReport() {
   const [skinCondition, setSkinCondition] = useState([]);
   const [diet, setDiet] = useState([]);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    const dailyReportData = {
-      exercised,
-      period,
-      mood,
-      skinCondition,
-      diet,
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const accessToken = localStorage.getItem('accessToken');
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: accessToken,
+      },
+      body: JSON.stringify({
+        exercised,
+        period,
+        mood,
+        skinCondition,
+        diet,
+      }),
     };
 
-    try {
-      const response = await fetch('http://localhost:8080/dailyReport', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(dailyReportData),
+    fetch('http://localhost:8080/dailyReport', options)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          console.log('Daily report submitted successfully');
+          setExercised(false);
+          setPeriod(false);
+          setMood('');
+          setSkinCondition([]);
+          setDiet([]);
+        } else {
+          console.error('Failed to submit daily report');
+        }
+      })
+      .catch((error) => {
+        console.error('An error occurred:', error);
       });
-
-      if (response.ok) {
-        // TODO: Handle successful submission
-        console.log('Daily report submitted successfully');
-      } else {
-        // TODO: Handle submission error
-        console.error('Failed to submit daily report');
-      }
-    } catch (error) {
-      // TODO: Handle submission error
-      console.error('Failed to submit daily report', error);
-    }
   };
 
   return (
