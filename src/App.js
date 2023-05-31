@@ -1,14 +1,21 @@
 import React from 'react';
-import Login from './Login';
-import Register from './Register';
+import {
+  BrowserRouter, Routes, Route,
+} from 'react-router-dom';
+import Login from './components/Login';
+import Register from './components/Register';
+import DailyReport from './components/DailyReport';
 
-function App() {
+export function App() {
   return (
-    <div>
-      <h1>Hello, world!</h1>
-      <Login />
-      <Register />
-    </div>
+    <BrowserRouter>
+      <h1>Skin sync</h1>
+      <Routes>
+        <Route path="/Login" element={<Login />} />
+        <Route path="/Register" element={<Register />} />
+        <Route path="/DailyReport" element={<DailyReport />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

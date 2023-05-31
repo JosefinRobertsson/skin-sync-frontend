@@ -1,11 +1,13 @@
 /* eslint-disable react/jsx-filename-extension */
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 /* eslint-disable no-console */
 
 function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   const login = () => {
     axios
@@ -16,6 +18,7 @@ function Login() {
       .then((response) => {
         console.log(response);
         localStorage.setItem('accessToken', response.data.response.accessToken);
+        navigate('/dailyreport'); // navigate to the dailyreport route
       })
       .catch((error) => console.error(error));
   };
