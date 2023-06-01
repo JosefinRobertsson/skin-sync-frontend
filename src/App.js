@@ -5,6 +5,7 @@ import {
 import Login from './components/Login';
 import Register from './components/Register';
 import DailyReport from './components/DailyReport';
+import SkincareProduct from './components/SkincareProduct';
 
 export function App() {
   return (
@@ -14,6 +15,7 @@ export function App() {
         <Route path="/Login" element={<Login />} />
         <Route path="/Register" element={<Register />} />
         <Route path="/DailyReport" element={<DailyReport />} />
+        <Route path="/skincareProduct" element={<SkincareProduct />} />
       </Routes>
     </BrowserRouter>
   );
