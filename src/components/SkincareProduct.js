@@ -54,6 +54,10 @@ function SkincareProduct() {
 
   // MORNING
 
+  // Separate the morning and night products
+  const morningRoutineProducts = morningProducts.filter((product) => product.routine === 'morning');
+  const nightRoutineProducts = nightProducts.filter((product) => product.routine === 'night');
+
   const handleSubmitMorningRoutine = (event) => {
     event.preventDefault();
     const accessToken = localStorage.getItem('accessToken');
@@ -67,7 +71,7 @@ function SkincareProduct() {
       body: JSON.stringify({
         name: morningName,
         brand: morningBrand,
-        routine: 'night',
+        routine: 'morning',
       }),
     };
 
