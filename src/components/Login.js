@@ -18,7 +18,7 @@ function Login() {
       .then((response) => {
         console.log(response);
         localStorage.setItem('accessToken', response.data.response.accessToken);
-        navigate('/dailyreport'); // navigate to the dailyreport route
+        navigate('/userPage'); // navigate to the dailyreport route
       })
       .catch((error) => console.error(error));
   };

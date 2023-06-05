@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import axios from 'axios';
 
-function StatisticsPage() {
+function OpenPage() {
   useEffect(() => {
     const accessToken = localStorage.getItem('accessToken');
-    axios.get('http://localhost:8080/statisticsPage', {
+    axios.get('http://localhost:8080/', {
       headers: {
         Authorization: accessToken,
       },
@@ -13,9 +13,14 @@ function StatisticsPage() {
 
   return (
     <div>
-      <h1>This is the Statistics Page</h1>
+      <h1>
+        Here we will summarize the app and say that
+        we will save their data so we dont go to jail
+        {' '}
+
+      </h1>
     </div>
   );
 }
 
-export default StatisticsPage;
+export default OpenPage;
