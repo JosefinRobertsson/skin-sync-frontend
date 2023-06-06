@@ -1,9 +1,11 @@
 /* eslint-disable no-underscore-dangle */
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { ShelfLink } from '../styles/StyledLinks';
 
 const UsageTracker = () => {
   // Create a state to store the skincare products
+  console.log('morning')
   const [skincareProducts, setSkincareProducts] = useState([]);
 
   useEffect(() => {
@@ -65,26 +67,34 @@ const UsageTracker = () => {
     <div>
       <h1>This is the Usage Tracker Page</h1>
       {skincareProducts.map((product) => (
-        <div key={product._id}>
-          <p>
+        <>
+          <div key={product._id}>
+            <p>
             Product Name:
-            {' '}
-            {product.name}
-            {' '}
-            <br />
+              {' '}
+              {product.name}
+              {' '}
+              <br />
             Brand:
-            {' '}
-            {product.brand}
-          </p>
-          <label htmlFor={`productUsage-${product._id}`}>
+              {' '}
+              {product.brand}
+            </p>
+            <label htmlFor={`productUsage-${product._id}`}>
             Used Today:
-            <input
-              type="checkbox"
-              id={`productUsage-${product._id}`}
-              checked={product.usedToday}
-              onChange={() => handleProductUsage(product._id, product.usedToday)} />
-          </label>
-        </div>
+              <input
+                type="checkbox"
+                id={`productUsage-${product._id}`}
+                checked={product.usedToday}
+                onChange={() => handleProductUsage(product._id, product.usedToday)} />
+            </label>
+          </div>
+          <div>
+            <ShelfLink to="/shelf">Edit morning routine</ShelfLink>
+          </div>
+          <div>
+            <ShelfLink to="/shelf">Edit night routine</ShelfLink>
+          </div>
+        </>
       ))}
     </div>
   );

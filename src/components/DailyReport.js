@@ -3,6 +3,7 @@
 /* eslint-disable no-console */
 
 import React, { useState } from 'react';
+import { RegisterButton } from '../styles/StyledButtons';
 
 const DailyReport = () => {
   const [exercised, setExercised] = useState(false);
@@ -150,7 +151,7 @@ const DailyReport = () => {
             <option value="Grains">Grains</option>
           </select>
         </div>
-        <button type="submit">Submit</button>
+        <RegisterButton type="submit">Submit</RegisterButton>
       </form>
     </div>
   );

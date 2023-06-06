@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { LoginButton } from '../styles/StyledButtons';
 /* eslint-disable no-console */
 
 const Login = () => {
@@ -34,7 +35,7 @@ const Login = () => {
         type="password"
         placeholder="Password"
         onChange={(e) => setPassword(e.target.value)} />
-      <button type="button" onClick={login}>Login</button>
+      <LoginButton type="submit" onClick={login}>Login</LoginButton>
     </div>
   );
 }

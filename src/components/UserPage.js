@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { DailyLink, ShelfLink, StatisticsLink } from '../styles/StyledLinks';
 
 const UserPage = () => {
   const [uvIndex, setUvIndex] = useState(null);
@@ -20,16 +21,21 @@ const UserPage = () => {
   }, []);
 
   return (
-    <div>
-      <h1>This is the user page</h1>
-      {uvIndex !== null && (
-        <p>
-        The UV index is:
-          {' '}
-          {uvIndex}
-        </p>
-      )}
-    </div>
+    <>
+      <div>
+        <h1>This is the user page</h1>
+        {uvIndex !== null && (
+          <p>
+          The UV index is:
+            {' '}
+            {uvIndex}
+          </p>
+        )}
+      </div>
+      <DailyLink to="/DailyReport">Log day</DailyLink>
+      <ShelfLink to="/skincareProduct">Product shelf</ShelfLink>
+      <StatisticsLink to="/statisticsPage">Statistics</StatisticsLink>
+    </>
   );
 }
 

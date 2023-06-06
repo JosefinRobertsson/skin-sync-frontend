@@ -2,6 +2,7 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState, useEffect } from 'react';
+import { AddProductButton, DeleteProductButton } from '../styles/StyledButtons';
 
 const SkincareProduct = () => {
   const [morningName, setMorningName] = useState('');
@@ -162,7 +163,7 @@ const SkincareProduct = () => {
           <label htmlFor="morningBrand">Brand of the product:</label>
           <input type="text" id="morningBrand" value={morningBrand} onChange={(e) => setMorningBrand(e.target.value)} />
         </div>
-        <button type="submit">Submit Product</button>
+        <AddProductButton type="submit">Submit Product</AddProductButton>
       </form>
 
       <form onSubmit={handleSubmitNightRoutine}>
@@ -175,7 +176,7 @@ const SkincareProduct = () => {
           <label htmlFor="nightBrand">Brand of the product:</label>
           <input type="text" id="nightBrand" value={nightBrand} onChange={(e) => setNightBrand(e.target.value)} />
         </div>
-        <button type="submit">Submit Product</button>
+        <AddProductButton type="submit">Submit Product</AddProductButton>
       </form>
 
       <h2>Added Products for the Morning routine</h2>
@@ -191,7 +192,7 @@ const SkincareProduct = () => {
             {' '}
             {product.brand}
           </p>
-          <button type="button" onClick={() => handleDeleteProduct(product._id)}>Delete</button>
+          <DeleteProductButton type="button" onClick={() => handleDeleteProduct(product._id)}>Delete</DeleteProductButton>
         </div>
       ))}
 
@@ -208,7 +209,7 @@ const SkincareProduct = () => {
             {' '}
             {product.brand}
           </p>
-          <button type="button" onClick={() => handleDeleteProduct(product._id)}>Delete</button>
+          <DeleteProductButton type="button" onClick={() => handleDeleteProduct(product._id)}>Delete</DeleteProductButton>
         </div>
       ))}
     </div>

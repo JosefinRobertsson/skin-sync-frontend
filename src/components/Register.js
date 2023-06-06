@@ -4,6 +4,7 @@
 
 import React, { useState } from 'react';
 import axios from 'axios';
+import { RegisterButton } from '../styles/StyledButtons';
 
 const Register = () => {
   const [username, setUsername] = useState('');
@@ -34,7 +35,7 @@ const Register = () => {
         type="password"
         placeholder="Password"
         onChange={(e) => setPassword(e.target.value)} />
-      <button type="button" onClick={register}>Register</button>
+      <RegisterButton type="submit" onClick={register}>Register</RegisterButton>
     </div>
   );
 }

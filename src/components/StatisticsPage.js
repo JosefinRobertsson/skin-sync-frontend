@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import axios from 'axios';
+import { HomeLink } from '../styles/StyledLinks';
 
 const StatisticsPage = () => {
   useEffect(() => {
@@ -12,9 +13,12 @@ const StatisticsPage = () => {
   }, []);
 
   return (
-    <div>
-      <h1>This is the Statistics Page</h1>
-    </div>
+    <>
+      <div>
+        <h1>This is the Statistics Page</h1>
+      </div>
+      <HomeLink to="/userPage">Home</HomeLink>
+    </>
   );
 }
 
