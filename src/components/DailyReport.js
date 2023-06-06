@@ -10,6 +10,8 @@ const DailyReport = () => {
   const [mood, setMood] = useState('');
   const [skinCondition, setSkinCondition] = useState([]);
   const [diet, setDiet] = useState([]);
+  const [waterAmount, setWaterAmount] = useState(0);
+  const [sleepHours, setSleepHours] = useState(0);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -25,7 +27,9 @@ const DailyReport = () => {
         period,
         mood,
         skinCondition,
-        diet
+        diet,
+        waterAmount,
+        sleepHours
       })
     };
 
@@ -39,6 +43,8 @@ const DailyReport = () => {
           setMood('');
           setSkinCondition([]);
           setDiet([]);
+          setSleepHours(0);
+          setWaterAmount(0);
         } else {
           console.error('Failed to submit daily report');
         }
@@ -52,6 +58,29 @@ const DailyReport = () => {
     <div>
       <h1>Daily Report</h1>
       <form onSubmit={handleSubmit}>
+        <div>
+          <label htmlFor="waterRange"> Water Intake: {waterAmount} glasses of water </label>
+          <input
+            type="range"
+            id="waterRange"
+            min="0"
+            max="20"
+            value={waterAmount}
+            onChange={(event) => setWaterAmount(event.target.value)} />
+        </div>
+
+        <div>
+          <label htmlFor="sleepRange">Sleep Hours: {sleepHours} hours</label>
+          <input
+            type="range"
+            id="sleepRange"
+            min="0"
+            max="12"
+            step="0.5"
+            value={sleepHours}
+            onChange={(event) => setSleepHours(event.target.value)} />
+
+        </div>
         <div>
           <label htmlFor="exercised">Exercised:</label>
           <input
