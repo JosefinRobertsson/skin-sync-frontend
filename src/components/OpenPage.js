@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import axios from 'axios';
+import { GetStartedLink } from '../styles/StyledLinks';
 
 const OpenPage = () => {
   useEffect(() => {
@@ -19,6 +20,7 @@ const OpenPage = () => {
         {' '}
 
       </h1>
+      <GetStartedLink to="/login">Get Started</GetStartedLink>
     </div>
   );
 }
