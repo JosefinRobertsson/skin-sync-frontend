@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-function UserPage() {
+const UserPage = () => {
   const [uvIndex, setUvIndex] = useState(null);
 
   useEffect(() => {
     const accessToken = localStorage.getItem('accessToken');
     axios.get('http://localhost:8080/userPage', {
       headers: {
-        Authorization: accessToken,
-      },
+        Authorization: accessToken
+      }
     })
       .then((response) => {
         setUvIndex(response.data.uvIndex);
@@ -23,11 +23,11 @@ function UserPage() {
     <div>
       <h1>This is the user page</h1>
       {uvIndex !== null && (
-      <p>
+        <p>
         The UV index is:
-        {' '}
-        {uvIndex}
-      </p>
+          {' '}
+          {uvIndex}
+        </p>
       )}
     </div>
   );

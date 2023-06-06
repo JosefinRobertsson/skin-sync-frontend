@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-function UsageTracker() {
+const UsageTracker = () => {
   // Create a state to store the skincare products
   const [skincareProducts, setSkincareProducts] = useState([]);
 
@@ -10,8 +10,8 @@ function UsageTracker() {
     const accessToken = localStorage.getItem('accessToken');
     axios.get('http://localhost:8080/skincareProduct', {
       headers: {
-        Authorization: accessToken,
-      },
+        Authorization: accessToken
+      }
     })
       .then((response) => {
         if (response.data.success) {
@@ -31,11 +31,11 @@ function UsageTracker() {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: accessToken,
+        Authorization: accessToken
       },
       body: JSON.stringify({
-        usedToday: !usedToday,
-      }),
+        usedToday: !usedToday
+      })
     };
 
     axios.patch(`http://localhost:8080/skincareProduct/${productId}`, options)
@@ -46,7 +46,7 @@ function UsageTracker() {
             if (product._id === productId) {
               return {
                 ...product,
-                usedToday: !usedToday,
+                usedToday: !usedToday
               };
             }
             return product;
@@ -82,8 +82,7 @@ function UsageTracker() {
               type="checkbox"
               id={`productUsage-${product._id}`}
               checked={product.usedToday}
-              onChange={() => handleProductUsage(product._id, product.usedToday)}
-            />
+              onChange={() => handleProductUsage(product._id, product.usedToday)} />
           </label>
         </div>
       ))}

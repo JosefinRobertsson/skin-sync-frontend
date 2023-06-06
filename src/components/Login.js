@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 /* eslint-disable no-console */
 
-function Login() {
+const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
@@ -13,7 +13,7 @@ function Login() {
     axios
       .post('http://localhost:8080/login', {
         username,
-        password,
+        password
       })
       .then((response) => {
         console.log(response);
@@ -29,13 +29,11 @@ function Login() {
       <input
         type="text"
         placeholder="Username"
-        onChange={(e) => setUsername(e.target.value)}
-      />
+        onChange={(e) => setUsername(e.target.value)} />
       <input
         type="password"
         placeholder="Password"
-        onChange={(e) => setPassword(e.target.value)}
-      />
+        onChange={(e) => setPassword(e.target.value)} />
       <button type="button" onClick={login}>Login</button>
     </div>
   );

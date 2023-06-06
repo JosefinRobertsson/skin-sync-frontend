@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  BrowserRouter, Routes, Route,
+  BrowserRouter, Routes, Route
 } from 'react-router-dom';
 import Login from './components/Login';
 import Register from './components/Register';
@@ -9,8 +9,9 @@ import SkincareProduct from './components/SkincareProduct';
 import UserPage from './components/UserPage';
 import StatisticsPage from './components/StatisticsPage';
 import OpenPage from './components/OpenPage';
+import Logout from './components/Logout';
 
-export function App() {
+export const App = () => {
   return (
     <BrowserRouter>
       <h1>Skin sync</h1>
@@ -22,6 +23,7 @@ export function App() {
         <Route path="/DailyReport" element={<DailyReport />} />
         <Route path="/skincareProduct" element={<SkincareProduct />} />
         <Route path="/statisticsPage" element={<StatisticsPage />} />
+        <Route path="/logout" element={<Logout />} />
 
       </Routes>
     </BrowserRouter>

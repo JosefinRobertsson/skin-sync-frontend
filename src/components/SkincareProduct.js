@@ -3,7 +3,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState, useEffect } from 'react';
 
-function SkincareProduct() {
+const SkincareProduct = () => {
   const [morningName, setMorningName] = useState('');
   const [morningBrand, setMorningBrand] = useState('');
   const [nightName, setNightName] = useState('');
@@ -16,8 +16,8 @@ function SkincareProduct() {
     const accessToken = localStorage.getItem('accessToken');
     fetch('http://localhost:8080/skincareProduct/morning', {
       headers: {
-        Authorization: accessToken,
-      },
+        Authorization: accessToken
+      }
     })
       .then((res) => {
         if (!res.ok) {
@@ -38,8 +38,8 @@ function SkincareProduct() {
     const accessToken = localStorage.getItem('accessToken');
     fetch('http://localhost:8080/skincareProduct/night', {
       headers: {
-        Authorization: accessToken,
-      },
+        Authorization: accessToken
+      }
     })
       .then((res) => res.json())
       .then((data) => {
@@ -66,13 +66,13 @@ function SkincareProduct() {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: accessToken,
+        Authorization: accessToken
       },
       body: JSON.stringify({
         name: morningName,
         brand: morningBrand,
-        routine: 'morning',
-      }),
+        routine: 'morning'
+      })
     };
 
     fetch('http://localhost:8080/skincareProduct', options)
@@ -101,13 +101,13 @@ function SkincareProduct() {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: accessToken,
+        Authorization: accessToken
       },
       body: JSON.stringify({
         name: nightName,
         brand: nightBrand,
-        routine: 'night',
-      }),
+        routine: 'night'
+      })
     };
 
     fetch('http://localhost:8080/skincareProduct', options)
@@ -134,8 +134,8 @@ function SkincareProduct() {
     fetch(`http://localhost:8080/skincareProduct/${productId}`, {
       method: 'DELETE',
       headers: {
-        Authorization: accessToken,
-      },
+        Authorization: accessToken
+      }
     })
       .then((res) => res.json())
       .then((data) => {

@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
 import axios from 'axios';
 
-function OpenPage() {
+const OpenPage = () => {
   useEffect(() => {
     const accessToken = localStorage.getItem('accessToken');
     axios.get('http://localhost:8080/', {
       headers: {
-        Authorization: accessToken,
-      },
+        Authorization: accessToken
+      }
     });
   }, []);
 

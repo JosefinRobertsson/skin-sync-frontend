@@ -1,6 +1,6 @@
 import React from 'react';
 
-function LandingLogo() {
+const LandingLogo = () => {
   return (<h1>This the Logo page</h1>);
 }
 

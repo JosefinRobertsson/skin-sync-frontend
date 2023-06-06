@@ -4,7 +4,7 @@
 
 import React, { useState } from 'react';
 
-function DailyReport() {
+const DailyReport = () => {
   const [exercised, setExercised] = useState(false);
   const [period, setPeriod] = useState(false);
   const [mood, setMood] = useState('');
@@ -18,15 +18,15 @@ function DailyReport() {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: accessToken,
+        Authorization: accessToken
       },
       body: JSON.stringify({
         exercised,
         period,
         mood,
         skinCondition,
-        diet,
-      }),
+        diet
+      })
     };
 
     fetch('http://localhost:8080/dailyReport', options)
@@ -58,8 +58,7 @@ function DailyReport() {
             type="checkbox"
             id="exercised"
             checked={exercised}
-            onChange={(e) => setExercised(e.target.checked)}
-          />
+            onChange={(e) => setExercised(e.target.checked)} />
         </div>
         <div>
           <label htmlFor="period">Do you have your period today?</label>
@@ -67,16 +66,14 @@ function DailyReport() {
             type="checkbox"
             id="period"
             checked={period}
-            onChange={(e) => setPeriod(e.target.checked)}
-          />
+            onChange={(e) => setPeriod(e.target.checked)} />
         </div>
         <div>
           <label htmlFor="mood">How was your mood today?</label>
           <select
             id="mood"
             value={mood}
-            onChange={(e) => setMood(e.target.value)}
-          >
+            onChange={(e) => setMood(e.target.value)}>
             <option value="">Select mood</option>
             <option value="Not stressful">Not stressful</option>
             <option value="Under control">Under control</option>
@@ -91,10 +88,9 @@ function DailyReport() {
             value={skinCondition}
             onChange={(e) => setSkinCondition(Array.from(
               e.target.selectedOptions,
-              (option) => option.value,
+              (option) => option.value
             ))}
-            multiple
-          >
+            multiple>
             <option value="Normal">Normal</option>
             <option value="Irritated">Irritated</option>
             <option value="Dry">Dry</option>
@@ -112,10 +108,9 @@ function DailyReport() {
             value={diet}
             onChange={(e) => setDiet(Array.from(
               e.target.selectedOptions,
-              (option) => option.value,
+              (option) => option.value
             ))}
-            multiple
-          >
+            multiple>
             <option value="Sugar">Sugar</option>
             <option value="Fast food">Fast food</option>
             <option value="Alcohol">Alcohol</option>

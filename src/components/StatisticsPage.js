@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
 import axios from 'axios';
 
-function StatisticsPage() {
+const StatisticsPage = () => {
   useEffect(() => {
     const accessToken = localStorage.getItem('accessToken');
     axios.get('http://localhost:8080/statisticsPage', {
       headers: {
-        Authorization: accessToken,
-      },
+        Authorization: accessToken
+      }
     });
   }, []);
 
