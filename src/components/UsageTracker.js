@@ -1,103 +1,106 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-underscore-dangle */
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { ShelfLink } from '../styles/StyledLinks';
 
+const SingleItem = ({ product, handleUsageChange }) => (
+  <>
+    <div key={product._id}>
+      <p>Name: {product.name}</p>
+      <p>Brand: {product.brand}</p>
+      <label htmlFor={`checkbox-${product._id}`}>
+        Used today:
+        <input
+          type="checkbox"
+          checked={product.usedToday}
+          onChange={() => handleUsageChange(product._id, product.usedToday)} />
+      </label>
+    </div>
+    <div>
+      <ShelfLink to="/productShelf">Edit routine</ShelfLink>
+    </div>
+  </>
+);
+
 const UsageTracker = () => {
-  // Create a state to store the skincare products
-  console.log('morning')
-  const [skincareProducts, setSkincareProducts] = useState([]);
+  const [morningProducts, setMorningProducts] = useState([]);
+  const [nightProducts, setNightProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState('');
+  axios.defaults.baseURL = 'http://localhost:8080';
 
   useEffect(() => {
-    const accessToken = localStorage.getItem('accessToken');
-    axios.get('http://localhost:8080/skincareProduct', {
-      headers: {
-        Authorization: accessToken
-      }
-    })
-      .then((response) => {
-        if (response.data.success) {
-          setSkincareProducts(response.data.response);
-        } else {
-          console.error('Failed to fetch skincare products');
+    const fetchSkincareProducts = async () => {
+      try {
+        const accessToken = localStorage.getItem('accessToken');
+        if (!accessToken) {
+          return;
         }
-      })
-      .catch((error) => {
-        console.error('An error occurred:', error);
-      });
-  }, []);
+        const config = {
+          headers: {
+            Authorization: accessToken
+          }
+        };
 
-  const handleProductUsage = (productId, usedToday) => {
-    const accessToken = localStorage.getItem('accessToken');
-    const options = {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: accessToken
-      },
-      body: JSON.stringify({
-        usedToday: !usedToday
-      })
+        const morningResponse = await axios.get('/productShelf/morning', config);
+        const nightResponse = await axios.get('/productShelf/night', config);
+        if (!morningResponse.data.success || !nightResponse.data.success) {
+          throw new Error('Failed to fetch skincare products');
+        }
+        setMorningProducts(morningResponse.data.response);
+        setNightProducts(nightResponse.data.response);
+        setIsLoading(false);
+      } catch (e) {
+        console.error(e);
+        setError('Failed to fetch skincare products');
+      }
     };
 
-    axios.patch(`http://localhost:8080/skincareProduct/${productId}`, options)
-      .then((response) => {
-        if (response.data.success) {
-          console.log('Product usage updated successfully');
-          const updatedProducts = skincareProducts.map((product) => {
-            if (product._id === productId) {
-              return {
-                ...product,
-                usedToday: !usedToday
-              };
-            }
-            return product;
-          });
-          setSkincareProducts(updatedProducts);
-        } else {
-          console.error('Failed to update product usage');
-        }
-      })
-      .catch((error) => {
-        console.error('An error occurred:', error);
+    fetchSkincareProducts();
+  }, []);
+
+  const handleUsageChange = async (productId, usedToday) => {
+    try {
+      const response = await axios.post('/productShelf/logUsage', {
+        productId,
+        usedToday: !usedToday
       });
+      if (response.data.success) {
+        // Update the usedToday state in the corresponding product
+        const updatedMorningProducts = morningProducts.map((product) => (product._id === productId
+          ? { ...product, usedToday: !usedToday } : product));
+        const updatedNightProducts = nightProducts.map((product) => (product._id === productId
+          ? { ...product, usedToday: !usedToday } : product));
+
+        setMorningProducts(updatedMorningProducts);
+        setNightProducts(updatedNightProducts);
+      }
+    } catch (e) {
+      console.error(e);
+    }
   };
+
+  if (isLoading) {
+    return <p>Loading, please wait...</p>;
+  }
+  if (error) {
+    return <p>{error}</p>;
+  }
 
   return (
     <div>
-      <h1>This is the Usage Tracker Page</h1>
-      {skincareProducts.map((product) => (
-        <>
-          <div key={product._id}>
-            <p>
-            Product Name:
-              {' '}
-              {product.name}
-              {' '}
-              <br />
-            Brand:
-              {' '}
-              {product.brand}
-            </p>
-            <label htmlFor={`productUsage-${product._id}`}>
-            Used Today:
-              <input
-                type="checkbox"
-                id={`productUsage-${product._id}`}
-                checked={product.usedToday}
-                onChange={() => handleProductUsage(product._id, product.usedToday)} />
-            </label>
-          </div>
-          <div>
-            <ShelfLink to="/shelf">Edit morning routine</ShelfLink>
-          </div>
-          <div>
-            <ShelfLink to="/shelf">Edit night routine</ShelfLink>
-          </div>
-        </>
+      <h2>Morning Routine</h2>
+      {morningProducts.map((product) => (
+        <SingleItem key={product._id} product={product} handleUsageChange={handleUsageChange} />
+      ))}
+
+      <h2>Night Routine</h2>
+      {nightProducts.map((product) => (
+        <SingleItem key={product._id} product={product} handleUsageChange={handleUsageChange} />
       ))}
     </div>
   );
-}
+};
 
 export default UsageTracker;

@@ -25,9 +25,8 @@ export const App = () => {
           <Route path="/userpage" element={<UserPage />} />
           <Route path="/Register" element={<Register />} />
           <Route path="/DailyReport" element={<DailyReport />} />
-          <Route path="/skincareProduct/*" element={<SkincareProduct />} />
-          <Route path="/skincareProduct/morning" element={<UsageTracker />} />
-          <Route path="/skincareProduct/night" element={<UsageTracker />} />
+          <Route path="/productShelf" element={<SkincareProduct />} />
+          <Route path="/productShelf/logUsage" element={<UsageTracker />} />
           <Route path="/statisticsPage" element={<StatisticsPage />} />
           <Route path="/logout" element={<Logout />} />
 

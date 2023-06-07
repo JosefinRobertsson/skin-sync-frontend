@@ -15,7 +15,7 @@ const SkincareProduct = () => {
   const getMorningProducts = () => {
     // Replace with your actual API call for morning products
     const accessToken = localStorage.getItem('accessToken');
-    fetch('http://localhost:8080/skincareProduct/morning', {
+    fetch('http://localhost:8080/productShelf/morning', {
       headers: {
         Authorization: accessToken
       }
@@ -37,7 +37,7 @@ const SkincareProduct = () => {
   const getNightProducts = () => {
     // Replace with your actual API call for night products
     const accessToken = localStorage.getItem('accessToken');
-    fetch('http://localhost:8080/skincareProduct/night', {
+    fetch('http://localhost:8080/productShelf/night', {
       headers: {
         Authorization: accessToken
       }
@@ -76,7 +76,7 @@ const SkincareProduct = () => {
       })
     };
 
-    fetch('http://localhost:8080/skincareProduct', options)
+    fetch('http://localhost:8080/productShelf', options)
       .then((response) => response.json())
       .then((data) => {
         if (data.success) {
@@ -93,7 +93,7 @@ const SkincareProduct = () => {
       });
   };
 
-  // NIGTH
+  // NIGHT
 
   const handleSubmitNightRoutine = (event) => {
     event.preventDefault();
@@ -111,7 +111,7 @@ const SkincareProduct = () => {
       })
     };
 
-    fetch('http://localhost:8080/skincareProduct', options)
+    fetch('http://localhost:8080/productShelf', options)
       .then((response) => response.json())
       .then((data) => {
         if (data.success) {
@@ -132,7 +132,7 @@ const SkincareProduct = () => {
 
   const handleDeleteProduct = (productId) => {
     const accessToken = localStorage.getItem('accessToken');
-    fetch(`http://localhost:8080/skincareProduct/${productId}`, {
+    fetch(`http://localhost:8080/productShelf/${productId}`, {
       method: 'DELETE',
       headers: {
         Authorization: accessToken

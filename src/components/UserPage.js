@@ -33,7 +33,7 @@ const UserPage = () => {
         )}
       </div>
       <DailyLink to="/DailyReport">Log day</DailyLink>
-      <ShelfLink to="/skincareProduct">Product shelf</ShelfLink>
+      <ShelfLink to="/productShelf">Product shelf</ShelfLink>
       <StatisticsLink to="/statisticsPage">Statistics</StatisticsLink>
     </>
   );

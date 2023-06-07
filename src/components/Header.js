@@ -46,7 +46,7 @@ const Header = () => {
           </Link>
         </li>
         <li>
-          <Link to="/skincareProduct" onClick={toggleMenu}>
+          <Link to="/productShelf" onClick={toggleMenu}>
             Product shelf
           </Link>
         </li>
