@@ -19,3 +19,6 @@ export const StatisticsLink = styled(BaseLink)`
 
 export const GetStartedLink = styled(BaseLink)`
 `;
+
+export const UsageLink = styled(BaseLink)`
+`;

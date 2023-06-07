@@ -3,6 +3,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState, useEffect } from 'react';
 import { AddProductButton, DeleteProductButton } from '../styles/StyledButtons';
+import { UsageLink } from '../styles/StyledLinks';
 
 const SkincareProduct = () => {
   const [morningName, setMorningName] = useState('');
@@ -153,6 +154,7 @@ const SkincareProduct = () => {
   return (
     <div>
       <h1>Products Shelf</h1>
+      <UsageLink to="/productShelf/logUsage">Log my products usage</UsageLink>
       <form onSubmit={handleSubmitMorningRoutine}>
         <h1>Upload your Morning routine</h1>
         <div>
