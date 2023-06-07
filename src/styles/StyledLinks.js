@@ -20,5 +20,6 @@ export const StatisticsLink = styled(BaseLink)`
 export const GetStartedLink = styled(BaseLink)`
 `;
 
+// from shelf to usage log
 export const UsageLink = styled(BaseLink)`
 `;

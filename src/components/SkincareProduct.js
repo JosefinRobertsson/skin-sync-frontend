@@ -211,7 +211,7 @@ const SkincareProduct = () => {
             {' '}
             {product.brand}
           </p>
-          <DeleteProductButton type="button" onClick={() => handleDeleteProduct(product._id)}>Delete</DeleteProductButton>
+          <DeleteProductButton type="button" onClick={() => handleDeleteProduct(product._id)}>Delete product</DeleteProductButton>
         </div>
       ))}
     </div>
