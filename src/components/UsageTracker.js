@@ -1,18 +1,22 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable no-shadow */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-underscore-dangle */
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import Toggle from 'react-toggle'
+import 'react-toggle/style.css'
+import './UsageTracker.css';
 import { ShelfLink } from '../styles/StyledLinks';
 
 const SingleItem = ({ product, handleUsageChange }) => (
-  <div key={product._id}>
+  <div className="productItem" key={product._id}>
     <p>Name: {product.name}</p>
     <p>Brand: {product.brand}</p>
-    <label htmlFor={`checkbox-${product._id}`}>
-        Used today:
-      <input
-        type="checkbox"
+    <label htmlFor={`toggle-${product._id}`}>
+      Used today:
+      <Toggle
+        id={`toggle-${product._id}`}
         checked={product.usedToday}
         onChange={() => handleUsageChange(product)} />
     </label>
@@ -117,7 +121,7 @@ const UsageTracker = () => {
   }
 
   return (
-    <div>
+    <div className="UsageTracker">
       <h2>Morning Routine</h2>
       <div>
         <ShelfLink to="/productShelf">Edit routine</ShelfLink>

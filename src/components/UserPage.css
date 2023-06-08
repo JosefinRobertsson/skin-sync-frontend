@@ -1,0 +1,26 @@
+
+.UsageTracker {
+    padding: 20px;
+  }
+  
+  .UsageTracker h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .UsageTracker .productItem {
+    margin-bottom: 20px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 20px;
+  }
+  
+  .UsageTracker .productItem p {
+    font-size: 18px;
+  }
+  
+  .UsageTracker .productItem label {
+    display: block;
+    margin-top: 10px;
+    font-size: 16px;
+  }
+  
