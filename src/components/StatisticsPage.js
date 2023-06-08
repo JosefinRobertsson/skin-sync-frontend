@@ -1,44 +1,39 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 const StatisticsPage = () => {
-  const [data, setData] = useState([]);
-  const accessToken = localStorage.getItem('accessToken');
+  const [data, setData] = useState({});
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:8080/dailyReport', {
+        const accessToken = localStorage.getItem('accessToken');
+        if (!accessToken) {
+          console.log('No access token found');
+          return;
+        }
+        const config = {
           headers: {
             Authorization: accessToken
           }
-        });
-        const jsonData = await response.json();
-        console.log(jsonData);
-        setData(jsonData.data);
+        };
+        const reportResponse = await axios.get('http://localhost:8080/dailyReport', config);
+        console.log('fullDailyReport:', reportResponse.data);
+        if (reportResponse.data.success) {
+          setData(reportResponse.data.response);
+        } else {
+          throw new Error('Failed to fetch daily report');
+        }
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     };
 
     fetchData();
-  }, [accessToken]);
+  }, []);
 
-  useEffect(() => {
-    axios
-      .get('http://localhost:8080/statisticsPage', {
-        headers: {
-          Authorization: accessToken
-        }
-      })
-      .then((response) => {
-        console.log(response.data);
-        // Handle the response and update the state if needed
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, [accessToken]);
+  console.log('data for barchart:', data);
 
   return (
     <div>
@@ -50,8 +45,8 @@ const StatisticsPage = () => {
           <YAxis dataKey="waterAmount" />
           <Tooltip />
           <Legend />
-          <Bar dataKey="date" fill="#8884d8" />
-          <Bar dataKey="waterAmount" fill="#82ca9d" />
+          <Bar dataKey="waterAmount" fill="#8884d8" />
+          <Bar dataKey="sleepHours" fill="#82ca9d" />
         </BarChart>
       </ResponsiveContainer>
     </div>
