@@ -3,6 +3,9 @@
 /* eslint-disable no-console */
 
 import React, { useState } from 'react';
+import './DailyReport.css';
+import Toggle from 'react-toggle';
+import 'react-toggle/style.css';
 import { RegisterButton } from '../styles/StyledButtons';
 
 const DailyReport = () => {
@@ -83,34 +86,49 @@ const DailyReport = () => {
 
         </div>
         <div>
-          <label htmlFor="exercised">Exercised:</label>
-          <input
-            type="checkbox"
+          <label htmlFor="exercised">Did you Exercise today?:</label>
+          <Toggle
             id="exercised"
             checked={exercised}
             onChange={(e) => setExercised(e.target.checked)} />
         </div>
         <div>
           <label htmlFor="period">Do you have your period today?</label>
-          <input
-            type="checkbox"
+          <Toggle
             id="period"
             checked={period}
             onChange={(e) => setPeriod(e.target.checked)} />
         </div>
         <div>
           <label htmlFor="mood">How was your mood today?</label>
-          <select
-            id="mood"
-            value={mood}
-            onChange={(e) => setMood(e.target.value)}>
-            <option value="">Select mood</option>
-            <option value="Not stressful">Not stressful</option>
-            <option value="Under control">Under control</option>
-            <option value="Stressful">Stressful</option>
-            <option value="Extremely stressful">Extremely stressful</option>
-          </select>
+          <div>
+            <button
+              type="button"
+              className={`mood-button ${mood === 'Not stressful' ? 'selected' : ''}`}
+              onClick={() => setMood('Not stressful')}>
+              <img src="/path/to/not-stressful-emoji.png" alt="Not stressful" />
+            </button>
+            <button
+              type="button"
+              className={`mood-button ${mood === 'Under control' ? 'selected' : ''}`}
+              onClick={() => setMood('Under control')}>
+              <img src="/path/to/under-control-emoji.png" alt="Under control" />
+            </button>
+            <button
+              type="button"
+              className={`mood-button ${mood === 'Stressful' ? 'selected' : ''}`}
+              onClick={() => setMood('Stressful')}>
+              <img src="/path/to/stressful-emoji.png" alt="Stressful" />
+            </button>
+            <button
+              type="button"
+              className={`mood-button ${mood === 'Extremely stressful' ? 'selected' : ''}`}
+              onClick={() => setMood('Extremely stressful')}>
+              <img src="/path/to/extremely-stressful-emoji.png" alt="Extremely stressful" />
+            </button>
+          </div>
         </div>
+
         <div>
           <label htmlFor="skinCondition">How is your skin feeling today?</label>
           <select
@@ -151,7 +169,7 @@ const DailyReport = () => {
             <option value="Grains">Grains</option>
           </select>
         </div>
-        <RegisterButton type="submit">Submit</RegisterButton>
+        <RegisterButton className="RegisterButton" type="submit">Submit</RegisterButton>
       </form>
     </div>
   );

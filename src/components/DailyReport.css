@@ -1,0 +1,52 @@
+
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    font-size: 1.5em;
+    text-align: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1em;
+    padding: 1em;
+}
+
+form div {
+    width: 100%;
+}
+
+label {
+    display: block;
+    margin-bottom: .5em;
+    font-size: 1em;
+}
+
+input[type="range"] {
+    width: 100%;
+}
+
+input[type="checkbox"] {
+    margin-left: .5em;
+}
+
+select {
+    width: 100%;
+    padding: .5em;
+}
+
+.RegisterButton {
+    padding: .5em 1em;
+    font-size: 1em;
+    color: #ffffff;
+    background-color: #008CBA;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
