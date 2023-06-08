@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-underscore-dangle */
 import React, { useState, useEffect } from 'react';
@@ -5,22 +6,17 @@ import axios from 'axios';
 import { ShelfLink } from '../styles/StyledLinks';
 
 const SingleItem = ({ product, handleUsageChange }) => (
-  <>
-    <div key={product._id}>
-      <p>Name: {product.name}</p>
-      <p>Brand: {product.brand}</p>
-      <label htmlFor={`checkbox-${product._id}`}>
+  <div key={product._id}>
+    <p>Name: {product.name}</p>
+    <p>Brand: {product.brand}</p>
+    <label htmlFor={`checkbox-${product._id}`}>
         Used today:
-        <input
-          type="checkbox"
-          checked={product.usedToday}
-          onChange={() => handleUsageChange(product._id, product.usedToday)} />
-      </label>
-    </div>
-    <div>
-      <ShelfLink to="/productShelf">Edit routine</ShelfLink>
-    </div>
-  </>
+      <input
+        type="checkbox"
+        checked={product.usedToday}
+        onChange={() => handleUsageChange(product)} />
+    </label>
+  </div>
 );
 
 const UsageTracker = () => {
@@ -35,6 +31,7 @@ const UsageTracker = () => {
       try {
         const accessToken = localStorage.getItem('accessToken');
         if (!accessToken) {
+          setError('No access token found');
           return;
         }
         const config = {
@@ -60,21 +57,52 @@ const UsageTracker = () => {
     fetchSkincareProducts();
   }, []);
 
-  const handleUsageChange = async (productId, usedToday) => {
+  const handleUsageChange = async (product) => {
     try {
-      const response = await axios.post('/productShelf/logUsage', {
-        productId,
-        usedToday: !usedToday
-      });
-      if (response.data.success) {
-        // Update the usedToday state in the corresponding product
-        const updatedMorningProducts = morningProducts.map((product) => (product._id === productId
-          ? { ...product, usedToday: !usedToday } : product));
-        const updatedNightProducts = nightProducts.map((product) => (product._id === productId
-          ? { ...product, usedToday: !usedToday } : product));
+      const { _id: productId, usedToday, usageHistory } = product;
+      const accessToken = localStorage.getItem('accessToken');
+      if (!accessToken) {
+        setError('No access token found');
+        return;
+      }
+      const config = {
+        headers: {
+          Authorization: accessToken
+        }
+      };
+      const updatedUsedToday = !usedToday;
+      const updatedUsageHistory = [...usageHistory];
+      if (updatedUsedToday) {
+        updatedUsageHistory.push(new Date());
+      } else {
+        updatedUsageHistory.pop();
+        console.log('popped:', updatedUsageHistory);
+        console.log('length:', updatedUsageHistory.length);
+      }
 
-        setMorningProducts(updatedMorningProducts);
-        setNightProducts(updatedNightProducts);
+      const response = await axios.post(
+        '/productShelf/logUsage',
+        {
+          productId,
+          usedToday: updatedUsedToday,
+          usageHistory: updatedUsageHistory
+        },
+        config
+      );
+
+      if (response.data.success) {
+        console.log('response:', response.data.response);
+        setMorningProducts(
+          (prevMorningProducts) => prevMorningProducts.map((product) => (product._id === productId
+            ? { ...product, usedToday: updatedUsedToday, usageHistory: updatedUsageHistory }
+            : product))
+        );
+
+        setNightProducts(
+          (prevNightProducts) => prevNightProducts.map((product) => (product._id === productId
+            ? { ...product, usedToday: updatedUsedToday, usageHistory: updatedUsageHistory }
+            : product))
+        );
       }
     } catch (e) {
       console.error(e);
@@ -91,13 +119,25 @@ const UsageTracker = () => {
   return (
     <div>
       <h2>Morning Routine</h2>
+      <div>
+        <ShelfLink to="/productShelf">Edit routine</ShelfLink>
+      </div>
       {morningProducts.map((product) => (
-        <SingleItem key={product._id} product={product} handleUsageChange={handleUsageChange} />
+        <SingleItem
+          key={product._id}
+          product={product}
+          handleUsageChange={handleUsageChange} />
       ))}
 
       <h2>Night Routine</h2>
+      <div>
+        <ShelfLink to="/productShelf">Edit routine</ShelfLink>
+      </div>
       {nightProducts.map((product) => (
-        <SingleItem key={product._id} product={product} handleUsageChange={handleUsageChange} />
+        <SingleItem
+          key={product._id}
+          product={product}
+          handleUsageChange={handleUsageChange} />
       ))}
     </div>
   );
