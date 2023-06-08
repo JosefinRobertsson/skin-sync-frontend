@@ -35,7 +35,6 @@ const StatisticsPage = () => {
 
   console.log('data for barchart:', data);
 
-  // shows waterAmount and sleepHours for each day atm
   return (
     <div>
       <h1>Chart</h1>
