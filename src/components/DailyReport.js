@@ -151,24 +151,66 @@ const DailyReport = () => {
         </div>
         <div>
           <label htmlFor="diet">What did you eat today?</label>
-          <select
-            id="diet"
-            value={diet}
-            onChange={(e) => setDiet(Array.from(
-              e.target.selectedOptions,
-              (option) => option.value
-            ))}
-            multiple>
-            <option value="Sugar">Sugar</option>
-            <option value="Fast food">Fast food</option>
-            <option value="Alcohol">Alcohol</option>
-            <option value="Dairy">Dairy</option>
-            <option value="Veggies">Veggies</option>
-            <option value="Fruits">Fruits</option>
-            <option value="Meat">Meat</option>
-            <option value="Grains">Grains</option>
-          </select>
+          <div id="diet">
+            <button
+              type="button"
+              className={`diet-button ${diet.includes('Sugar') ? 'selected' : ''}`}
+              onClick={() => setDiet('Sugar')}>
+              <img src="/path/to/sugar-image.png" alt="Sugar" />
+            Sugar
+            </button>
+            <button
+              type="button"
+              className={`diet-button ${diet.includes('Fast food') ? 'selected' : ''}`}
+              onClick={() => setDiet('Fast food')}>
+              <img src="/path/to/fast-food-image.png" alt="Fast food" />
+            Fast food
+            </button>
+            <button
+              type="button"
+              className={`diet-button ${diet.includes('Alcohol') ? 'selected' : ''}`}
+              onClick={() => setDiet('Alcohol')}>
+              <img src="/path/to/alcohol-image.png" alt="Alcohol" />
+            Alcohol
+            </button>
+            <button
+              type="button"
+              className={`diet-button ${diet.includes('Dairy') ? 'selected' : ''}`}
+              onClick={() => setDiet('Dairy')}>
+              <img src="/path/to/dairy-image.png" alt="Dairy" />
+            Dairy
+            </button>
+            <button
+              type="button"
+              className={`diet-button ${diet.includes('Veggies') ? 'selected' : ''}`}
+              onClick={() => setDiet('Veggies')}>
+              <img src="/path/to/veggies-image.png" alt="Veggies" />
+            Veggies
+            </button>
+            <button
+              type="button"
+              className={`diet-button ${diet.includes('Fruits') ? 'selected' : ''}`}
+              onClick={() => setDiet('Fruits')}>
+              <img src="/path/to/fruits-image.png" alt="Fruits" />
+            Fruits
+            </button>
+            <button
+              type="button"
+              className={`diet-button ${diet.includes('Meat') ? 'selected' : ''}`}
+              onClick={() => setDiet('Meat')}>
+              <img src="/path/to/meat-image.png" alt="Meat" />
+            Meat
+            </button>
+            <button
+              type="button"
+              className={`diet-button ${diet.includes('Grains') ? 'selected' : ''}`}
+              onClick={() => setDiet('Grains')}>
+              <img src="/path/to/grains-image.png" alt="Grains" />
+            Grains
+            </button>
+          </div>
         </div>
+
         <RegisterButton className="RegisterButton" type="submit">Submit</RegisterButton>
       </form>
     </div>
