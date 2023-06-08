@@ -4,14 +4,13 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsive
 
 const StatisticsPage = () => {
   const [data, setData] = useState([]);
-
+  const accessToken = localStorage.getItem('accessToken');
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetch('http://localhost:8080/dailyReport', {
           headers: {
-            Authorization: 'Bearer 98d0642d44becd205dc3ea5fd388c55cd77666c5c58366bdf99a8dee647da972385915bb1a744c87fb6352e02820e7dadaabe29f5941e35ca8d80dc9af79d9b801707a744deb1b5005c2819d92148e79beef0eb037caff838bfac462bb86e108360c3dc8f63dc3da317058c5546b8c399d363bfa3fea656fae3ad7d04fcbe951'
-
+            Authorization: accessToken
           }
         });
         const jsonData = await response.json();
@@ -23,10 +22,9 @@ const StatisticsPage = () => {
     };
 
     fetchData();
-  }, []);
+  }, [accessToken]);
 
   useEffect(() => {
-    const accessToken = localStorage.getItem('accessToken');
     axios
       .get('http://localhost:8080/statisticsPage', {
         headers: {
@@ -40,7 +38,7 @@ const StatisticsPage = () => {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [accessToken]);
 
   return (
     <div>
@@ -49,7 +47,7 @@ const StatisticsPage = () => {
         <BarChart data={data} margin={{ top: 10, left: 20, right: 20, bottom: 10 }}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="date" />
-          <YAxis />
+          <YAxis dataKey="waterAmount" />
           <Tooltip />
           <Legend />
           <Bar dataKey="date" fill="#8884d8" />
