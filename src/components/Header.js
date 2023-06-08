@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom';
-import { Spin as Hamburger } from 'hamburger-react'
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Spin as Hamburger } from 'hamburger-react';
 
 const Header = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
 
   const handleLogout = () => {
@@ -27,11 +28,13 @@ const Header = () => {
   };
 
   return (
-    // <nav className={`navbar ${isOpen ? 'open' : ''}`}>
     <nav>
-      <button type="button" className="menu-icon" onClick={toggleMenu}>
-        <Hamburger toggled={isOpen} toggle={setIsOpen} label="Show menu" color="#e3e33f" />
-      </button>
+      {/* prevent the hamburger menu to show in the loginpage */}
+      {location.pathname !== '/login' && (
+        <button type="button" className="menu-icon" onClick={toggleMenu}>
+          <Hamburger toggled={isOpen} toggle={setIsOpen} label="Show menu" color="#e3e33f" />
+        </button>
+      )}
       <ul
         className="menu-items"
         style={{ display: isOpen ? 'block' : 'none' }}>

@@ -18,7 +18,7 @@ export const App = () => {
     <BrowserRouter>
       <>
         <Header />
-        <h1>Skin sync</h1>
+
         <Routes>
           <Route path="/" element={<OpenPage />} />
           <Route path="/Login" element={<Login />} />
