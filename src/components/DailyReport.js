@@ -1,3 +1,4 @@
+/* eslint-disable no-lone-blocks */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react/jsx-filename-extension */
 /* eslint-disable no-console */
@@ -9,11 +10,14 @@ import 'react-toggle/style.css';
 import { RegisterButton } from '../styles/StyledButtons';
 
 const DailyReport = () => {
-  const [exercised, setExercised] = useState(false);
+  const [exercised, setExercised] = useState(0);
   const [period, setPeriod] = useState(false);
-  const [mood, setMood] = useState('');
-  const [skinCondition, setSkinCondition] = useState([]);
-  const [diet, setDiet] = useState([]);
+  const [stress, setStress] = useState(0);
+  const [acne, setAcne] = useState(0);
+  const [sugar, setSugar] = useState(0);
+  const [dairy, setDairy] = useState(0);
+  const [alcohol, setAlcohol] = useState(0);
+  const [greasyFood, setGreasyFood] = useState(0);
   const [waterAmount, setWaterAmount] = useState(0);
   const [sleepHours, setSleepHours] = useState(0);
 
@@ -28,12 +32,16 @@ const DailyReport = () => {
       },
       body: JSON.stringify({
         exercised,
-        period,
-        mood,
-        skinCondition,
-        diet,
         waterAmount,
-        sleepHours
+        sleepHours,
+        stress,
+        acne,
+        greasyFood,
+        dairy,
+        alcohol,
+        sugar,
+        period
+
       })
     };
 
@@ -42,11 +50,14 @@ const DailyReport = () => {
       .then((data) => {
         if (data.success) {
           console.log('Daily report submitted successfully');
-          setExercised(false);
+          setExercised(0);
           setPeriod(false);
-          setMood('');
-          setSkinCondition([]);
-          setDiet([]);
+          setStress(0);
+          setAcne(0);
+          setSugar(0);
+          setDairy(0);
+          setAlcohol(0);
+          setGreasyFood(0);
           setSleepHours(0);
           setWaterAmount(0);
         } else {
@@ -63,35 +74,109 @@ const DailyReport = () => {
       <h1>Daily Report</h1>
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="waterRange"> Water Intake: {waterAmount} glasses of water </label>
+          <label htmlFor="waterRange"> Water Intake: </label>
           <input
             type="range"
             id="waterRange"
             min="0"
-            max="20"
+            max="100"
+            step="25"
             value={waterAmount}
             onChange={(event) => setWaterAmount(event.target.value)} />
         </div>
 
         <div>
-          <label htmlFor="sleepRange">Sleep Hours: {sleepHours} hours</label>
+          <label htmlFor="sleepRange">Sleep:</label>
           <input
             type="range"
             id="sleepRange"
             min="0"
-            max="12"
-            step="0.5"
+            max="100"
+            step="25"
             value={sleepHours}
             onChange={(event) => setSleepHours(event.target.value)} />
 
         </div>
         <div>
-          <label htmlFor="exercised">Did you Exercise today?:</label>
-          <Toggle
-            id="exercised"
-            checked={exercised}
-            onChange={(e) => setExercised(e.target.checked)} />
+          <label htmlFor="stress">Stress:</label>
+          <input
+            type="range"
+            id="sleepRange"
+            min="0"
+            max="100"
+            step="25"
+            value={stress}
+            onChange={(e) => setStress(e.target.value)} />
         </div>
+        <div>
+          <label htmlFor="Acne">Acne:</label>
+          <input
+            type="range"
+            id="sleepRange"
+            min="0"
+            max="100"
+            step="25"
+            value={acne}
+            onChange={(e) => setAcne(e.target.value)} />
+        </div>
+
+        <div>
+          <label htmlFor="exercised">Exercise:</label>
+          <input
+            type="range"
+            id="sleepRange"
+            min="0"
+            max="100"
+            step="25"
+            value={exercised}
+            onChange={(e) => setExercised(e.target.value)} />
+        </div>
+
+        <div>
+          <label htmlFor="sugar">Sugar Intake :</label>
+          <input
+            type="range"
+            id="sleepRange"
+            min="0"
+            max="100"
+            step="25"
+            value={sugar}
+            onChange={(e) => setSugar(e.target.value)} />
+        </div>
+        <div>
+          <label htmlFor="alcohol">Alcohol Intake:</label>
+          <input
+            type="range"
+            id="sleepRange"
+            min="0"
+            max="100"
+            step="25"
+            value={alcohol}
+            onChange={(e) => setAlcohol(e.target.value)} />
+        </div>
+        <div>
+          <label htmlFor="dairy">Dairy Intake:</label>
+          <input
+            type="range"
+            id="sleepRange"
+            min="0"
+            max="100"
+            step="25"
+            value={dairy}
+            onChange={(e) => setDairy(e.target.value)} />
+        </div>
+        <div>
+          <label htmlFor="greasyFood">  Greasy Food Intake:</label>
+          <input
+            type="range"
+            id="sleepRange"
+            min="0"
+            max="100"
+            step="25"
+            value={greasyFood}
+            onChange={(e) => setGreasyFood(e.target.value)} />
+        </div>
+
         <div>
           <label htmlFor="period">Do you have your period today?</label>
           <Toggle
@@ -99,37 +184,48 @@ const DailyReport = () => {
             checked={period}
             onChange={(e) => setPeriod(e.target.checked)} />
         </div>
-        <div>
-          <label htmlFor="mood">How was your mood today?</label>
-          <div>
-            <button
-              type="button"
-              className={`mood-button ${mood === 'Not stressful' ? 'selected' : ''}`}
-              onClick={() => setMood('Not stressful')}>
-              <img src="/path/to/not-stressful-emoji.png" alt="Not stressful" />
-            </button>
-            <button
-              type="button"
-              className={`mood-button ${mood === 'Under control' ? 'selected' : ''}`}
-              onClick={() => setMood('Under control')}>
-              <img src="/path/to/under-control-emoji.png" alt="Under control" />
-            </button>
-            <button
-              type="button"
-              className={`mood-button ${mood === 'Stressful' ? 'selected' : ''}`}
-              onClick={() => setMood('Stressful')}>
-              <img src="/path/to/stressful-emoji.png" alt="Stressful" />
-            </button>
-            <button
-              type="button"
-              className={`mood-button ${mood === 'Extremely stressful' ? 'selected' : ''}`}
-              onClick={() => setMood('Extremely stressful')}>
-              <img src="/path/to/extremely-stressful-emoji.png" alt="Extremely stressful" />
-            </button>
-          </div>
-        </div>
 
-        <div>
+        <RegisterButton className="RegisterButton" type="submit">Submit</RegisterButton>
+      </form>
+    </div>
+  );
+}
+
+export default DailyReport;
+
+// STRECH GOALS
+
+{ /*
+<div>
+<label htmlFor="mood">How was your mood today?</label>
+<div>
+  <button
+    type="button"
+    className={`mood-button ${mood === 'Not stressful' ? 'selected' : ''}`}
+    onClick={() => setMood('Not stressful')}>
+    <img src="/path/to/not-stressful-emoji.png" alt="Not stressful" />
+  </button>
+  <button
+    type="button"
+    className={`mood-button ${mood === 'Under control' ? 'selected' : ''}`}
+    onClick={() => setMood('Under control')}>
+    <img src="/path/to/under-control-emoji.png" alt="Under control" />
+  </button>
+  <button
+    type="button"
+    className={`mood-button ${mood === 'Stressful' ? 'selected' : ''}`}
+    onClick={() => setMood('Stressful')}>
+    <img src="/path/to/stressful-emoji.png" alt="Stressful" />
+  </button>
+  <button
+    type="button"
+    className={`mood-button ${mood === 'Extremely stressful' ? 'selected' : ''}`}
+    onClick={() => setMood('Extremely stressful')}>
+    <img src="/path/to/extremely-stressful-emoji.png" alt="Extremely stressful" />
+  </button>
+</div>
+</div>
+ <div>
           <label htmlFor="skinCondition">How is your skin feeling today?</label>
           <select
             id="skinCondition"
@@ -196,13 +292,6 @@ const DailyReport = () => {
             </button>
             <button
               type="button"
-              className={`diet-button ${diet.includes('Meat') ? 'selected' : ''}`}
-              onClick={() => setDiet('Meat')}>
-              <img src="/path/to/meat-image.png" alt="Meat" />
-            Meat
-            </button>
-            <button
-              type="button"
               className={`diet-button ${diet.includes('Grains') ? 'selected' : ''}`}
               onClick={() => setDiet('Grains')}>
               <img src="/path/to/grains-image.png" alt="Grains" />
@@ -210,11 +299,4 @@ const DailyReport = () => {
             </button>
           </div>
         </div>
-
-        <RegisterButton className="RegisterButton" type="submit">Submit</RegisterButton>
-      </form>
-    </div>
-  );
-}
-
-export default DailyReport;
+*/ }
