@@ -15,6 +15,7 @@ export const ReportButton = styled(BaseButton)`
 `;
 
 export const DeleteProductButton = styled(BaseButton)`
+display: ${(props) => (props.isVisible ? 'block' : 'none')};
 `;
 
 export const AddProductButton = styled(BaseButton)`

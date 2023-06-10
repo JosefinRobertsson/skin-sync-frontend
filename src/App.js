@@ -5,13 +5,14 @@ import {
 import Login from './components/Login';
 import Register from './components/Register';
 import DailyReport from './components/DailyReport';
-import SkincareProduct from './components/SkincareProduct';
+import MorningShelf from './components/MorningShelf';
 import UserPage from './components/UserPage';
 import StatisticsPage from './components/StatisticsPage';
 import OpenPage from './components/OpenPage';
 import Logout from './components/Logout';
 import Header from './components/Header';
 import UsageTracker from './components/UsageTracker';
+import NightShelf from './components/NightShelf';
 
 export const App = () => {
   return (
@@ -25,7 +26,14 @@ export const App = () => {
           <Route path="/userpage" element={<UserPage />} />
           <Route path="/Register" element={<Register />} />
           <Route path="/DailyReport" element={<DailyReport />} />
-          <Route path="/productShelf" element={<SkincareProduct />} />
+          <Route
+            path="/productShelf"
+            element={
+              <>
+                <MorningShelf />
+                <NightShelf />
+              </>
+            } />
           <Route path="/productShelf/logUsage" element={<UsageTracker />} />
           <Route path="/statisticsPage" element={<StatisticsPage />} />
           <Route path="/logout" element={<Logout />} />

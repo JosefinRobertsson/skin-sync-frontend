@@ -1,28 +1,75 @@
+/* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable no-shadow */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-underscore-dangle */
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Toggle from 'react-toggle'
-import 'react-toggle/style.css'
+import Toggle from 'react-toggle';
+import 'react-toggle/style.css';
 import './UsageTracker.css';
+import Slider from 'react-slick';
+import '../styles/slick.css';
+import '../styles/slick-theme.css';
+import '../styles/slick-docs.css';
 import { ShelfLink } from '../styles/StyledLinks';
+import cleanserImage from '../images/cleanser.png';
+import moisturizerImage from '../images/moisturizer.png';
+import serumImage from '../images/serum.png';
+import sunscreenImage from '../images/sunscreen.png';
+import otherImage from '../images/other.png';
+import defaultImage from '../images/default.png';
 
+const settings = {
+  dots: true,
+  arrows: true,
+  swipe: true,
+  infinite: true,
+  speed: 500,
+  slidesToShow: 2,
+  slidesToScroll: 1,
+  autoplay: false,
+  autoplaySpeed: 2000
+};
+
+const getImagePath = (category) => {
+  switch (category) {
+    case 'cleanser':
+      return cleanserImage;
+    case 'moisturizer':
+      return moisturizerImage;
+    case 'serum':
+      return serumImage;
+    case 'sunscreen':
+      return sunscreenImage;
+    case 'other':
+      return otherImage;
+    default:
+      return defaultImage;
+  }
+};
+/*
 const SingleItem = ({ product, handleUsageChange }) => (
-  <div className="productItem" key={product._id}>
-    <p>Name: {product.name}</p>
-    <p>Brand: {product.brand}</p>
-    <label htmlFor={`toggle-${product._id}`}>
-      Used today:
-      <Toggle
-        id={`toggle-${product._id}`}
-        checked={product.usedToday}
-        onChange={() => handleUsageChange(product)} />
-    </label>
-  </div>
+  <>
+    <div className="productItem" key={product._id}>
+      <img
+        src={getImagePath(product.category)}
+        alt={product.category} />
+      <p>Name: {product.name}</p>
+      <p>Brand: {product.brand}</p>
+    </div>
+    <div>
+      <label htmlFor={`toggle-${product._id}`}>
+        Used today:
+        <Toggle
+          id={`toggle-${product._id}`}
+          checked={product.usedToday}
+          onChange={() => handleUsageChange(product)} />
+      </label>
+    </div>
+  </>
 );
-
+*/
 const UsageTracker = () => {
   const [morningProducts, setMorningProducts] = useState([]);
   const [nightProducts, setNightProducts] = useState([]);
@@ -126,23 +173,46 @@ const UsageTracker = () => {
       <div>
         <ShelfLink to="/productShelf">Edit routine</ShelfLink>
       </div>
-      {morningProducts.map((product) => (
-        <SingleItem
-          key={product._id}
-          product={product}
-          handleUsageChange={handleUsageChange} />
-      ))}
-
+      <Slider {...settings}>
+        {morningProducts.map((product) => (
+          <div className="productItem" key={product._id}>
+            <img src={getImagePath(product.category)} alt={product.category} />
+            <p>{product.name}</p>
+            <p>{product.brand}</p>
+            <div>
+              <label htmlFor={`toggle-${product._id}`}>
+                Used today:
+                <Toggle
+                  id={`toggle-${product._id}`}
+                  checked={product.usedToday}
+                  onChange={() => handleUsageChange(product)} />
+              </label>
+            </div>
+          </div>
+        ))}
+      </Slider>
       <h2>Night Routine</h2>
       <div>
         <ShelfLink to="/productShelf">Edit routine</ShelfLink>
       </div>
-      {nightProducts.map((product) => (
-        <SingleItem
-          key={product._id}
-          product={product}
-          handleUsageChange={handleUsageChange} />
-      ))}
+      <Slider {...settings}>
+        {nightProducts.map((product) => (
+          <div className="productItem" key={product._id}>
+            <img src={getImagePath(product.category)} alt={product.category} />
+            <p>{product.name}</p>
+            <p>{product.brand}</p>
+            <div>
+              <label htmlFor={`toggle-${product._id}`}>
+                Used today:
+                <Toggle
+                  id={`toggle-${product._id}`}
+                  checked={product.usedToday}
+                  onChange={() => handleUsageChange(product)} />
+              </label>
+            </div>
+          </div>
+        ))}
+      </Slider>
     </div>
   );
 };

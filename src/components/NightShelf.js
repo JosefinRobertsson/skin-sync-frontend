@@ -1,7 +1,6 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-underscore-dangle */
 /* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-underscore-dangle */
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { AddProductButton, DeleteProductButton } from '../styles/StyledButtons';
@@ -13,20 +12,24 @@ import sunscreenImage from '../images/sunscreen.png';
 import otherImage from '../images/other.png';
 import defaultImage from '../images/default.png';
 
+const SingleProductWrapper = styled.div`
+  display: flex;
+  border: 1px solid black;
+  `
+
 const ProductImage = styled.img`
   width: 80px;
   height: 80px;
+  cursor: pointer;
   `;
 
-const SkincareProduct = () => {
-  const [morningName, setMorningName] = useState('');
-  const [morningBrand, setMorningBrand] = useState('');
+const NightShelf = () => {
   const [nightName, setNightName] = useState('');
   const [nightBrand, setNightBrand] = useState('');
-  const [morningProducts, setMorningProducts] = useState([]);
   const [nightProducts, setNightProducts] = useState([]);
+  const [nightEditing, setNightEditing] = useState(false);
+  const [editingProductId, setEditingProductId] = useState(null);
   const [categories, setCategories] = useState([]);
-  const [morningCategory, setMorningCategory] = useState('');
   const [nightCategory, setNightCategory] = useState('');
 
   // Gets the categories for the dropdown menu
@@ -54,9 +57,9 @@ const SkincareProduct = () => {
     fetchCategories();
   }, []);
 
-  const getMorningProducts = () => {
+  const getNightProducts = () => {
     const accessToken = localStorage.getItem('accessToken');
-    fetch('http://localhost:8080/productShelf/morning', {
+    fetch('http://localhost:8080/productShelf/night', {
       headers: {
         Authorization: accessToken
       }
@@ -68,81 +71,23 @@ const SkincareProduct = () => {
         return res.json();
       })
       .then((data) => {
-        setMorningProducts(data.response);
+        setNightProducts(data.response);
       })
       .catch((error) => {
         console.error('An error occurred:', error);
-      });
-  };
-
-  const getNightProducts = () => {
-    // Replace with your actual API call for night products
-    const accessToken = localStorage.getItem('accessToken');
-    fetch('http://localhost:8080/productShelf/night', {
-      headers: {
-        Authorization: accessToken
-      }
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setNightProducts(data.response);
       });
   };
 
   useEffect(() => {
-    getMorningProducts();
     getNightProducts();
   }, []);
 
-  // MORNING
-
-  // Separate the morning and night products
-  const morningRoutineProducts = morningProducts.filter((product) => product.routine === 'morning');
-  const nightRoutineProducts = nightProducts.filter((product) => product.routine === 'night');
-
-  const handleSubmitMorningRoutine = (event) => {
-    event.preventDefault();
-    const accessToken = localStorage.getItem('accessToken');
-    // eslint-disable-next-line no-unused-vars
-    const options = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: accessToken
-      },
-      body: JSON.stringify({
-        name: morningName,
-        brand: morningBrand,
-        category: morningCategory,
-        routine: 'morning'
-      })
-    };
-
-    fetch('http://localhost:8080/productShelf', options)
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.success) {
-          console.log('Morning routine product submitted successfully');
-          setMorningName('');
-          setMorningBrand('');
-          setMorningCategory('');
-          getMorningProducts();
-        } else {
-          console.error('Failed to submit Skincare Product');
-        }
-      })
-      .catch((error) => {
-        console.error('An error occurred:', error);
-      });
-  };
-
-  // NIGHT
+  // const nightRoutineProducts = nightProducts.filter((product) => product.routine === 'night');
 
   const handleSubmitNightRoutine = (event) => {
     event.preventDefault();
     const accessToken = localStorage.getItem('accessToken');
     const options = {
-      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         Authorization: accessToken
@@ -155,7 +100,15 @@ const SkincareProduct = () => {
       })
     };
 
-    fetch('http://localhost:8080/productShelf', options)
+    let requestUrl = 'http://localhost:8080/productShelf';
+    let requestMethod = 'POST';
+
+    if (editingProductId) {
+      requestUrl += `/${editingProductId}`;
+      requestMethod = 'PUT';
+    }
+
+    fetch(requestUrl, { ...options, method: requestMethod })
       .then((response) => response.json())
       .then((data) => {
         if (data.success) {
@@ -186,12 +139,19 @@ const SkincareProduct = () => {
       .then((data) => {
         if (data.success) {
           console.log('Product deleted successfully');
-          getMorningProducts();
           getNightProducts();
         } else {
           console.error('Failed to delete product');
         }
       });
+  };
+
+  const handleNightEdit = (product) => {
+    setNightEditing(true);
+    setNightName(product.name);
+    setNightBrand(product.brand);
+    setNightCategory(product.category);
+    setEditingProductId(product._id);
   };
 
   // Uses the chosen category to display the correct image
@@ -213,37 +173,31 @@ const SkincareProduct = () => {
   };
 
   return (
-    <div>
-      <h1>Products Shelf</h1>
+    <>
       <UsageLink to="/productShelf/logUsage">Log my products usage</UsageLink>
-      <form onSubmit={handleSubmitMorningRoutine}>
-        <h1>Upload your Morning routine</h1>
-        <div>
-          <label htmlFor="morningName">Name:</label>
-          <input type="text" placeholder="product name" id="morningName" value={morningName} onChange={(e) => setMorningName(e.target.value)} />
-        </div>
-        <div>
-          <label htmlFor="morningBrand">Brand:</label>
-          <input type="text" placeholder="brand name" id="morningBrand" value={morningBrand} onChange={(e) => setMorningBrand(e.target.value)} />
-        </div>
-        <div>
-          <label htmlFor="morningCategory">Category:</label>
-          <select id="morningCategory" value={morningCategory} onChange={(e) => setMorningCategory(e.target.value)}>
-            <option value="">Select a category</option>
-            {categories.map((category) => (
-              <option key={category} value={category}>{category}</option>
-            ))}
-          </select>
-        </div>
-        <AddProductButton type="submit">Submit Product</AddProductButton>
-      </form>
-
+      <h2>Night shelf</h2>
+      <SingleProductWrapper>
+        {nightProducts.map((product) => (
+          <div key={product._id}>
+            <ProductImage
+              src={getImagePath(product.category)}
+              alt={product.category}
+              onClick={() => handleNightEdit(product)} />
+            <p>
+              Product Name: {product.name} <br />
+              Brand: {product.brand}
+            </p>
+            <DeleteProductButton type="button" onClick={() => handleDeleteProduct(product._id)}>Delete</DeleteProductButton>
+          </div>
+        ))}
+      </SingleProductWrapper>
       <form onSubmit={handleSubmitNightRoutine}>
-        <h1>Upload your Night Routine</h1>
+        <h1>{nightEditing ? 'Edit ' : 'Upload your '}Night Routine</h1>
         <div>
           <label htmlFor="nightName">Name:</label>
           <input type="text" placeholder="product name" id="nightName" value={nightName} onChange={(e) => setNightName(e.target.value)} />
         </div>
+
         <div>
           <label htmlFor="nightBrand">Brand:</label>
           <input type="text" placeholder="brand name" id="nightBrand" value={nightBrand} onChange={(e) => setNightBrand(e.target.value)} />
@@ -257,40 +211,10 @@ const SkincareProduct = () => {
             ))}
           </select>
         </div>
-        <AddProductButton type="submit">Submit Product</AddProductButton>
+        <AddProductButton type="submit">{nightEditing ? 'Save change' : 'Put on shelf'}</AddProductButton>
       </form>
-
-      <h2>Morning Shelf</h2>
-      {morningProducts.map((product) => (
-        <div key={product._id}>
-          <ProductImage
-            src={getImagePath(product.category)}
-            alt={product.category} />
-          <p>
-      Product Name: {product.name} <br />
-      Brand: {product.brand}
-          </p>
-          <DeleteProductButton type="button" onClick={() => handleDeleteProduct(product._id)}>
-      Delete
-          </DeleteProductButton>
-        </div>
-      ))}
-
-      <h2>Night shelf</h2>
-      {nightProducts.map((product) => (
-        <div key={product._id}>
-          <ProductImage
-            src={getImagePath(product.category)}
-            alt={product.category} />
-          <p>
-      Product Name: {product.name} <br />
-      Brand: {product.brand}
-          </p>
-          <DeleteProductButton type="button" onClick={() => handleDeleteProduct(product._id)}>Delete product</DeleteProductButton>
-        </div>
-      ))}
-    </div>
+    </>
   );
 }
 
-export default SkincareProduct;
+export default NightShelf;
