@@ -21,6 +21,15 @@ const DailyReport = () => {
   const [waterAmount, setWaterAmount] = useState(0);
   const [sleepHours, setSleepHours] = useState(0);
 
+  const getLabel = (value) => {
+    if (value === '0') return 'None';
+    if (value === '25') return 'Low';
+    if (value === '50') return 'Medium';
+    if (value === '75') return 'Average';
+    if (value === '100') return 'High';
+    return '';
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const accessToken = localStorage.getItem('accessToken');
@@ -74,15 +83,19 @@ const DailyReport = () => {
       <h1>Daily Report</h1>
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="waterRange"> Water Intake: </label>
-          <input
-            type="range"
-            id="waterRange"
-            min="0"
-            max="100"
-            step="25"
-            value={waterAmount}
-            onChange={(event) => setWaterAmount(event.target.value)} />
+          <label htmlFor="waterRange">Water Intake:</label>
+          <div className="range-container">
+            <input
+              type="range"
+              id="waterRange"
+              min="0"
+              max="100"
+              step="25"
+              value={waterAmount}
+              onChange={(event) => setWaterAmount(event.target.value)} />
+            <span>{getLabel(waterAmount)}</span>
+
+          </div>
         </div>
 
         <div>
@@ -95,86 +108,97 @@ const DailyReport = () => {
             step="25"
             value={sleepHours}
             onChange={(event) => setSleepHours(event.target.value)} />
-
+          <span>{getLabel(sleepHours, 'sleepRange')}</span>
         </div>
+
         <div>
           <label htmlFor="stress">Stress:</label>
           <input
             type="range"
-            id="sleepRange"
+            id="stressRange"
             min="0"
             max="100"
             step="25"
             value={stress}
             onChange={(e) => setStress(e.target.value)} />
+          <span>{getLabel(stress, 'stressRange')}</span>
         </div>
+
         <div>
-          <label htmlFor="Acne">Acne:</label>
+          <label htmlFor="acne">Acne:</label>
           <input
             type="range"
-            id="sleepRange"
+            id="acneRange"
             min="0"
             max="100"
             step="25"
             value={acne}
             onChange={(e) => setAcne(e.target.value)} />
+          <span>{getLabel(acne, 'acneRange')}</span>
         </div>
 
         <div>
           <label htmlFor="exercised">Exercise:</label>
           <input
             type="range"
-            id="sleepRange"
+            id="exercisedRange"
             min="0"
             max="100"
             step="25"
             value={exercised}
             onChange={(e) => setExercised(e.target.value)} />
+          <span>{getLabel(exercised, 'exercisedRange')}</span>
         </div>
 
         <div>
           <label htmlFor="sugar">Sugar Intake :</label>
           <input
             type="range"
-            id="sleepRange"
+            id="sugarRange"
             min="0"
             max="100"
             step="25"
             value={sugar}
             onChange={(e) => setSugar(e.target.value)} />
+          <span>{getLabel(sugar, 'sugarRange')}</span>
         </div>
         <div>
           <label htmlFor="alcohol">Alcohol Intake:</label>
           <input
             type="range"
-            id="sleepRange"
+            id="alcoholRange"
             min="0"
             max="100"
             step="25"
             value={alcohol}
             onChange={(e) => setAlcohol(e.target.value)} />
+          <span>{getLabel(alcohol, 'alcoholRange')}</span>
         </div>
+
         <div>
           <label htmlFor="dairy">Dairy Intake:</label>
           <input
             type="range"
-            id="sleepRange"
+            id="dairyRange"
             min="0"
             max="100"
             step="25"
             value={dairy}
             onChange={(e) => setDairy(e.target.value)} />
+          <span>{getLabel(dairy, 'dairyRange')}</span>
+
         </div>
         <div>
           <label htmlFor="greasyFood">  Greasy Food Intake:</label>
           <input
             type="range"
-            id="sleepRange"
+            id="greasyFoodRange"
             min="0"
             max="100"
             step="25"
             value={greasyFood}
             onChange={(e) => setGreasyFood(e.target.value)} />
+          <span>{getLabel(greasyFood, 'greasyFoodRange')}</span>
         </div>
 
         <div>
