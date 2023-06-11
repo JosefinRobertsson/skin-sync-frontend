@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-underscore-dangle */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { AddProductButton, DeleteProductButton } from '../styles/StyledButtons';
 import { UsageLink } from '../styles/StyledLinks';
@@ -31,6 +31,8 @@ const NightShelf = () => {
   const [editingProductId, setEditingProductId] = useState(null);
   const [categories, setCategories] = useState([]);
   const [nightCategory, setNightCategory] = useState('');
+  const [clickCount, setClickCount] = useState(0);
+  const buttonRef = useRef(null);
 
   // Gets the categories for the dropdown menu
   useEffect(() => {
@@ -56,6 +58,19 @@ const NightShelf = () => {
 
     fetchCategories();
   }, []);
+
+  // Extra safety for delete button
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (buttonRef.current && !buttonRef.current.contains(event.target)) {
+        setClickCount(0);
+      }
+    };
+    window.addEventListener('click', handleClickOutside);
+    return () => {
+      window.removeEventListener('click', handleClickOutside);
+    };
+  }, [buttonRef]);
 
   const getNightProducts = () => {
     const accessToken = localStorage.getItem('accessToken');
@@ -112,7 +127,8 @@ const NightShelf = () => {
       .then((response) => response.json())
       .then((data) => {
         if (data.success) {
-          console.log('Night routine product submitted successfully');
+          console.log(data)
+          // console.log('Night routine product submitted successfully');
           setNightName('');
           setNightBrand('');
           setNightCategory('');
@@ -128,30 +144,53 @@ const NightShelf = () => {
 
   // DELETE
   const handleDeleteProduct = (productId) => {
-    const accessToken = localStorage.getItem('accessToken');
-    fetch(`http://localhost:8080/productShelf/${productId}`, {
-      method: 'DELETE',
-      headers: {
-        Authorization: accessToken
-      }
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.success) {
-          console.log('Product deleted successfully');
-          getNightProducts();
-        } else {
-          console.error('Failed to delete product');
+    if (clickCount === 0) {
+      setClickCount(1);
+    } else {
+      const accessToken = localStorage.getItem('accessToken');
+      fetch(`http://localhost:8080/productShelf/${productId}`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: accessToken
         }
-      });
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.success) {
+            console.log('Product deleted successfully');
+            getNightProducts();
+          } else {
+            console.error('Failed to delete product');
+          }
+          setNightName('');
+          setNightBrand('');
+          setNightCategory('');
+          setClickCount(0);
+          setNightEditing(false);
+        });
+    }
   };
 
-  const handleNightEdit = (product) => {
-    setNightEditing(true);
-    setNightName(product.name);
-    setNightBrand(product.brand);
-    setNightCategory(product.category);
-    setEditingProductId(product._id);
+  // EDIT
+  const handleNightEdit = (productId) => {
+    setNightName('');
+    setNightBrand('');
+    setNightCategory('');
+
+    if (editingProductId === productId) {
+      setEditingProductId(null); // Hide the form if the same product image is clicked again
+      setNightEditing(false);
+    } else {
+      const product = nightProducts.find((prod) => prod._id === productId);
+      if (product) {
+        setNightName(product.name);
+        setNightBrand(product.brand);
+        setNightCategory(product.category);
+        setEditingProductId(productId);
+        setNightEditing(true); // Set morningEditing to true
+        console.log('editing night category:', product.category)
+      }
+    }
   };
 
   // Uses the chosen category to display the correct image
@@ -182,36 +221,44 @@ const NightShelf = () => {
             <ProductImage
               src={getImagePath(product.category)}
               alt={product.category}
-              onClick={() => handleNightEdit(product)} />
-            <p>
-              Product Name: {product.name} <br />
-              Brand: {product.brand}
-            </p>
-            <DeleteProductButton type="button" onClick={() => handleDeleteProduct(product._id)}>Delete</DeleteProductButton>
+              onClick={() => handleNightEdit(product._id)} />
+
+            <h5> {product.name} </h5>
+            <h6> {product.brand} </h6>
+
           </div>
         ))}
       </SingleProductWrapper>
       <form onSubmit={handleSubmitNightRoutine}>
-        <h1>{nightEditing ? 'Edit ' : 'Upload your '}Night Routine</h1>
-        <div>
-          <label htmlFor="nightName">Name:</label>
-          <input type="text" placeholder="product name" id="nightName" value={nightName} onChange={(e) => setNightName(e.target.value)} />
-        </div>
+        <fieldset><legend>{nightEditing ? 'Edit ' : 'Add to '}Night shelf</legend>
+          <div>
+            <label htmlFor="nightName">Name:</label>
+            <input type="text" placeholder="product name" id="nightName" value={nightName} onChange={(e) => setNightName(e.target.value)} />
+          </div>
 
-        <div>
-          <label htmlFor="nightBrand">Brand:</label>
-          <input type="text" placeholder="brand name" id="nightBrand" value={nightBrand} onChange={(e) => setNightBrand(e.target.value)} />
-        </div>
-        <div>
-          <label htmlFor="nightCategory">Category:</label>
-          <select id="nightCategory" value={nightCategory} onChange={(e) => setNightCategory(e.target.value)}>
-            <option value="">Select a category</option>
-            {categories.map((category) => (
-              <option key={category} value={category}>{category}</option>
-            ))}
-          </select>
-        </div>
-        <AddProductButton type="submit">{nightEditing ? 'Save change' : 'Put on shelf'}</AddProductButton>
+          <div>
+            <label htmlFor="nightBrand">Brand:</label>
+            <input type="text" placeholder="brand name" id="nightBrand" value={nightBrand} onChange={(e) => setNightBrand(e.target.value)} />
+          </div>
+          <div>
+            <label htmlFor="nightCategory">Category:</label>
+            <select id="nightCategory" value={nightCategory} onChange={(e) => setNightCategory(e.target.value)}>
+              <option value="">Select a category</option>
+              {categories.map((category) => (
+                <option key={category} value={category}>{category}</option>
+              ))}
+            </select>
+          </div>
+          <AddProductButton type="submit">{nightEditing ? 'Save change' : 'Put on shelf'}</AddProductButton>
+          <DeleteProductButton
+            type="button"
+            onClick={() => handleDeleteProduct(editingProductId)}
+            clicked={clickCount > 0}
+            ref={buttonRef}
+            isVisible={nightEditing}>
+            {clickCount === 0 ? 'Delete' : 'Delete product?'}
+          </DeleteProductButton>
+        </fieldset>
       </form>
     </>
   );
