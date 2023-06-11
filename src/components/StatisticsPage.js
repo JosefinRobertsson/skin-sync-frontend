@@ -43,7 +43,8 @@ const AverageData = (data) => {
     sleepHours: 0,
     stress: 0,
     sugar: 0,
-    waterAmount: 0
+    waterAmount: 0,
+    greasyFood: 0
   };
 
   const lengthData = data.length;
@@ -59,9 +60,56 @@ const AverageData = (data) => {
     average.stress += element.stress / lengthData
     average.sugar += element.sugar / lengthData
     average.waterAmount += element.waterAmount / lengthData
+    average.greasyFood += element.greasyFood / lengthData
   }
 
-  return average
+  const dataChartOne = [
+    {
+      name: 'fastfood',
+      value: average.greasyFood
+    },
+    {
+      name: 'dairy',
+      value: average.dairy
+    },
+    {
+      name: 'alcohol',
+      value: average.alcohol
+    },
+    {
+      name: 'sugar',
+      value: average.sugar
+    },
+    {
+      name: 'acne',
+      value: average.acne
+    }
+
+  ]
+  const dataChartTwo = [
+    {
+      name: 'water',
+      value: average.waterAmount
+    },
+    {
+      name: 'excercise',
+      value: average.exercised
+    },
+    {
+      name: 'sleep',
+      value: average.sleepHours
+    },
+    {
+      name: 'stress',
+      value: average.stress
+    },
+    {
+      name: 'acne',
+      value: average.acne
+    }
+  ]
+
+  return [dataChartOne, dataChartTwo]
 }
 
 const StatisticsPage = () => {
@@ -101,40 +149,50 @@ const StatisticsPage = () => {
   const averageData = AverageData(filteredData)
   console.log('averaged data', averageData)
 
+  const dataChartOne = averageData[0];
+  const dataChartTwo = averageData[1];
+
   return (
     <div>
-
       <h1>Chart 1</h1>
-
-      <ResponsiveContainer width="100%" height={400}>
-        <BarChart data={data} margin={{ top: 10, left: 20, right: 20, bottom: 10 }}>
+      <ResponsiveContainer width="100%" height="100%">
+        <BarChart
+          width={500}
+          height={300}
+          data={dataChartOne}
+          margin={{
+            top: 5,
+            right: 30,
+            left: 20,
+            bottom: 5
+          }}>
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="date" />
-          <YAxis dataKey="acne" />
+          <XAxis dataKey="name" />
+          <YAxis />
           <Tooltip />
           <Legend />
-          <Bar dataKey="acne" fill="#DB5A4F" />
-          <Bar dataKey="sleepHours" fill="#A996D5" />
-          <Bar dataKey="waterAmount" fill="#FCD2B3" />
-          <Bar dataKey="exercised" fill="#752338" />
-          <Bar dataKey="stress" fill="#2A152A" />
+          <Bar dataKey="value" fill="#8884d8" />
         </BarChart>
       </ResponsiveContainer>
 
       <h1>Chart 2</h1>
-
-      <ResponsiveContainer width="100%" height={400}>
-        <BarChart data={data} margin={{ top: 10, left: 20, right: 20, bottom: 10 }}>
+      <ResponsiveContainer width="100%" height="100%">
+        <BarChart
+          width={500}
+          height={300}
+          data={dataChartTwo}
+          margin={{
+            top: 5,
+            right: 30,
+            left: 20,
+            bottom: 5
+          }}>
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="date" />
-          <YAxis dataKey="acne" />
+          <XAxis dataKey="name" />
+          <YAxis />
           <Tooltip />
           <Legend />
-          <Bar dataKey="acne" fill="#DB5A4F" />
-          <Bar dataKey="sugar" fill="#A996D5" />
-          <Bar dataKey="alcohol" fill="#FCD2B3" />
-          <Bar dataKey="dairy" fill="#752338" />
-          <Bar dataKey="greasyFood" fill="#2A152A" />
+          <Bar dataKey="value" fill="#8884d8" />
         </BarChart>
       </ResponsiveContainer>
 
