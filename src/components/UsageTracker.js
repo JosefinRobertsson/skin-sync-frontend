@@ -55,6 +55,7 @@ const UsageTracker = () => {
   const [nightProducts, setNightProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
+  // const [lastVisited, setLastVisited] = useState(null);
   axios.defaults.baseURL = 'http://localhost:8080';
 
   useEffect(() => {
@@ -71,7 +72,7 @@ const UsageTracker = () => {
           }
         };
 
-        // Fetch all products
+        // Fetch all products from morning and night shelves
         const morningResponse = await axios.get('/productShelf/morning', config);
         const nightResponse = await axios.get('/productShelf/night', config);
         if (!morningResponse.data.success || !nightResponse.data.success) {
@@ -81,40 +82,66 @@ const UsageTracker = () => {
         const morningProducts = morningResponse.data.response;
         const nightProducts = nightResponse.data.response;
 
-        // Check and reset usedToday status if new day
+        /* Maps through both arrays, compares todays date with last usage date if usedToday is true,
+         and updates usedToday to false if last usage date is not today.
+         Saves in promises before sending to backend */
         const now = new Date();
         const todayDate = now.toISOString().split('T')[0];
 
-        morningProducts.forEach(async (product) => {
+        const morningPromises = morningProducts.map(async (product) => {
           if (product.usedToday) {
-            // compare last usage date with today's date
-            const lastUsageDate = product.usageHistory[product.usageHistory.length - 1];
-            const lastUsageDateStr = lastUsageDate && lastUsageDate instanceof Date ? lastUsageDate.toISOString().split('T')[0] : null;
+            const lastUsageDateStr = product.usageHistory[product.usageHistory.length - 1];
+            const lastUsageDate = lastUsageDateStr ? new Date(lastUsageDateStr) : null;
+            const lastUsageDateFormatted = lastUsageDate && lastUsageDate instanceof Date ? lastUsageDate.toISOString().split('T')[0] : null;
 
-            if (lastUsageDateStr !== todayDate) {
-              // Send request to reset usedToday
-              await axios.post('/productShelf/logUsage', {
-                productId: product._id,
-                usedToday: false
-              }, config);
+            if (lastUsageDateFormatted !== todayDate) {
+              try {
+                await axios.post('/productShelf/logUsage', {
+                  productId: product._id,
+                  usedToday: false
+                }, config);
+              } catch (error) {
+                console.error(error);
+                setError('Failed to fetch skincare products');
+              }
             }
           }
         });
+        try {
+          // Promise.all waits for all promises to resolve, then triggers them all concurrently
+          await Promise.all(morningPromises);
+        } catch (e) {
+          console.error(e);
+          setError('Failed to fetch skincare products');
+        }
 
-        nightProducts.forEach(async (product) => {
+        const nightPromises = nightProducts.map(async (product) => {
           if (product.usedToday) {
-            const lastUsageDate = product.usageHistory[product.usageHistory.length - 1];
-            const lastUsageDateStr = lastUsageDate && lastUsageDate instanceof Date ? lastUsageDate.toISOString().split('T')[0] : null;
+            const lastUsageDateStr = product.usageHistory[product.usageHistory.length - 1];
+            const lastUsageDate = lastUsageDateStr ? new Date(lastUsageDateStr) : null;
 
-            if (lastUsageDateStr !== todayDate) {
-              await axios.post('/productShelf/logUsage', {
-                productId: product._id,
-                usedToday: false
-              }, config);
+            const lastUsageDateFormatted = lastUsageDate && lastUsageDate instanceof Date ? lastUsageDate.toISOString().split('T')[0] : null;
+
+            if (lastUsageDateFormatted !== todayDate) {
+              try {
+                await axios.post('/productShelf/logUsage', {
+                  productId: product._id,
+                  usedToday: false
+                }, config);
+              } catch (error) {
+                console.error(error);
+                setError('Failed to fetch skincare products');
+              }
             }
           }
+          return Promise.resolve();
         });
-
+        try {
+          await Promise.all(nightPromises);
+        } catch (e) {
+          console.error(e);
+          setError('Failed to fetch skincare products');
+        }
         setMorningProducts(morningProducts);
         setNightProducts(nightProducts);
         setIsLoading(false);
@@ -123,7 +150,6 @@ const UsageTracker = () => {
         setError('Failed to fetch skincare products');
       }
     };
-
     fetchSkincareProducts();
   }, []);
 
