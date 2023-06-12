@@ -153,9 +153,8 @@ const UsageTracker = () => {
     fetchSkincareProducts();
   }, []);
 
-  /*
   // Change usage status of all products in a routine
-  const toggleAllUsage = async (action) => {
+  const toggleAllUsage = async (action, productType, setProducts) => {
     try {
       const accessToken = localStorage.getItem('accessToken');
       if (!accessToken) {
@@ -168,53 +167,64 @@ const UsageTracker = () => {
         }
       };
 
-      const toggleProducts = async (products) => {
-        const updatedProducts = [];
+      let productsToUpdate;
+      if (productType === 'morning') {
+        productsToUpdate = morningProducts;
+        setProducts = setMorningProducts;
+      } else if (productType === 'night') {
+        productsToUpdate = nightProducts;
+        setProducts = setNightProducts;
+      } else {
+        setError('Invalid product type');
+        return;
+      }
 
-        for (let i = 0; i < products.length; i++) {
-          const product = products[i];
-          let updatedProduct;
-
+      const updatedProducts = await Promise.all(
+        productsToUpdate.map(async (product) => {
           if (action === 'toggleOn' && !product.usedToday) {
-            // Set usedToday to true and push the current date to usageHistory
-            updatedProduct = {
-              ...product,
-              usedToday: true,
-              usageHistory: [...product.usageHistory, new Date()]
-            };
+          // Set usedToday to true and push the current date to usageHistory
+            try {
+              const response = await axios.post('/productShelf/toggleAllUsage', {
+                productId: product._id,
+                usedToday: true,
+                usageHistory: [...product.usageHistory, new Date()]
+              }, config);
+              return response.data.response;
+            } catch (error) {
+              console.error(error);
+              setError('Failed to toggle on all morning products');
+            }
           } else if (action === 'toggleOff' && product.usedToday) {
-            // Set usedToday to false and pop the last date from usageHistory
-            const updatedUsageHistory = [...product.usageHistory];
-            updatedUsageHistory.pop();
-
-            updatedProduct = {
-              ...product,
-              usedToday: false,
-              usageHistory: updatedUsageHistory
-            };
+          // Set usedToday to false and pop the last date from usageHistory
+            product.usageHistory.pop();
+            try {
+              const response = await axios.post('/productShelf/toggleAllUsage', { productId: product._id,
+                usedToday: false,
+                usageHistory: [...product.usageHistory] }, config);
+              return response.data.response;
+            } catch (error) {
+              console.error(error);
+              setError('Failed to toggle off all morning products');
+            }
           } else {
-            updatedProduct = product; // No changes needed for this product
+            return product;
           }
+        })
+      );
 
-          // Send request to update the product
-          const response = await axios.post('/productShelf/toggleAllUsage', updatedProduct, config);
-          updatedProducts.push(response.data.response);
-        }
-
-        return updatedProducts;
-      };
-
-      const updatedMorningProducts = await toggleProducts(morningProducts);
-      const updatedNightProducts = await toggleProducts(nightProducts);
-
-      setMorningProducts(updatedMorningProducts);
-      setNightProducts(updatedNightProducts);
+      const updatedProductList = productsToUpdate.map(
+        (product) => updatedProducts.find(
+          (updatedProduct) => updatedProduct._id === product._id
+        ) || product
+      );
+      setProducts(updatedProductList);
     } catch (error) {
       console.error(error);
-      setError('Failed to toggle usage for all products');
+      setError(`Failed to toggle usage for all ${productType} products`);
+    } finally {
+      console.log('routine updated');
     }
   };
- */
 
   // Change usage status of a single product
   const handleUsageChange = async (product) => {
@@ -301,6 +311,13 @@ const UsageTracker = () => {
           </div>
         ))}
       </Slider>
+      <Toggle
+        id="toggle-all-morning"
+        checked={morningProducts.every((product) => product.usedToday)}
+        onChange={(e) => {
+          const action = e.target.checked ? 'toggleOn' : 'toggleOff';
+          toggleAllUsage(action, 'morning', setMorningProducts);
+        }} />
 
       <h2>Night Routine</h2>
       <div>
@@ -324,6 +341,14 @@ const UsageTracker = () => {
           </div>
         ))}
       </Slider>
+      <Toggle
+        id="toggle-all-night"
+        checked={nightProducts.every((product) => product.usedToday)}
+        onChange={(e) => {
+          const action = e.target.checked ? 'toggleOn' : 'toggleOff';
+          toggleAllUsage(action, 'night', setNightProducts);
+        }} />
+
     </div>
   );
 };
