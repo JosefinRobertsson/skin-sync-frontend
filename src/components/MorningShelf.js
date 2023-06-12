@@ -5,6 +5,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
+import confetti from 'canvas-confetti';
 import { AddProductButton, DeleteProductButton } from '../styles/StyledButtons';
 import { UsageLink } from '../styles/StyledLinks';
 import cleanserImage from '../images/cleanser.png';
@@ -24,6 +25,20 @@ const ProductImage = styled.img`
   height: 80px;
   cursor: pointer;
   `;
+
+const handleConfetti = () => {
+  confetti({
+    particleCount: 180,
+    spread: 90,
+    startVelocity: 30,
+    gravity: 0.4,
+    scalar: 0.7,
+    origin: { y: 0.5 },
+    resize: true,
+    ticks: 260,
+    disableForReducedMotion: true // For users with motion sensitivity
+  });
+};
 
 const MorningShelf = () => {
   const [morningName, setMorningName] = useState('');
@@ -57,7 +72,6 @@ const MorningShelf = () => {
         console.error('An error occurred:', error);
       }
     };
-
     fetchCategories();
   }, []);
 
@@ -103,6 +117,7 @@ const MorningShelf = () => {
 
   const handleSubmitMorningRoutine = (event) => {
     event.preventDefault();
+
     const accessToken = localStorage.getItem('accessToken');
     // eslint-disable-next-line no-unused-vars
     const options = {
@@ -243,7 +258,8 @@ const MorningShelf = () => {
               placeholder="product name"
               id="morningName"
               value={morningName}
-              onChange={(e) => setMorningName(e.target.value)} />
+              onChange={(e) => setMorningName(e.target.value)}
+              required />
           </div>
           <div>
             <label htmlFor="morningBrand">Brand:</label>
@@ -259,7 +275,8 @@ const MorningShelf = () => {
             <select
               id="morningCategory"
               value={morningCategory}
-              onChange={(e) => setMorningCategory(e.target.value)}>
+              onChange={(e) => setMorningCategory(e.target.value)}
+              required>
               <option value="">Select a category</option>
               {categories.map((category) => (
                 <option key={category} value={category}>
@@ -268,7 +285,14 @@ const MorningShelf = () => {
               ))}
             </select>
           </div>
-          <AddProductButton type="submit">
+          <AddProductButton
+            type="submit"
+            onClick={(event) => {
+              if (morningName && morningCategory) {
+                handleConfetti();
+                handleSubmitMorningRoutine(event);
+              }
+            }}>
             {morningEditing ? 'Save change' : 'Put on shelf'}
           </AddProductButton>
           <DeleteProductButton

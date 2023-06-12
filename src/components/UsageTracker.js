@@ -30,7 +30,8 @@ const settings = {
   slidesToScroll: 1,
   autoplay: false,
   autoplaySpeed: 2000,
-  centerMode: true
+  centerMode: true,
+  fade: false
 };
 
 const getImagePath = (category) => {
@@ -87,12 +88,16 @@ const UsageTracker = () => {
          Saves in promises before sending to backend */
         const now = new Date();
         const todayDate = now.toISOString().split('T')[0];
+        console.log('now', now);
 
         const morningPromises = morningProducts.map(async (product) => {
           if (product.usedToday) {
             const lastUsageDateStr = product.usageHistory[product.usageHistory.length - 1];
             const lastUsageDate = lastUsageDateStr ? new Date(lastUsageDateStr) : null;
             const lastUsageDateFormatted = lastUsageDate && lastUsageDate instanceof Date ? lastUsageDate.toISOString().split('T')[0] : null;
+            console.log('lastUsageDate', lastUsageDate)
+            console.log('lastUsageDateFormatted', lastUsageDateFormatted);
+            console.log('todayDate', todayDate);
 
             if (lastUsageDateFormatted !== todayDate) {
               try {

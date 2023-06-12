@@ -3,6 +3,7 @@
 /* eslint-disable no-underscore-dangle */
 import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
+import confetti from 'canvas-confetti';
 import { AddProductButton, DeleteProductButton } from '../styles/StyledButtons';
 import { UsageLink } from '../styles/StyledLinks';
 import cleanserImage from '../images/cleanser.png';
@@ -22,6 +23,20 @@ const ProductImage = styled.img`
   height: 80px;
   cursor: pointer;
   `;
+
+const handleConfetti = () => {
+  confetti({
+    particleCount: 180,
+    spread: 90,
+    startVelocity: 30,
+    gravity: 0.4,
+    scalar: 0.7,
+    origin: { y: 0.9 },
+    resize: true,
+    ticks: 260,
+    disableForReducedMotion: true // For users with motion sensitivity
+  });
+};
 
 const NightShelf = () => {
   const [nightName, setNightName] = useState('');
@@ -97,10 +112,9 @@ const NightShelf = () => {
     getNightProducts();
   }, []);
 
-  // const nightRoutineProducts = nightProducts.filter((product) => product.routine === 'night');
-
   const handleSubmitNightRoutine = (event) => {
     event.preventDefault();
+    handleConfetti();
     const accessToken = localStorage.getItem('accessToken');
     const options = {
       headers: {
@@ -233,7 +247,13 @@ const NightShelf = () => {
         <fieldset><legend>{nightEditing ? 'Edit ' : 'Add to '}Night shelf</legend>
           <div>
             <label htmlFor="nightName">Name:</label>
-            <input type="text" placeholder="product name" id="nightName" value={nightName} onChange={(e) => setNightName(e.target.value)} />
+            <input
+              type="text"
+              placeholder="product name"
+              id="nightName"
+              value={nightName}
+              onChange={(e) => setNightName(e.target.value)}
+              required />
           </div>
 
           <div>
@@ -242,14 +262,21 @@ const NightShelf = () => {
           </div>
           <div>
             <label htmlFor="nightCategory">Category:</label>
-            <select id="nightCategory" value={nightCategory} onChange={(e) => setNightCategory(e.target.value)}>
+            <select
+              id="nightCategory"
+              value={nightCategory}
+              onChange={(e) => setNightCategory(e.target.value)}
+              required>
               <option value="">Select a category</option>
               {categories.map((category) => (
                 <option key={category} value={category}>{category}</option>
               ))}
             </select>
           </div>
-          <AddProductButton type="submit">{nightEditing ? 'Save change' : 'Put on shelf'}</AddProductButton>
+          <AddProductButton
+            type="submit">
+            {nightEditing ? 'Save change' : 'Put on shelf'}
+          </AddProductButton>
           <DeleteProductButton
             type="button"
             onClick={() => handleDeleteProduct(editingProductId)}
