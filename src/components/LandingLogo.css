@@ -1,0 +1,31 @@
+/* Define a container that covers the whole page */
+.logo-page {
+    position: relative;
+    height: 100vh; /* cover full height of the view-port */
+    width: 100%; /* cover full width of the view-port */
+    overflow: hidden;
+  }
+  
+  /* Set the background image to cover the whole page */
+  .background-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    object-fit: cover; /* this makes the image cover the entire container without distortion */
+  }
+  
+  /* Style the text to be centered and visible on top of the image */
+  .text-over-image {
+    position: relative;
+    color: white; /* Set your desired color */
+    font-size: 2em; /* Set your desired font size */
+    text-align: center;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  

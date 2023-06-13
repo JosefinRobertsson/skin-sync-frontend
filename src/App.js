@@ -13,6 +13,7 @@ import Logout from './components/Logout';
 import Header from './components/Header';
 import UsageTracker from './components/UsageTracker';
 import NightShelf from './components/NightShelf';
+import LandingLogo from './components/LandingLogo';
 
 export const App = () => {
   return (
@@ -22,6 +23,7 @@ export const App = () => {
 
         <Routes>
           <Route path="/" element={<OpenPage />} />
+          <Route path="/LandingLogo" element={<LandingLogo />} />
           <Route path="/Login" element={<Login />} />
           <Route path="/userpage" element={<UserPage />} />
           <Route path="/Register" element={<Register />} />
