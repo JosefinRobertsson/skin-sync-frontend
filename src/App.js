@@ -13,6 +13,7 @@ import Logout from './components/Logout';
 import Header from './components/Header';
 import UsageTracker from './components/UsageTracker';
 import NightShelf from './components/NightShelf';
+import ProductStatistics from './components/ProductStatistics';
 
 export const App = () => {
   return (
@@ -34,7 +35,14 @@ export const App = () => {
                 <NightShelf />
               </>
             } />
-          <Route path="/productShelf/logUsage" element={<UsageTracker />} />
+          <Route
+            path="/productShelf/logUsage"
+            element={
+              <>
+                <UsageTracker />
+                <ProductStatistics />
+              </>
+            } />
           <Route path="/statisticsPage" element={<StatisticsPage />} />
           <Route path="/logout" element={<Logout />} />
 
