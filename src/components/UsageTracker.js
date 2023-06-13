@@ -101,7 +101,7 @@ const UsageTracker = () => {
 
             if (lastUsageDateFormatted !== todayDate) {
               try {
-                await axios.post('/productShelf/logUsage', {
+                await axios.put('/productShelf/usageReset', {
                   productId: product._id,
                   usedToday: false
                 }, config);
@@ -129,7 +129,7 @@ const UsageTracker = () => {
 
             if (lastUsageDateFormatted !== todayDate) {
               try {
-                await axios.post('/productShelf/logUsage', {
+                await axios.put('/productShelf/usageReset', {
                   productId: product._id,
                   usedToday: false
                 }, config);
