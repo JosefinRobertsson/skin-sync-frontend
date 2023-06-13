@@ -112,8 +112,18 @@ const AverageData = (data) => {
   return [dataChartOne, dataChartTwo]
 }
 
+const GetFinalData = (data, index) => {
+  console.log('data for barchart:', data);
+  const filteredData = FilterData(24, data)
+  console.log('filtered data', filteredData)
+  const averageData = AverageData(filteredData)
+  console.log('averaged data', averageData)
+
+  return averageData[index]
+}
+
 const StatisticsPage = () => {
-  const [data, setData] = useState({});
+  const [data, setData] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -143,59 +153,55 @@ const StatisticsPage = () => {
     fetchData();
   }, []);
 
-  console.log('data for barchart:', data);
-  const filteredData = FilterData(25, data)
-  console.log('filtered data', filteredData)
-  const averageData = AverageData(filteredData)
-  console.log('averaged data', averageData)
-
-  const dataChartOne = averageData[0];
-  const dataChartTwo = averageData[1];
-
   return (
     <div>
-      <h1>Chart 1</h1>
-      <ResponsiveContainer width="100%" height="100%">
-        <BarChart
-          width={500}
-          height={300}
-          data={dataChartOne}
-          margin={{
-            top: 5,
-            right: 30,
-            left: 20,
-            bottom: 5
-          }}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
-          <YAxis />
-          <Tooltip />
-          <Legend />
-          <Bar dataKey="value" fill="#8884d8" />
-        </BarChart>
-      </ResponsiveContainer>
+      {data.length > 0 ? (
+        <>
+          <h1>Chart 1</h1>
+          <ResponsiveContainer width="100%" height={300}>
+            <BarChart
+              width={500}
+              height={300}
+              data={GetFinalData(data, 0)}
+              margin={{
+                top: 5,
+                right: 30,
+                left: 20,
+                bottom: 5
+              }}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="value" fill="#8884d8" />
+            </BarChart>
+          </ResponsiveContainer>
 
-      <h1>Chart 2</h1>
-      <ResponsiveContainer width="100%" height="100%">
-        <BarChart
-          width={500}
-          height={300}
-          data={dataChartTwo}
-          margin={{
-            top: 5,
-            right: 30,
-            left: 20,
-            bottom: 5
-          }}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
-          <YAxis />
-          <Tooltip />
-          <Legend />
-          <Bar dataKey="value" fill="#8884d8" />
-        </BarChart>
-      </ResponsiveContainer>
-
+          <h1>Chart 2</h1>
+          <ResponsiveContainer width="100%" height={300}>
+            <BarChart
+              width={500}
+              height={300}
+              data={GetFinalData(data, 1)}
+              margin={{
+                top: 5,
+                right: 30,
+                left: 20,
+                bottom: 5
+              }}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="value" fill="#8884d8" />
+            </BarChart>
+          </ResponsiveContainer>
+        </>
+      ) : (
+        <div>Loading...</div>
+      )}
     </div>
   );
 };

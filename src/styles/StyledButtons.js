@@ -2,7 +2,6 @@ import styled from 'styled-components';
 // import confetti from 'canvas-confetti';
 
 const BaseButton = styled.button`
-  background-color: #e3e33f;
   cursor: pointer;
 `;
 /*

@@ -1,46 +1,64 @@
-/* eslint-disable react/jsx-filename-extension */
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { LoginButton } from '../styles/StyledButtons';
+import Toggle from 'react-toggle';
+import { LoginButton, RegisterButton } from '../styles/StyledButtons';
 import './Login.css';
+import 'react-toggle/style.css';
+
 /* eslint-disable no-console */
 
-const Login = () => {
+const Auth = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [isLogin, setIsLogin] = useState(true);
   const navigate = useNavigate();
 
-  const login = () => {
+  const auth = () => {
+    const url = isLogin ? 'http://localhost:8080/login' : 'http://localhost:8080/register';
     axios
-      .post('http://localhost:8080/login', {
+      .post(url, {
         username,
         password
       })
       .then((response) => {
         console.log(response);
         localStorage.setItem('accessToken', response.data.response.accessToken);
-        navigate('/userPage'); // navigate to the dailyreport route
+        if (isLogin) {
+          navigate('/userPage'); // navigate to the userPage route
+        } else {
+          setIsLogin(true); // switch back to login view after successful registration
+        }
       })
       .catch((error) => console.error(error));
   };
 
   return (
-    <div className="login-container">
-      <h2 className="login-title">Login</h2>
-      <input
-        className="login-input"
-        type="text"
-        placeholder="Username"
-        onChange={(e) => setUsername(e.target.value)} />
-      <input
-        className="login-input"
-        type="password"
-        placeholder="Password"
-        onChange={(e) => setPassword(e.target.value)} />
-      <LoginButton className="login-button" type="submit" onClick={login}>Login</LoginButton>
+    <div className="login-page">
+      <div className="login-container">
+        <Toggle
+          defaultChecked={false}
+          icons={false}
+          className="my-toggle"
+          checked={isLogin}
+          onChange={() => setIsLogin(!isLogin)} />
+        <h2>{isLogin ? 'Login' : 'Register'}</h2>
+        <input
+          className="login-input"
+          type="text"
+          placeholder="Username"
+          onChange={(e) => setUsername(e.target.value)} />
+        <input
+          className="login-input"
+          type="password"
+          placeholder="Password"
+          onChange={(e) => setPassword(e.target.value)} />
+        {isLogin
+          ? <LoginButton className="login-button" type="submit" onClick={auth}>Enter Now</LoginButton>
+          : <RegisterButton className="register-button" type="submit" onClick={auth}>Register</RegisterButton>}
+      </div>
     </div>
   );
 }
 
-export default Login;
+export default Auth;
