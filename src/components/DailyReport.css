@@ -1,20 +1,27 @@
 
 
-body {
-    font-family: Arial, sans-serif;
+
+.dailyreportbody h1 {
+   padding-top: 20%;
+   padding-bottom: 10%;
+    font-size: 32px;
+    letter-spacing: 0.5%;
+    text-align: center;
+    color: #FFF4E9;
 }
 
-h1 {
-    font-size: 1.5em;
-    text-align: center;
+.dailyreportbody {
+    background-color: #2A152A;
 }
+
 
 form {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1em;
+    gap: 2em;
     padding: 1em;
+    color:#FFF4E9 ;
 }
 
 form div {
@@ -23,12 +30,15 @@ form div {
 
 label {
     display: block;
-    margin-bottom: .5em;
-    font-size: 1em;
+    margin-bottom: .7em;
+    font-size: 16px;
+    color:#FFF4E9 ;
+   
 }
 
 input[type="range"] {
-    width: 100%;
+    width: 95%;
+  
 }
 
 input[type="checkbox"] {
@@ -42,33 +52,34 @@ select {
 
 .RegisterButton {
     
-    padding: .5em 1em;
-    font-size: 1em;
-    color: #ffffff;
-    background-color: #008CBA;
+    font-size: 16px;
+    padding: 10px;
+    margin-top: 15%;
+    margin-bottom: 15%;
+    background-color: #DB5A4F;
+    color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 43px;
     cursor: pointer;
+    text-align: center;
+    width: 50%;
+}
+input[type='range'] {
+	-webkit-appearance: none;
+	height: 5px;
+	background: grey;
+	border-radius: 4px;
+	background-image: linear-gradient(#dbd4f4, #997FC5);
+	background-repeat: no-repeat;
 }
 
-.mood-button {
-    border: none;
-    background: none;
-    cursor: pointer;
-    padding: 10px;
-  }
-  
-  .mood-button.selected {
-    border: 2px solid #00ff48; 
-  }
+input[type='range']::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	height: 10px;
+	width: 10px;
+	border-radius: 50%;
+	background: #FFF8F0;
+	cursor: pointer;
+	box-shadow: 0 0 2px 0 #555;
+}
 
-  .diet-button{
-    border: none;
-    background: none;
-    cursor: pointer;
-    padding: 10px;
-  }
-
-  .diet-button.selected {
-    border: 2px solid #00ff48; 
-  }

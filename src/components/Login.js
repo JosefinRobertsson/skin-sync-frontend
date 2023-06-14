@@ -37,7 +37,6 @@ const Auth = () => {
     <div className="login-page">
       <div className="login-container">
         <Toggle
-          defaultChecked={false}
           icons={false}
           className="my-toggle"
           checked={isLogin}

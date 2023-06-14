@@ -18,6 +18,25 @@ Date.prototype.getWeek = function () {
   return weekNumber;
 };
 
+const formatYAxis = (tickItem) => {
+  if (tickItem === 0) {
+    return '0';
+  }
+  if (tickItem > 0 && tickItem <= 25) {
+    return '25%';
+  }
+  if (tickItem > 20 && tickItem <= 50) {
+    return '50%';
+  }
+  if (tickItem > 40 && tickItem <= 75) {
+    return '75%';
+  }
+  if (tickItem > 60) {
+    return '100%';
+  }
+  return '';
+};
+
 const FilterData = (weekNumber, data) => {
   const filteredData = [];
 
@@ -171,10 +190,10 @@ const StatisticsPage = () => {
               }}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="name" />
-              <YAxis />
+              <YAxis tickFormatter={formatYAxis} />
               <Tooltip />
               <Legend />
-              <Bar dataKey="value" fill="#8884d8" />
+              <Bar dataKey="value" fill="#A996D5" />
             </BarChart>
           </ResponsiveContainer>
 
@@ -192,10 +211,10 @@ const StatisticsPage = () => {
               }}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="name" />
-              <YAxis />
+              <YAxis tickFormatter={formatYAxis} />
               <Tooltip />
               <Legend />
-              <Bar dataKey="value" fill="#8884d8" />
+              <Bar dataKey="value" fill="#997FC5" />
             </BarChart>
           </ResponsiveContainer>
         </>

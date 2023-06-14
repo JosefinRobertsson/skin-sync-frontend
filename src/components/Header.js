@@ -32,9 +32,10 @@ const Header = () => {
       {/* prevent the hamburger menu to show in the loginpage */}
       {(location.pathname !== '/login' && location.pathname !== '/LandingLogo') && (
         <button type="button" className="menu-icon" onClick={toggleMenu}>
-          <Hamburger toggled={isOpen} toggle={setIsOpen} label="Show menu" color="#e3e33f" />
+          <Hamburger toggled={isOpen} toggle={setIsOpen} label="Show menu" />
         </button>
       )}
+
       <ul
         className="menu-items"
         style={{ display: isOpen ? 'block' : 'none' }}>

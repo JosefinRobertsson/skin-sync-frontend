@@ -38,13 +38,15 @@
     width: 50%;
   }
 
-  .my-toggle .react-toggle-track {
-    background-color: #333;
+  .login-page .my-toggle .react-toggle-track {
+    background-color: #FCD2B3; /* Default color for the track */
   }
   
-  .my-toggle .react-toggle-thumb {
-    background-color: #fff;
+  .login-page .my-toggle .react-toggle-thumb {
+    background-color: #DB5A4F !important; 
   }
+  
+
   
 
  .login-page {
