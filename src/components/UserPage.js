@@ -37,24 +37,24 @@ const UserPage = () => {
           )}
         </div>
 
-        <div className="imagesandbuttons">
-          <div>
+        <div>
+          <div className="imagesandbuttons">
 
-            <img src={dailyImage} alt="Daily Report" className="button-image" />
+            <img src={dailyImage} alt="Daily Report" className="button-image1" />
             <DailyLink to="/DailyReport" className="route-button">
             Log day
             </DailyLink>
           </div>
 
-          <div>
-            <img src={shelfImage} alt="Product Shelf" className="button-image" />
+          <div className="imagesandbuttons">
+            <img src={shelfImage} alt="Product Shelf" className="button-image2" />
             <ShelfLink to="/productShelf" className="route-button">
             Product shelf
             </ShelfLink>
           </div>
 
-          <div>
-            <img src={statisticsImage} alt="Statistics" className="button-image" />
+          <div className="imagesandbuttons">
+            <img src={statisticsImage} alt="Statistics" className="button-image3" />
             <StatisticsLink to="/statisticsPage" className="route-button">
             Statistics
             </StatisticsLink>

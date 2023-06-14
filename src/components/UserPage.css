@@ -2,6 +2,9 @@
 .user-page h1 {
   font-size: 30px;
   padding-bottom: 70%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
   
   .UsageTracker h2 {
@@ -26,6 +29,7 @@
   }
 
   .route-button {
+  
     font-size: 18px;
     padding: 10px;
     margin-top: 10px;
@@ -42,21 +46,42 @@
   .imagesandbuttons {
     display: flex;
     flex-direction: column;
-    justify-items: center;
+    align-items: center;
+   
     
   }
 
-  .button-image {
-    width: 23%;
+  .button-image1 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 60px;
+  height: auto;
+    padding-top: 20%;
+    padding-bottom: 10%;
+  }
+  .button-image2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100px;
+  height: auto;
+    padding-top: 20%;
+    padding-bottom: 10%;
+  }
+  .button-image3 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100px;
   height: auto;
     padding-top: 20%;
     padding-bottom: 10%;
   }
   
+
   .user-page {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+   
     height: 200vh;
     background-image: url('../images/Userpageimg.png');
     background-size: cover; 
