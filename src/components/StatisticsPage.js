@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import './StatisticsPage.css'
 
 // Extend Date object to get the week number
 
@@ -173,10 +174,10 @@ const StatisticsPage = () => {
   }, []);
 
   return (
-    <div>
+    <div className="statisticsbody">
       {data.length > 0 ? (
-        <>
-          <h1>Chart 1</h1>
+        <div>
+          <h1>Diet</h1>
           <ResponsiveContainer width="100%" height={300}>
             <BarChart
               width={500}
@@ -197,7 +198,7 @@ const StatisticsPage = () => {
             </BarChart>
           </ResponsiveContainer>
 
-          <h1>Chart 2</h1>
+          <h1>Habits</h1>
           <ResponsiveContainer width="100%" height={300}>
             <BarChart
               width={500}
@@ -217,7 +218,7 @@ const StatisticsPage = () => {
               <Bar dataKey="value" fill="#997FC5" />
             </BarChart>
           </ResponsiveContainer>
-        </>
+        </div>
       ) : (
         <div>Loading...</div>
       )}
