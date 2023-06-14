@@ -1,7 +1,12 @@
 
-.UsageTracker {
-    padding: 20px;
-  }
+.user-page h1 {
+  font-size: 30px;
+  padding-bottom: 60%;
+  padding-top: 35%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
   
   .UsageTracker h2 {
     font-size: 24px;
@@ -23,4 +28,66 @@
     margin-top: 10px;
     font-size: 16px;
   }
+
+  .route-button {
+  
+    font-size: 18px;
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #DB5A4F;
+    color: white;
+    border: none;
+    border-radius: 43px;
+    cursor: pointer;
+    text-align: center;
+    width: 50%;
+    text-decoration: none;
+  }
+
+  .imagesandbuttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+   
+    
+  }
+
+  .button-image1 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 60px;
+  height: auto;
+    padding-top: 20%;
+    padding-bottom: 10%;
+  }
+  .button-image2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100px;
+  height: auto;
+    padding-top: 20%;
+    padding-bottom: 10%;
+  }
+  .button-image3 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100px;
+  height: auto;
+    padding-top: 20%;
+    padding-bottom: 10%;
+  }
+  
+
+  .user-page {
+   
+    height: 200vh;
+    background-image: url('../images/Userpageimg.png');
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    background-position: center;
+  }
+  
   

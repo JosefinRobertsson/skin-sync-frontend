@@ -1,0 +1,13 @@
+.statisticsbody {
+    background-color: #1f101f;
+    padding-bottom: 30%;
+}
+
+.statisticsbody h1 {
+    padding-top: 20%;
+    padding-bottom: 0%;
+     font-size: 32px;
+     letter-spacing: 0.5%;
+     text-align: center;
+     color: #FFF4E9;
+}

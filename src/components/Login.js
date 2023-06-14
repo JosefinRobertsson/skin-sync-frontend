@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Toggle from 'react-toggle';
 import { LoginButton, RegisterButton } from '../styles/StyledButtons';
 import './Login.css';
-import 'react-toggle/style.css';
+import 'react-toggle/style.css'
 
 /* eslint-disable no-console */
 
@@ -37,7 +37,6 @@ const Auth = () => {
     <div className="login-page">
       <div className="login-container">
         <Toggle
-          defaultChecked={false}
           icons={false}
           className="my-toggle"
           checked={isLogin}

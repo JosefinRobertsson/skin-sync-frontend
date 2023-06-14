@@ -5,9 +5,8 @@
 
 import React, { useState } from 'react';
 import './DailyReport.css';
-import Toggle from 'react-toggle';
-import 'react-toggle/style.css';
 import { RegisterButton } from '../styles/StyledButtons';
+import 'react-toggle/style.css'
 
 const DailyReport = () => {
   const [exercised, setExercised] = useState(0);
@@ -79,8 +78,8 @@ const DailyReport = () => {
   };
 
   return (
-    <div>
-      <h1>Daily Report</h1>
+    <div className="dailyreportbody">
+      <h1>Log your Day</h1>
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="waterRange">Water Intake:</label>
@@ -201,15 +200,7 @@ const DailyReport = () => {
           <span>{getLabel(greasyFood, 'greasyFoodRange')}</span>
         </div>
 
-        <div>
-          <label htmlFor="period">Do you have your period today?</label>
-          <Toggle
-            id="period"
-            checked={period}
-            onChange={(e) => setPeriod(e.target.checked)} />
-        </div>
-
-        <RegisterButton className="RegisterButton" type="submit">Submit</RegisterButton>
+        <RegisterButton className="RegisterButton" type="submit">SUBMIT</RegisterButton>
       </form>
     </div>
   );
@@ -220,6 +211,14 @@ export default DailyReport;
 // STRECH GOALS
 
 { /*
+
+  <div>
+          <label htmlFor="period">Do you have your period today?</label>
+          <Toggle
+            id="period"
+            checked={period}
+            onChange={(e) => setPeriod(e.target.checked)} />
+        </div>
 <div>
 <label htmlFor="mood">How was your mood today?</label>
 <div>

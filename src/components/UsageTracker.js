@@ -6,7 +6,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Toggle from 'react-toggle';
-import 'react-toggle/style.css';
 import './UsageTracker.css';
 import Slider from 'react-slick';
 import '../styles/slick.css';
@@ -16,6 +15,7 @@ import { ShelfLink } from '../styles/StyledLinks';
 import cleanserImage from '../images/cleanser.png';
 import moisturizerImage from '../images/moisturizer.png';
 import serumImage from '../images/serum.png';
+import 'react-toggle/style.css'
 import sunscreenImage from '../images/sunscreen.png';
 import otherImage from '../images/other.png';
 import defaultImage from '../images/default.png';

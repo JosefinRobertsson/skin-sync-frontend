@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import './StatisticsPage.css'
 
 // Extend Date object to get the week number
 
@@ -16,6 +17,25 @@ Date.prototype.getWeek = function () {
   const weekNumber = Math.ceil((((date - yearStart) / 86400000) + 1) / 7);
 
   return weekNumber;
+};
+
+const formatYAxis = (tickItem) => {
+  if (tickItem === 0) {
+    return '0';
+  }
+  if (tickItem > 0 && tickItem <= 25) {
+    return '25%';
+  }
+  if (tickItem > 20 && tickItem <= 50) {
+    return '50%';
+  }
+  if (tickItem > 40 && tickItem <= 75) {
+    return '75%';
+  }
+  if (tickItem > 60) {
+    return '100%';
+  }
+  return '';
 };
 
 const FilterData = (weekNumber, data) => {
@@ -154,10 +174,10 @@ const StatisticsPage = () => {
   }, []);
 
   return (
-    <div>
+    <div className="statisticsbody">
       {data.length > 0 ? (
-        <>
-          <h1>Chart 1</h1>
+        <div>
+          <h1>Diet</h1>
           <ResponsiveContainer width="100%" height={300}>
             <BarChart
               width={500}
@@ -171,14 +191,14 @@ const StatisticsPage = () => {
               }}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="name" />
-              <YAxis />
+              <YAxis tickFormatter={formatYAxis} />
               <Tooltip />
               <Legend />
-              <Bar dataKey="value" fill="#8884d8" />
+              <Bar dataKey="value" fill="#A996D5" />
             </BarChart>
           </ResponsiveContainer>
 
-          <h1>Chart 2</h1>
+          <h1>Habits</h1>
           <ResponsiveContainer width="100%" height={300}>
             <BarChart
               width={500}
@@ -192,13 +212,13 @@ const StatisticsPage = () => {
               }}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="name" />
-              <YAxis />
+              <YAxis tickFormatter={formatYAxis} />
               <Tooltip />
               <Legend />
-              <Bar dataKey="value" fill="#8884d8" />
+              <Bar dataKey="value" fill="#997FC5" />
             </BarChart>
           </ResponsiveContainer>
-        </>
+        </div>
       ) : (
         <div>Loading...</div>
       )}

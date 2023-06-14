@@ -3,6 +3,8 @@ import styled from 'styled-components';
 
 const BaseButton = styled.button`
   cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  font-weight:600
 `;
 /*
 const handleConfetti = () => {

@@ -1,0 +1,35 @@
+
+.menu-icon {
+  background-color: transparent; 
+  color:#FFF5E9;
+  border: none; 
+  padding: 0; 
+}
+
+
+/* Add the following styles to round the lines */
+.menu-icon .hamburger-react div {
+  border-radius: 50px; 
+}
+
+/* Hide the box shadow */
+.menu-icon .hamburger-react div span {
+  box-shadow: none;
+}
+
+li {
+list-style: none;
+}
+
+.link-styling {
+  color: #FFF5E9; 
+ 
+}
+
+nav {
+background-color: #DB5A4F;
+padding-bottom: 5px;
+display: flex;
+margin-bottom: -25px;
+}
+
