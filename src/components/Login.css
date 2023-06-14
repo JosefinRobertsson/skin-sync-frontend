@@ -29,6 +29,7 @@
     font-size: 18px;
     padding: 10px;
     margin-top: 10px;
+    margin-bottom: 20px;
     background-color: #DB5A4F;
     color: white;
     border: none;
@@ -46,14 +47,21 @@
     background-color: #DB5A4F !important; 
   }
   
-
+  .my-toggle.react-toggle:hover:not(.react-toggle--disabled) .react-toggle-track {
+    background-color: #FCD2B3;
+  }
+  
+  
+  .my-toggle.react-toggle--checked:hover:not(.react-toggle--disabled) .react-toggle-track {
+    background-color: #FCD2B3;
+  }
   
 
  .login-page {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 110vh;
     background-image: url('../images/Loginimg.png');
     background-size: cover; 
     background-repeat: no-repeat; 

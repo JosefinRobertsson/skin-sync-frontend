@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Toggle from 'react-toggle';
 import { LoginButton, RegisterButton } from '../styles/StyledButtons';
 import './Login.css';
-import 'react-toggle/style.css';
+import 'react-toggle/style.css'
 
 /* eslint-disable no-console */
 

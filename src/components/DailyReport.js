@@ -5,9 +5,8 @@
 
 import React, { useState } from 'react';
 import './DailyReport.css';
-// import Toggle from 'react-toggle';
-import 'react-toggle/style.css';
 import { RegisterButton } from '../styles/StyledButtons';
+import 'react-toggle/style.css'
 
 const DailyReport = () => {
   const [exercised, setExercised] = useState(0);

@@ -2,13 +2,12 @@
   display: flex; /* Add a flex display to align items vertically */
   align-items: center; /* Center align items vertically */
   justify-content: center; /* Center align items horizontally */
-  height: 100vh; /* Cover full height of the view-port */
-  width: 100%; /* Cover full width of the view-port */
 }
 
 .background-image {
+  display: flex;
   width: 100%; /* Set the width to cover the entire container */
-  height: auto; /* Adjust the height to maintain aspect ratio */
+  height: 110vh /* Adjust the height to maintain aspect ratio */
 }
 
 /* Add additional styles for the button */
