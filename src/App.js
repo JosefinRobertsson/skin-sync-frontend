@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   BrowserRouter, Routes, Route
 } from 'react-router-dom';
@@ -13,9 +13,17 @@ import Header from './components/Header';
 import UsageTracker from './components/UsageTracker';
 import NightShelf from './components/NightShelf';
 import LandingLogo from './components/LandingLogo';
+import CalendarComponent from './components/CalendarComponent';
 import ProductStatistics from './components/ProductStatistics';
 
 export const App = () => {
+  const [chosenDate, setChosenDate] = useState(new Date());
+
+  const handleDateChoice = (date) => {
+    setChosenDate(date);
+    console.log('chosenDate:', chosenDate);
+  }
+
   return (
     <BrowserRouter>
       <>
@@ -41,7 +49,8 @@ export const App = () => {
             element={
               <>
                 <UsageTracker />
-                <ProductStatistics />
+                <CalendarComponent onDateChoice={handleDateChoice} />
+                <ProductStatistics chosenDate={chosenDate} />
               </>
             } />
           <Route path="/statisticsPage" element={<StatisticsPage />} />
