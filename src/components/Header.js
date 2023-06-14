@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Spin as Hamburger } from 'hamburger-react';
+import './Header.css';
 
 const Header = () => {
   const navigate = useNavigate();
@@ -30,13 +31,14 @@ const Header = () => {
   return (
     <nav>
       {/* prevent the hamburger menu to show in the loginpage */}
-      {(location.pathname !== '/login' && location.pathname !== '/LandingLogo') && (
+      {(location.pathname !== '/login' && location.pathname !== '/LandingLogo' && location.pathname !== '/') && (
         <button type="button" className="menu-icon" onClick={toggleMenu}>
           <Hamburger
             hideOutline={false}
             toggled={isOpen}
             rounded
             toggle={setIsOpen}
+            size={25}
             label="Show menu" />
         </button>
       )}
@@ -45,29 +47,29 @@ const Header = () => {
         className="menu-items"
         style={{ display: isOpen ? 'block' : 'none' }}>
         <li>
-          <Link to="/userpage" onClick={toggleMenu}>
+          <Link to="/userpage" onClick={toggleMenu} style={{ textDecoration: 'none' }} className="link-styling">
             Home
           </Link>
         </li>
         <li>
-          <Link to="/DailyReport" onClick={toggleMenu}>
+          <Link to="/DailyReport" onClick={toggleMenu} style={{ textDecoration: 'none' }} className="link-styling">
             Log details
           </Link>
         </li>
         <li>
-          <Link to="/productShelf" onClick={toggleMenu}>
+          <Link to="/productShelf" onClick={toggleMenu} style={{ textDecoration: 'none' }} className="link-styling">
             Product shelf
           </Link>
         </li>
         <li>
-          <Link to="/statisticsPage" onClick={toggleMenu}>
+          <Link to="/statisticsPage" onClick={toggleMenu} style={{ textDecoration: 'none' }} className="link-styling">
             Statistics
           </Link>
         </li>
         <li>
-          <button type="button" onClick={handleLogout}>
+          <Link to="/" onClick={handleLogout} style={{ textDecoration: 'none' }} className="link-styling">
             Log out
-          </button>
+          </Link>
         </li>
       </ul>
     </nav>
