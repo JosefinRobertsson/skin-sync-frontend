@@ -4,12 +4,23 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import moment from 'moment';
 import { v4 as uuidv4 } from 'uuid';
+import styled from 'styled-components';
 import cleanserImage from '../images/cleanser.png';
 import moisturizerImage from '../images/moisturizer.png';
 import serumImage from '../images/serum.png';
 import sunscreenImage from '../images/sunscreen.png';
 import otherImage from '../images/other.png';
 import defaultImage from '../images/default.png';
+
+const StyledDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #1f101f;
+  height: 100vh;
+  color: #FFF;
+`;
 
 const getImagePath = (category) => {
   switch (category) {
@@ -150,37 +161,39 @@ const ProductStatistics = ({ chosenDate }) => {
   }
 
   return (
-    <div>
-      {week.map((weekday) => (
-        <div className={weekday.name} key={weekday.number}>
-          {weekday.name} {weekday.formattedDate}
-          <div className={`${weekday.name}Morning`}>
-            {formattedMorningProducts
-              .filter((data) => moment(data.productUsage).isSame(weekday.date, 'day'))
-              .map((data) => (
-                <div
-                  className="morningProductContainer"
-                  key={`${data.productName}-${uuidv4()}`}>
-                  <img src={getImagePath(data.productCategory)} alt={data.productCategory} />
-                  {data.productName}
-                </div>
-              ))}
+    <StyledDiv>
+      <div>
+        {week.map((weekday) => (
+          <div className={weekday.name} key={weekday.number}>
+            {weekday.name} {weekday.formattedDate}
+            <div className={`${weekday.name}Morning`}>
+              {formattedMorningProducts
+                .filter((data) => moment(data.productUsage).isSame(weekday.date, 'day'))
+                .map((data) => (
+                  <div
+                    className="morningProductContainer"
+                    key={`${data.productName}-${uuidv4()}`}>
+                    <img src={getImagePath(data.productCategory)} alt={data.productCategory} />
+                    {data.productName}
+                  </div>
+                ))}
+            </div>
+            <div className={`${weekday.name}Night`}>
+              {formattedNightProducts
+                .filter((data) => moment(data.productUsage).isSame(weekday.date, 'day'))
+                .map((data) => (
+                  <div
+                    className="nightProductContainer"
+                    key={`${data.productName}-${uuidv4()}`}>
+                    <img src={getImagePath(data.productCategory)} alt={data.productCategory} />
+                    {data.productName}
+                  </div>
+                ))}
+            </div>
           </div>
-          <div className={`${weekday.name}Night`}>
-            {formattedNightProducts
-              .filter((data) => moment(data.productUsage).isSame(weekday.date, 'day'))
-              .map((data) => (
-                <div
-                  className="nightProductContainer"
-                  key={`${data.productName}-${uuidv4()}`}>
-                  <img src={getImagePath(data.productCategory)} alt={data.productCategory} />
-                  {data.productName}
-                </div>
-              ))}
-          </div>
-        </div>
-      ))}
-    </div>
+        ))}
+      </div>
+    </StyledDiv>
   );
 };
 
