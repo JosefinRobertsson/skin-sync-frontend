@@ -11,7 +11,7 @@ import '../styles/slick.css';
 import '../styles/slick-theme.css';
 import '../styles/slick-docs.css';
 import ReactSimplyCarousel from 'react-simply-carousel';
-import { Zoom } from 'react-awesome-reveal';
+import { Slide } from 'react-awesome-reveal';
 import { ShelfLink } from '../styles/StyledLinks';
 import cleanserImage from '../images/cleanser.png';
 import moisturizerImage from '../images/moisturizer.png';
@@ -287,12 +287,13 @@ const UsageTracker = () => {
 
   return (
     <div className="usageTrackerWrapper">
-      <Zoom>
-        <h2>Morning Routine</h2>
-      </Zoom>
-      <div>
-        <ShelfLink to="/productShelf">Edit routine</ShelfLink>
-      </div>
+
+      <Slide>
+        <h1 className="usagetitle">Skincare Usage</h1>
+      </Slide>
+
+      <h2>Morning Routine</h2>
+
       <ReactSimplyCarousel
         activeSlideIndex={activeSlideIndex}
         onRequestChange={setActiveSlideIndex}
@@ -334,8 +335,8 @@ const UsageTracker = () => {
         }}
         responsiveProps={[
           {
-            itemsToShow: 5,
-            itemsToScroll: 2,
+            itemsToShow: 1,
+            itemsToScroll: 1,
             minWidth: 768
           }
         ]}
@@ -344,8 +345,10 @@ const UsageTracker = () => {
         {morningProducts.map((product) => (
           <div className="productItem" key={product._id} style={{ width: 140, height: 240, background: '#FFF5E9' }}>
             <img src={getImagePath(product.category)} alt={product.category} />
-            <p>{product.name}</p>
-            <p>{product.brand}</p>
+
+            <div className="productsnameandbrand">
+              <h5>{product.name} : {product.brand}</h5>
+            </div>
             <div>
               <label htmlFor={`toggle-${product._id}`}>
                 Used today:
@@ -365,12 +368,13 @@ const UsageTracker = () => {
           const action = e.target.checked ? 'toggleOn' : 'toggleOff';
           toggleAllUsage(action, 'morning', setMorningProducts);
         }} />
-      <Zoom>
-        <h2>Night Routine</h2>
-      </Zoom>
-      <div>
+
+      <div className="editbutton">
         <ShelfLink to="/productShelf">Edit routine</ShelfLink>
       </div>
+
+      <h2>Night Routine</h2>
+
       <ReactSimplyCarousel
         activeSlideIndex={activeSlideIndexNight}
         onRequestChange={setActiveSlideIndexNight}
@@ -412,8 +416,8 @@ const UsageTracker = () => {
         }}
         responsiveProps={[
           {
-            itemsToShow: 5,
-            itemsToScroll: 2,
+            itemsToShow: 1,
+            itemsToScroll: 1,
             minWidth: 768
           }
         ]}
@@ -422,8 +426,9 @@ const UsageTracker = () => {
         {nightProducts.map((product) => (
           <div className="productItem" key={product._id} style={{ width: 140, height: 240, background: '#FFF5E9' }}>
             <img src={getImagePath(product.category)} alt={product.category} />
-            <p>{product.name}</p>
-            <p>{product.brand}</p>
+            <div className="productsnameandbrand">
+              <h5>{product.name} : {product.brand}</h5>
+            </div>
             <div>
               <label htmlFor={`toggle-${product._id}`}>
                 Used today:
@@ -443,7 +448,9 @@ const UsageTracker = () => {
           const action = e.target.checked ? 'toggleOn' : 'toggleOff';
           toggleAllUsage(action, 'night', setNightProducts);
         }} />
-
+      <div className="editbutton">
+        <ShelfLink to="/productShelf">Edit routine</ShelfLink>
+      </div>
     </div>
   );
 };
