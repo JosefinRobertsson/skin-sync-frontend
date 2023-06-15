@@ -7,6 +7,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import confetti from 'canvas-confetti';
 import { Slide } from 'react-awesome-reveal';
+import ReactSimplyCarousel from 'react-simply-carousel';
 import { AddProductButton, DeleteProductButton } from '../styles/StyledButtons';
 import { UsageLink } from '../styles/StyledLinks';
 import cleanserImage from '../images/cleanser.png';
@@ -15,11 +16,12 @@ import serumImage from '../images/serum.png';
 import sunscreenImage from '../images/sunscreen.png';
 import otherImage from '../images/other.png';
 import defaultImage from '../images/default.png';
-
+/*
 const SingleProductWrapper = styled.div`
   display: flex;
   border: 1px solid black;
   `
+  */
 
 const ProductImage = styled.img`
   width: 80px;
@@ -51,6 +53,7 @@ const MorningShelf = () => {
   const [morningCategory, setMorningCategory] = useState('');
   const [clickCount, setClickCount] = useState(0);
   const buttonRef = useRef(null);
+  const [activeSlideIndex, setActiveSlideIndex] = useState(0);
 
   // Gets the categories for the dropdown menu
   useEffect(() => {
@@ -238,9 +241,56 @@ const MorningShelf = () => {
       </Slide>
       <UsageLink to="/productShelf/logUsage">Log my products usage</UsageLink>
       <h2>Morning Shelf</h2>
-      <SingleProductWrapper>
+      <ReactSimplyCarousel
+        activeSlideIndex={activeSlideIndex}
+        onRequestChange={setActiveSlideIndex}
+        itemsToShow={1}
+        itemsToScroll={1}
+        forwardBtnProps={{
+        // here you can also pass className, or any other button element attributes
+          style: {
+            alignSelf: 'center',
+            background: 'black',
+            border: 'none',
+            borderRadius: '50%',
+            color: 'white',
+            cursor: 'pointer',
+            fontSize: '20px',
+            height: 30,
+            lineHeight: 1,
+            textAlign: 'center',
+            width: 30
+          },
+          children: <span>{'>'}</span>
+        }}
+        backwardBtnProps={{
+        // here you can also pass className, or any other button element attributes
+          style: {
+            alignSelf: 'center',
+            background: 'black',
+            border: 'none',
+            borderRadius: '50%',
+            color: 'white',
+            cursor: 'pointer',
+            fontSize: '20px',
+            height: 30,
+            lineHeight: 1,
+            textAlign: 'center',
+            width: 30
+          },
+          children: <span>{'<'}</span>
+        }}
+        responsiveProps={[
+          {
+            itemsToShow: 3,
+            itemsToScroll: 1,
+            minWidth: 768
+          }
+        ]}
+        speed={400}
+        easing="linear">
         {morningProducts.map((product) => (
-          <div key={product._id}>
+          <div key={product._id} style={{ width: 200, height: 200, background: '#FFF5E9' }}>
             <ProductImage
               src={getImagePath(product.category)}
               alt={product.category}
@@ -251,7 +301,8 @@ const MorningShelf = () => {
 
           </div>
         ))}
-      </SingleProductWrapper>
+      </ReactSimplyCarousel>
+
       <form onSubmit={handleSubmitMorningRoutine}>
         <fieldset><legend>{morningEditing ? 'Edit' : 'Add to '} Morning shelf</legend>
           <div>

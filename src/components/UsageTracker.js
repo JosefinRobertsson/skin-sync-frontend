@@ -11,6 +11,7 @@ import Slider from 'react-slick';
 import '../styles/slick.css';
 import '../styles/slick-theme.css';
 import '../styles/slick-docs.css';
+import ReactSimplyCarousel from 'react-simply-carousel';
 import { Zoom } from 'react-awesome-reveal';
 import { ShelfLink } from '../styles/StyledLinks';
 import cleanserImage from '../images/cleanser.png';
@@ -56,6 +57,7 @@ const UsageTracker = () => {
   const [morningProducts, setMorningProducts] = useState([]);
   const [nightProducts, setNightProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [activeSlideIndex, setActiveSlideIndex] = useState(0);
   const [error, setError] = useState('');
   // const [lastVisited, setLastVisited] = useState(null);
   axios.defaults.baseURL = 'http://localhost:8080';
@@ -304,9 +306,56 @@ const UsageTracker = () => {
       <div>
         <ShelfLink to="/productShelf">Edit routine</ShelfLink>
       </div>
-      <Slider {...settings}>
+      <ReactSimplyCarousel
+        activeSlideIndex={activeSlideIndex}
+        onRequestChange={setActiveSlideIndex}
+        itemsToShow={4}
+        itemsToScroll={1}
+        forwardBtnProps={{
+        // here you can also pass className, or any other button element attributes
+          style: {
+            alignSelf: 'center',
+            background: 'black',
+            border: 'none',
+            borderRadius: '50%',
+            color: 'white',
+            cursor: 'pointer',
+            fontSize: '20px',
+            height: 30,
+            lineHeight: 1,
+            textAlign: 'center',
+            width: 30
+          },
+          children: <span>{'>'}</span>
+        }}
+        backwardBtnProps={{
+        // here you can also pass className, or any other button element attributes
+          style: {
+            alignSelf: 'center',
+            background: 'black',
+            border: 'none',
+            borderRadius: '50%',
+            color: 'white',
+            cursor: 'pointer',
+            fontSize: '20px',
+            height: 30,
+            lineHeight: 1,
+            textAlign: 'center',
+            width: 30
+          },
+          children: <span>{'<'}</span>
+        }}
+        responsiveProps={[
+          {
+            itemsToShow: 5,
+            itemsToScroll: 2,
+            minWidth: 768
+          }
+        ]}
+        speed={400}
+        easing="linear">
         {morningProducts.map((product) => (
-          <div className="productItem" key={product._id}>
+          <div className="productItem" key={product._id} style={{ width: 140, height: 240, background: '#FFF5E9' }}>
             <img src={getImagePath(product.category)} alt={product.category} />
             <p>{product.name}</p>
             <p>{product.brand}</p>
@@ -321,7 +370,7 @@ const UsageTracker = () => {
             </div>
           </div>
         ))}
-      </Slider>
+      </ReactSimplyCarousel>
       <Toggle
         id="toggle-all-morning"
         checked={morningProducts.every((product) => product.usedToday)}

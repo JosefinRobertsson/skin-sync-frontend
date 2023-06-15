@@ -1,6 +1,7 @@
 /* eslint-disable no-shadow */
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Zoom } from 'react-awesome-reveal';
 import { DailyLink, ShelfLink, StatisticsLink } from '../styles/StyledLinks';
 import './UserPage.css';
 import dailyImage from '../images/dailyImage.png';
@@ -33,7 +34,9 @@ const UserPage = () => {
     <div className="user-page">
       <div>
         <div>
-          <h1>Welcome Back!</h1>
+          <Zoom>
+            <h1>Welcome Back!</h1>
+          </Zoom>
           {uvIndex !== null && (
             <p>
               The UV index is: {uvIndex}
