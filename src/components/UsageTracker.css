@@ -1,4 +1,6 @@
 
+
+
 .productItem > img ~ p {
 font-size: 4em;
 color: red;
@@ -9,3 +11,10 @@ color: red;
     height: 80px;
 }
 
+.usageTrackerWrapper {
+    height: 200vh;
+    background-image: url('../images/backgroundUsage.png');
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    background-position: center;
+}

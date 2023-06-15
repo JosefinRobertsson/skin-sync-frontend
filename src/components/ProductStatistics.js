@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import moment from 'moment';
+import ReactSimplyCarousel from 'react-simply-carousel';
 import { v4 as uuidv4 } from 'uuid';
 import cleanserImage from '../images/cleanser.png';
 import moisturizerImage from '../images/moisturizer.png';
@@ -29,17 +30,21 @@ const getImagePath = (category) => {
 };
 
 const ProductStatistics = ({ chosenDate }) => {
-  const [products, setProducts] = useState([]);
+  const [morningProducts, setMorningProducts] = useState([]);
+  const [nightProducts, setNightProducts] = useState([]);
+  // eslint-disable-next-line no-unused-vars
   const [loading, setLoading] = useState(false);
   const [formattedMorningProducts, setformattedMorningProducts] = useState([]);
   const [formattedNightProducts, setFormattedNightProducts] = useState([]);
+  const [activeSlideIndex, setActiveSlideIndex] = useState(0);
+  const [activeSlideIndexNight, setActiveSlideIndexNight] = useState(0);
+  axios.defaults.baseURL = 'http://localhost:8080';
 
-  // a fetch from both shelves to get the products
   useEffect(() => {
     const fetchSkincareProducts = async () => {
-      setLoading(true);
-      let morningResponse;
-      let nightResponse;
+      console.log('fetching skincare products...');
+      console.log('chosenDate:', chosenDate);
+      // setLoading(true);
 
       try {
         const accessToken = localStorage.getItem('accessToken');
@@ -52,25 +57,25 @@ const ProductStatistics = ({ chosenDate }) => {
             Authorization: accessToken
           }
         };
-        morningResponse = await axios.get('/productShelf/morning', config);
-        nightResponse = await axios.get('/productShelf/night', config);
+        const morningResponse = await axios.get('/productShelf/morning', config);
+        console.log('morningResponse:', morningResponse);
+        const nightResponse = await axios.get('/productShelf/night', config);
         if (!morningResponse.data.success || !nightResponse.data.success) {
           throw new Error('Failed to fetch skincare products');
         }
-      } catch (error) {
-        console.error('An error occurred:', error);
+
+        const morningProductsArray = morningResponse.data.response;
+        const nightProductsArray = nightResponse.data.response;
+
+        setMorningProducts(morningProductsArray);
+        setNightProducts(nightProductsArray);
+        setLoading(false);
+      } catch (e) {
+        console.error(e);
       }
-      const mergedProducts = [...morningResponse.data.response, ...nightResponse.data.response];
-
-      setProducts(mergedProducts);
-      setLoading(false);
     };
-
-    if (loading) {
-      return <p>Loading statistics, please wait...</p>;
-    }
     fetchSkincareProducts();
-  }, []);
+  }, [chosenDate]);
 
   // get the week number and day of week from a usageDate in correct format
   const getWeekAndDay = (date) => {
@@ -85,10 +90,9 @@ const ProductStatistics = ({ chosenDate }) => {
       const weekMorningData = [];
       const weekNightData = [];
 
-      products.forEach((product) => {
+      morningProducts.forEach((product) => {
         product.usageHistory.forEach((usageDate) => {
           const { weekNumber, dayOfWeek } = getWeekAndDay(usageDate);
-          // console.log('weekNumber:', weekNumber);
 
           const formattedProduct = {
             weekNumber,
@@ -101,18 +105,35 @@ const ProductStatistics = ({ chosenDate }) => {
             productUsage: usageDate
           };
 
-          if (product.routine === 'morning') {
-            weekMorningData.push(formattedProduct);
-          } else if (product.routine === 'night') {
-            weekNightData.push(formattedProduct);
-          }
+          weekMorningData.push(formattedProduct);
         });
       });
+
+      nightProducts.forEach((product) => {
+        product.usageHistory.forEach((usageDate) => {
+          const { weekNumber, dayOfWeek } = getWeekAndDay(usageDate);
+
+          const formattedProduct = {
+            weekNumber,
+            dayOfWeek,
+            productId: product._id,
+            productName: product.name,
+            productBrand: product.brand,
+            productCategory: product.category,
+            productRoutine: product.routine,
+            productUsage: usageDate
+          };
+
+          weekNightData.push(formattedProduct);
+        });
+      });
+
       setformattedMorningProducts(weekMorningData);
       setFormattedNightProducts(weekNightData);
     };
+
     formatProducts();
-  }, [products]);
+  }, [morningProducts, nightProducts]);
 
   const currentDate = moment(chosenDate);
   const week = [];
@@ -148,30 +169,129 @@ const ProductStatistics = ({ chosenDate }) => {
       {week.map((weekday) => (
         <div className={weekday.name} key={weekday.number}>
           {weekday.name} {weekday.formattedDate}
-          <div className={`${weekday.name}Morning`}>
-            {formattedMorningProducts
-              .filter((data) => moment(data.productUsage).isSame(weekday.date, 'day'))
-              .map((data) => (
-                <div
-                  className="morningProductContainer"
-                  key={`${data.productName}-${uuidv4()}`}>
-                  <img src={getImagePath(data.productCategory)} alt={data.productCategory} />
-                  {data.productName}
-                </div>
-              ))}
-          </div>
-          <div className={`${weekday.name}Night`}>
-            {formattedNightProducts
-              .filter((data) => moment(data.productUsage).isSame(weekday.date, 'day'))
-              .map((data) => (
-                <div
-                  className="nightProductContainer"
-                  key={`${data.productName}-${uuidv4()}`}>
-                  <img src={getImagePath(data.productCategory)} alt={data.productCategory} />
-                  {data.productName}
-                </div>
-              ))}
-          </div>
+          <ReactSimplyCarousel
+            activeSlideIndex={activeSlideIndex}
+            onRequestChange={setActiveSlideIndex}
+            itemsToShow={4}
+            itemsToScroll={1}
+            forwardBtnProps={{
+              // here you can also pass className, or any other button element attributes
+              style: {
+                alignSelf: 'center',
+                background: 'black',
+                border: 'none',
+                borderRadius: '50%',
+                color: 'white',
+                cursor: 'pointer',
+                fontSize: '20px',
+                height: 30,
+                lineHeight: 1,
+                textAlign: 'center',
+                width: 30
+              },
+              children: <span>{'>'}</span>
+            }}
+            backwardBtnProps={{
+              // here you can also pass className, or any other button element attributes
+              style: {
+                alignSelf: 'center',
+                background: 'black',
+                border: 'none',
+                borderRadius: '50%',
+                color: 'white',
+                cursor: 'pointer',
+                fontSize: '20px',
+                height: 30,
+                lineHeight: 1,
+                textAlign: 'center',
+                width: 30
+              },
+              children: <span>{'<'}</span>
+            }}
+            responsiveProps={[
+              {
+                itemsToShow: 5,
+                itemsToScroll: 2,
+                minWidth: 768
+              }
+            ]}
+            speed={400}
+            easing="linear">
+            <div className={`${weekday.name}Morning`}>
+              {formattedMorningProducts
+                .filter((data) => moment(data.productUsage).isSame(weekday.date, 'day'))
+                .map((data) => (
+                  <div
+                    className="morningProductContainer"
+                    key={`${data.productName}-${uuidv4()}`}>
+                    <img src={getImagePath(data.productCategory)} alt={data.productCategory} />
+                    {data.productName}
+                  </div>
+                ))}
+            </div>
+          </ReactSimplyCarousel>
+
+          <ReactSimplyCarousel
+            activeSlideIndex={activeSlideIndexNight}
+            onRequestChange={setActiveSlideIndexNight}
+            itemsToShow={4}
+            itemsToScroll={1}
+            forwardBtnProps={{
+              // here you can also pass className, or any other button element attributes
+              style: {
+                alignSelf: 'center',
+                background: 'black',
+                border: 'none',
+                borderRadius: '50%',
+                color: 'white',
+                cursor: 'pointer',
+                fontSize: '20px',
+                height: 30,
+                lineHeight: 1,
+                textAlign: 'center',
+                width: 30
+              },
+              children: <span>{'>'}</span>
+            }}
+            backwardBtnProps={{
+              // here you can also pass className, or any other button element attributes
+              style: {
+                alignSelf: 'center',
+                background: 'black',
+                border: 'none',
+                borderRadius: '50%',
+                color: 'white',
+                cursor: 'pointer',
+                fontSize: '20px',
+                height: 30,
+                lineHeight: 1,
+                textAlign: 'center',
+                width: 30
+              },
+              children: <span>{'<'}</span>
+            }}
+            responsiveProps={[
+              {
+                itemsToShow: 5,
+                itemsToScroll: 2,
+                minWidth: 768
+              }
+            ]}
+            speed={400}
+            easing="linear">
+            <div className={`${weekday.name}Night`}>
+              {formattedNightProducts
+                .filter((data) => moment(data.productUsage).isSame(weekday.date, 'day'))
+                .map((data) => (
+                  <div
+                    className="nightProductContainer"
+                    key={`${data.productName}-${uuidv4()}`}>
+                    <img src={getImagePath(data.productCategory)} alt={data.productCategory} />
+                    {data.productName}
+                  </div>
+                ))}
+            </div>
+          </ReactSimplyCarousel>
         </div>
       ))}
     </div>

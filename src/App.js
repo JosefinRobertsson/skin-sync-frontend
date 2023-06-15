@@ -79,3 +79,8 @@ export const App = () => {
 }
 
 export default App;
+
+/*
+  <Route path="/productStatistics"
+  element={<ProductStats handleDateChoice={handleDateChoice} chosenDate={chosenDate} />} />
+  */

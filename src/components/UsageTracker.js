@@ -50,6 +50,7 @@ const UsageTracker = () => {
 
   useEffect(() => {
     const fetchSkincareProducts = async () => {
+      console.log('UsageTracker');
       try {
         const accessToken = localStorage.getItem('accessToken');
         if (!accessToken) {
@@ -285,7 +286,7 @@ const UsageTracker = () => {
   }
 
   return (
-    <div className="UsageTracker">
+    <div className="usageTrackerWrapper">
       <Zoom>
         <h2>Morning Routine</h2>
       </Zoom>
