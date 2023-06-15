@@ -36,8 +36,6 @@ const ProductStatistics = ({ chosenDate }) => {
   const [loading, setLoading] = useState(false);
   const [formattedMorningProducts, setformattedMorningProducts] = useState([]);
   const [formattedNightProducts, setFormattedNightProducts] = useState([]);
-  const [isExpanded, setIsExpanded] = useState(false);
-  const [isExpandedNight, setIsExpandedNight] = useState(false);
   axios.defaults.baseURL = 'http://localhost:8080';
 
   useEffect(() => {
@@ -152,14 +150,6 @@ const ProductStatistics = ({ chosenDate }) => {
     });
   }
 
-  const toggleMorningProduct = () => {
-    setIsExpanded(!isExpanded);
-  };
-
-  const toggleNightProduct = () => {
-    setIsExpandedNight(!isExpandedNight);
-  };
-
   return (
     <div className="productsWrapper">
       {week.map((weekday) => (
@@ -170,20 +160,11 @@ const ProductStatistics = ({ chosenDate }) => {
               .filter((data) => moment(data.productUsage).isSame(weekday.date, 'day'))
               .map((data) => (
                 <div
-                  className={`morningProductContainer ${isExpanded ? 'is-expanded' : ''}`}
-                  onClick={toggleMorningProduct}
-                  onKeyDown={(event) => {
-                    if (event.key === 'Enter') {
-                      toggleNightProduct();
-                    }
-                  }}
-                  role="button"
-                  tabIndex={0}
+                  className="morningProductContainer"
                   key={`${data.productName}-${uuidv4()}`}>
                   <img src={getImagePath(data.productCategory)} alt={data.productCategory} />
                   {data.productName}
                 </div>
-
               ))}
           </div>
           <div className={`${weekday.name}Night allNights`}>
@@ -191,20 +172,11 @@ const ProductStatistics = ({ chosenDate }) => {
               .filter((data) => moment(data.productUsage).isSame(weekday.date, 'day'))
               .map((data) => (
                 <div
-                  className={`nightProductContainer ${isExpandedNight ? 'is-expanded' : ''}`}
-                  onClick={toggleNightProduct}
-                  onKeyDown={(event) => {
-                    if (event.key === 'Enter') {
-                      toggleNightProduct();
-                    }
-                  }}
-                  role="button"
-                  tabIndex={0}
+                  className="nightProductContainer"
                   key={`${data.productName}-${uuidv4()}`}>
                   <img src={getImagePath(data.productCategory)} alt={data.productCategory} />
                   {data.productName}
                 </div>
-
               ))}
           </div>
         </div>
