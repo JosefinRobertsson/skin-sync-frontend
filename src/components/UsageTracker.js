@@ -11,6 +11,7 @@ import Slider from 'react-slick';
 import '../styles/slick.css';
 import '../styles/slick-theme.css';
 import '../styles/slick-docs.css';
+import { Zoom } from 'react-awesome-reveal';
 import { ShelfLink } from '../styles/StyledLinks';
 import cleanserImage from '../images/cleanser.png';
 import moisturizerImage from '../images/moisturizer.png';
@@ -297,7 +298,9 @@ const UsageTracker = () => {
 
   return (
     <div className="UsageTracker">
-      <h2>Morning Routine</h2>
+      <Zoom>
+        <h2>Morning Routine</h2>
+      </Zoom>
       <div>
         <ShelfLink to="/productShelf">Edit routine</ShelfLink>
       </div>
@@ -326,8 +329,9 @@ const UsageTracker = () => {
           const action = e.target.checked ? 'toggleOn' : 'toggleOff';
           toggleAllUsage(action, 'morning', setMorningProducts);
         }} />
-
-      <h2>Night Routine</h2>
+      <Zoom>
+        <h2>Night Routine</h2>
+      </Zoom>
       <div>
         <ShelfLink to="/productShelf">Edit routine</ShelfLink>
       </div>

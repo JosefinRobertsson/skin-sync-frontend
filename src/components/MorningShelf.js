@@ -6,6 +6,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import confetti from 'canvas-confetti';
+import { Slide } from 'react-awesome-reveal';
 import { AddProductButton, DeleteProductButton } from '../styles/StyledButtons';
 import { UsageLink } from '../styles/StyledLinks';
 import cleanserImage from '../images/cleanser.png';
@@ -232,7 +233,9 @@ const MorningShelf = () => {
 
   return (
     <div>
-      <h1>Product Shelves</h1>
+      <Slide>
+        <h1>Product Shelves</h1>
+      </Slide>
       <UsageLink to="/productShelf/logUsage">Log my products usage</UsageLink>
       <h2>Morning Shelf</h2>
       <SingleProductWrapper>
