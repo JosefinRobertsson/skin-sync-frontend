@@ -7,7 +7,7 @@
 .background-image {
   display: flex;
   width: 100%; /* Set the width to cover the entire container */
-  height: 110vh /* Adjust the height to maintain aspect ratio */
+  height: 100vh /* Adjust the height to maintain aspect ratio */
 }
 
 /* Add additional styles for the button */

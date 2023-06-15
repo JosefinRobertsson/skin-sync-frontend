@@ -293,7 +293,7 @@ const MorningShelf = () => {
           speed={400}
           easing="linear">
           {morningProducts.map((product) => (
-            <div key={product._id} style={{ width: 200, height: 200, background: '#FFF5E9' }}>
+            <div className="carousel-item" key={product._id} style={{ width: 200, height: 200, background: '#FFF5E9' }}>
               <ProductImage
                 src={getImagePath(product.category)}
                 alt={product.category}

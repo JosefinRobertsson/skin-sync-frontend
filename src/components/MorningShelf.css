@@ -1,5 +1,6 @@
 .bodyshelves{
     background-color: #FFF5E9;
+    height: 180vh;
 }
 
 .logusagebutton {
@@ -70,5 +71,38 @@ text-decoration: none
     align-items: center;
     padding-top: 20px;
     height: 250px;
+    margin: 0 auto; 
 }
+
+.shelvestitle {
+    margin: 0 auto; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+    color: #997FC5
+    
+}
+
+.bodyshelves h2 {
+    margin: 0 auto; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 80px;
+    font-weight: 500;
+  }
   
+.carousel-item {
+    width: 200px;
+    height: 150px;
+    background: #FFF5E9;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center;
+
+}
