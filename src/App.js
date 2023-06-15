@@ -8,7 +8,6 @@ import DailyReport from './components/DailyReport';
 import MorningShelf from './components/MorningShelf';
 import UserPage from './components/UserPage';
 import StatisticsPage from './components/StatisticsPage';
-import OpenPage from './components/OpenPage';
 import Logout from './components/Logout';
 import Header from './components/Header';
 import UsageTracker from './components/UsageTracker';
@@ -44,8 +43,7 @@ export const App = () => {
         <Header />
 
         <Routes>
-          <Route path="/" element={<OpenPage />} />
-          <Route path="/LandingLogo" element={<LandingLogo />} />
+          <Route path="/" element={<LandingLogo />} />
           <Route path="/Login" element={<Login />} />
           <Route path="/userpage" element={<UserPage />} />
           <Route path="/Register" element={<Register />} />
