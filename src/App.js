@@ -38,43 +38,44 @@ export const App = () => {
   }
 
   return (
-    <BrowserRouter>
-      <>
-        <Header />
+    <div className="allWrapper">
+      <BrowserRouter>
+        <>
+          <Header />
+          <Routes>
+            <Route path="/" element={<LandingLogo />} />
+            <Route path="/Login" element={<Login />} />
+            <Route path="/userpage" element={<UserPage />} />
+            <Route path="/Register" element={<Register />} />
+            <Route path="/DailyReport" element={<DailyReport />} />
+            <Route
+              path="/productShelf"
+              element={
+                <>
+                  <MorningShelf />
+                  <NightShelf />
+                </>
+              } />
+            <Route
+              path="/productShelf/logUsage"
+              element={
+                <UsageTracker />
+              } />
+            <Route
+              path="/statisticsPage"
+              element={
+                <>
+                  <StatisticsPage />
+                  <CalendarComponent onDateChoice={handleDateChoice} />
+                  <ProductStatistics chosenDate={chosenDate} />
+                </>
+              } />
+            <Route path="/logout" element={<Logout />} />
 
-        <Routes>
-          <Route path="/" element={<LandingLogo />} />
-          <Route path="/Login" element={<Login />} />
-          <Route path="/userpage" element={<UserPage />} />
-          <Route path="/Register" element={<Register />} />
-          <Route path="/DailyReport" element={<DailyReport />} />
-          <Route
-            path="/productShelf"
-            element={
-              <>
-                <MorningShelf />
-                <NightShelf />
-              </>
-            } />
-          <Route
-            path="/productShelf/logUsage"
-            element={
-              <UsageTracker />
-            } />
-          <Route
-            path="/statisticsPage"
-            element={
-              <>
-                <StatisticsPage />
-                <CalendarComponent onDateChoice={handleDateChoice} />
-                <ProductStatistics chosenDate={chosenDate} />
-              </>
-            } />
-          <Route path="/logout" element={<Logout />} />
-
-        </Routes>
-      </>
-    </BrowserRouter>
+          </Routes>
+        </>
+      </BrowserRouter>
+    </div>
   );
 }
 
