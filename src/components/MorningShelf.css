@@ -1,6 +1,6 @@
 .bodyshelves{
     background-color:#FFF5E9 ;
-    height: 180vh;
+    height: 200vh;
 }
 
 .logusagebutton {
@@ -104,7 +104,6 @@ text-decoration: none
     flex-direction: column;
     justify-content: center; 
     align-items: center;
-
 }
 
 .productsnameandbrand {
