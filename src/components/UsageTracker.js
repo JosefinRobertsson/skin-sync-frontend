@@ -297,7 +297,7 @@ const UsageTracker = () => {
       <ReactSimplyCarousel
         activeSlideIndex={activeSlideIndex}
         onRequestChange={setActiveSlideIndex}
-        itemsToShow={4}
+        itemsToShow={1}
         itemsToScroll={1}
         forwardBtnProps={{
         // here you can also pass className, or any other button element attributes
@@ -361,13 +361,16 @@ const UsageTracker = () => {
           </div>
         ))}
       </ReactSimplyCarousel>
-      <Toggle
-        id="toggle-all-morning"
-        checked={morningProducts.every((product) => product.usedToday)}
-        onChange={(e) => {
-          const action = e.target.checked ? 'toggleOn' : 'toggleOff';
-          toggleAllUsage(action, 'morning', setMorningProducts);
-        }} />
+      <div className="Selectall">
+        <h5> Select all</h5>
+        <Toggle
+          id="toggle-all-night"
+          checked={nightProducts.every((product) => product.usedToday)}
+          onChange={(e) => {
+            const action = e.target.checked ? 'toggleOn' : 'toggleOff';
+            toggleAllUsage(action, 'night', setNightProducts);
+          }} />
+      </div>
 
       <div className="editbutton">
         <ShelfLink to="/productShelf">Edit routine</ShelfLink>
@@ -378,7 +381,7 @@ const UsageTracker = () => {
       <ReactSimplyCarousel
         activeSlideIndex={activeSlideIndexNight}
         onRequestChange={setActiveSlideIndexNight}
-        itemsToShow={4}
+        itemsToShow={1}
         itemsToScroll={1}
         forwardBtnProps={{
         // here you can also pass className, or any other button element attributes
@@ -441,13 +444,16 @@ const UsageTracker = () => {
           </div>
         ))}
       </ReactSimplyCarousel>
-      <Toggle
-        id="toggle-all-night"
-        checked={nightProducts.every((product) => product.usedToday)}
-        onChange={(e) => {
-          const action = e.target.checked ? 'toggleOn' : 'toggleOff';
-          toggleAllUsage(action, 'night', setNightProducts);
-        }} />
+      <div className="Selectall">
+        <h5> Select all</h5>
+        <Toggle
+          id="toggle-all-night"
+          checked={nightProducts.every((product) => product.usedToday)}
+          onChange={(e) => {
+            const action = e.target.checked ? 'toggleOn' : 'toggleOff';
+            toggleAllUsage(action, 'night', setNightProducts);
+          }} />
+      </div>
       <div className="editbutton">
         <ShelfLink to="/productShelf">Edit routine</ShelfLink>
       </div>

@@ -1,10 +1,6 @@
 
 
 
-.productItem > img ~ p {
-font-size: 4em;
-color: red;
-}
 
 .productItem img {
     justify-self: center;
@@ -12,7 +8,7 @@ color: red;
 }
 
 .usageTrackerWrapper {
-    height: 220vh;
+    height: 250vh;
     background-image: url('../images/backgroundUsage.png');
     background-size: cover; 
     background-repeat: no-repeat; 
@@ -26,6 +22,7 @@ color: red;
     align-items: center;
     padding: 80px;
     font-weight: 500;
+    color: #FFF5E9;
 }
 
 .usagetitle{
@@ -47,7 +44,42 @@ color: red;
     border: none;
     border-radius: 43px;
     cursor: pointer;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    margin: 0 auto;
+    flex-direction: column;
+
     text-align: center;
     width: 70%;
     text-decoration: none;
     }
+
+    .productItem {
+    width: 350px;
+    height: auto;
+    background: #FFF5E9;
+    border-radius: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center;
+    margin: 0 auto;
+}
+
+.Selectall h5{
+   
+    font-weight: 500;
+    color: #FFF5E9;
+    font-size: 16px;
+    padding-right: 20px ;
+}
+
+.Selectall{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+   
+}
+
