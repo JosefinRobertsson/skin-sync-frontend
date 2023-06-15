@@ -16,6 +16,7 @@ import serumImage from '../images/serum.png';
 import sunscreenImage from '../images/sunscreen.png';
 import otherImage from '../images/other.png';
 import defaultImage from '../images/default.png';
+import './MorningShelf.css'
 /*
 const SingleProductWrapper = styled.div`
   display: flex;
@@ -235,130 +236,135 @@ const MorningShelf = () => {
   };
 
   return (
-    <div>
-      <Slide>
-        <h1>Product Shelves</h1>
-      </Slide>
-      <UsageLink to="/productShelf/logUsage">Log my products usage</UsageLink>
-      <h2>Morning Shelf</h2>
-      <ReactSimplyCarousel
-        activeSlideIndex={activeSlideIndex}
-        onRequestChange={setActiveSlideIndex}
-        itemsToShow={1}
-        itemsToScroll={1}
-        forwardBtnProps={{
-        // here you can also pass className, or any other button element attributes
-          style: {
-            alignSelf: 'center',
-            background: 'black',
-            border: 'none',
-            borderRadius: '50%',
-            color: 'white',
-            cursor: 'pointer',
-            fontSize: '20px',
-            height: 30,
-            lineHeight: 1,
-            textAlign: 'center',
-            width: 30
-          },
-          children: <span>{'>'}</span>
-        }}
-        backwardBtnProps={{
-        // here you can also pass className, or any other button element attributes
-          style: {
-            alignSelf: 'center',
-            background: 'black',
-            border: 'none',
-            borderRadius: '50%',
-            color: 'white',
-            cursor: 'pointer',
-            fontSize: '20px',
-            height: 30,
-            lineHeight: 1,
-            textAlign: 'center',
-            width: 30
-          },
-          children: <span>{'<'}</span>
-        }}
-        responsiveProps={[
-          {
-            itemsToShow: 3,
-            itemsToScroll: 1,
-            minWidth: 768
-          }
-        ]}
-        speed={400}
-        easing="linear">
-        {morningProducts.map((product) => (
-          <div key={product._id} style={{ width: 200, height: 200, background: '#FFF5E9' }}>
-            <ProductImage
-              src={getImagePath(product.category)}
-              alt={product.category}
-              onClick={() => handleMorningEdit(product._id)} />
+    <div className="bodyshelves">
+      <div>
+        <Slide>
+          <h1>Product Shelves</h1>
+        </Slide>
+        <h2>Morning Shelf</h2>
+        <ReactSimplyCarousel
+          activeSlideIndex={activeSlideIndex}
+          onRequestChange={setActiveSlideIndex}
+          itemsToShow={1}
+          itemsToScroll={1}
+          forwardBtnProps={{
+            // here you can also pass className, or any other button element attributes
+            style: {
+              alignSelf: 'center',
+              background: 'black',
+              border: 'none',
+              borderRadius: '50%',
+              color: 'white',
+              cursor: 'pointer',
+              fontSize: '20px',
+              height: 30,
+              lineHeight: 1,
+              textAlign: 'center',
+              width: 30
+            },
+            children: <span>{'>'}</span>
+          }}
+          backwardBtnProps={{
+            // here you can also pass className, or any other button element attributes
+            style: {
+              alignSelf: 'center',
+              background: 'black',
+              border: 'none',
+              borderRadius: '50%',
+              color: 'white',
+              cursor: 'pointer',
+              fontSize: '20px',
+              height: 30,
+              lineHeight: 1,
+              textAlign: 'center',
+              width: 30
+            },
+            children: <span>{'<'}</span>
+          }}
+          responsiveProps={[
+            {
+              itemsToShow: 3,
+              itemsToScroll: 1,
+              minWidth: 768
+            }
+          ]}
+          speed={400}
+          easing="linear">
+          {morningProducts.map((product) => (
+            <div key={product._id} style={{ width: 200, height: 200, background: '#FFF5E9' }}>
+              <ProductImage
+                src={getImagePath(product.category)}
+                alt={product.category}
+                onClick={() => handleMorningEdit(product._id)} />
 
-            <h5> {product.name} </h5>
-            <h6> {product.brand} </h6>
+              <h5> {product.name} </h5>
+              <h6> {product.brand} </h6>
 
-          </div>
-        ))}
-      </ReactSimplyCarousel>
+            </div>
+          ))}
+        </ReactSimplyCarousel>
 
-      <form onSubmit={handleSubmitMorningRoutine}>
-        <fieldset><legend>{morningEditing ? 'Edit' : 'Add to '} Morning shelf</legend>
-          <div>
-            <label htmlFor="morningName">Name:</label>
-            <input
-              type="text"
-              placeholder="product name"
-              id="morningName"
-              value={morningName}
-              onChange={(e) => setMorningName(e.target.value)}
-              required />
-          </div>
-          <div>
-            <label htmlFor="morningBrand">Brand:</label>
-            <input
-              type="text"
-              placeholder="brand name"
-              id="morningBrand"
-              value={morningBrand}
-              onChange={(e) => setMorningBrand(e.target.value)} />
-          </div>
-          <div>
-            <label htmlFor="morningCategory">Category:</label>
-            <select
-              id="morningCategory"
-              value={morningCategory}
-              onChange={(e) => setMorningCategory(e.target.value)}
-              required>
-              <option value="">Select a category</option>
-              {categories.map((category) => (
-                <option key={category} value={category}>
-                  {category}
-                </option>
-              ))}
-            </select>
-          </div>
-          <AddProductButton
-            type="submit"
-            onClick={(event) => {
-              if (morningName && morningCategory) {
-                handleConfetti();
-                handleSubmitMorningRoutine(event);
-              }
-            }}>
-            {morningEditing ? 'Save change' : 'Put on shelf'}
-          </AddProductButton>
-          <DeleteProductButton
-            type="button"
-            onClick={() => handleDeleteProduct(editingProductId)}
-            clicked={clickCount > 0}
-            ref={buttonRef}
-            isVisible={morningEditing}>
-            {clickCount === 0 ? 'Delete' : 'Delete product?'}
-          </DeleteProductButton>
-        </fieldset>
-      </form>
+        <form className="form-wrapper" onSubmit={handleSubmitMorningRoutine}>
+          <fieldset className="fieldset"><legend>{morningEditing ? 'Edit' : 'Add to '} Morning shelf</legend>
+            <div>
+              <label className="labelusage" htmlFor="morningName">Name:</label>
+              <input
+                type="text"
+                placeholder="product name"
+                id="morningName"
+                value={morningName}
+                onChange={(e) => setMorningName(e.target.value)}
+                required />
+            </div>
+            <div>
+              <label className="labelusage" htmlFor="morningBrand">Brand:</label>
+              <input
+                type="text"
+                placeholder="brand name"
+                id="morningBrand"
+                value={morningBrand}
+                onChange={(e) => setMorningBrand(e.target.value)} />
+            </div>
+            <div>
+              <label className="labelusage" htmlFor="morningCategory">Category:</label>
+              <select
+                className="select"
+                id="morningCategory"
+                value={morningCategory}
+                onChange={(e) => setMorningCategory(e.target.value)}
+                required>
+                <option value="">Select a category</option>
+                {categories.map((category) => (
+                  <option key={category} value={category}>
+                    {category}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <AddProductButton
+              className="productbutton"
+              type="submit"
+              onClick={(event) => {
+                if (morningName && morningCategory) {
+                  handleConfetti();
+                  handleSubmitMorningRoutine(event);
+                }
+              }}>
+              {morningEditing ? 'Save change' : 'Put on shelf'}
+            </AddProductButton>
+            <DeleteProductButton
+              className="productbutton"
+              type="button"
+              onClick={() => handleDeleteProduct(editingProductId)}
+              clicked={clickCount > 0}
+              ref={buttonRef}
+              isVisible={morningEditing}>
+              {clickCount === 0 ? 'Delete' : 'Delete product?'}
+            </DeleteProductButton>
+          </fieldset>
+          <UsageLink className="logusagebutton" to="/productShelf/logUsage">Log my products usage</UsageLink>
+        </form>
+      </div>
     </div>
   );
 };

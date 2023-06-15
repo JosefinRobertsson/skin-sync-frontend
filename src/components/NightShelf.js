@@ -14,6 +14,7 @@ import serumImage from '../images/serum.png';
 import sunscreenImage from '../images/sunscreen.png';
 import otherImage from '../images/other.png';
 import defaultImage from '../images/default.png';
+import './MorningShelf.css'
 /*
 const SingleProductWrapper = styled.div`
   display: flex;
@@ -229,8 +230,7 @@ const NightShelf = () => {
   };
 
   return (
-    <>
-      <UsageLink to="/productShelf/logUsage">Log my products usage</UsageLink>
+    <div className="bodyshelves">
       <h2>Night shelf</h2>
       <ReactSimplyCarousel
         activeSlideIndex={activeSlideIndexNight}
@@ -293,11 +293,12 @@ const NightShelf = () => {
           </div>
         ))}
       </ReactSimplyCarousel>
-      <form onSubmit={handleSubmitNightRoutine}>
-        <fieldset><legend>{nightEditing ? 'Edit ' : 'Add to '}Night shelf</legend>
+      <form className="form-wrapper" onSubmit={handleSubmitNightRoutine}>
+        <fieldset className="fieldset"><legend>{nightEditing ? 'Edit ' : 'Add to '}Night shelf</legend>
           <div>
-            <label htmlFor="nightName">Name:</label>
+            <label className="labelusage" htmlFor="nightName">Name:</label>
             <input
+              className="input"
               type="text"
               placeholder="product name"
               id="nightName"
@@ -307,12 +308,18 @@ const NightShelf = () => {
           </div>
 
           <div>
-            <label htmlFor="nightBrand">Brand:</label>
-            <input type="text" placeholder="brand name" id="nightBrand" value={nightBrand} onChange={(e) => setNightBrand(e.target.value)} />
+            <label className="labelusage" htmlFor="nightBrand">Brand:</label>
+            <input
+              type="text"
+              placeholder="brand name"
+              id="nightBrand"
+              value={nightBrand}
+              onChange={(e) => setNightBrand(e.target.value)} />
           </div>
           <div>
-            <label htmlFor="nightCategory">Category:</label>
+            <label className="labelusage" htmlFor="nightCategory">Category:</label>
             <select
+              className="select"
               id="nightCategory"
               value={nightCategory}
               onChange={(e) => setNightCategory(e.target.value)}
@@ -324,10 +331,12 @@ const NightShelf = () => {
             </select>
           </div>
           <AddProductButton
+            className="productbutton"
             type="submit">
             {nightEditing ? 'Save change' : 'Put on shelf'}
           </AddProductButton>
           <DeleteProductButton
+            className="productbutton"
             type="button"
             onClick={() => handleDeleteProduct(editingProductId)}
             clicked={clickCount > 0}
@@ -336,8 +345,9 @@ const NightShelf = () => {
             {clickCount === 0 ? 'Delete' : 'Delete product?'}
           </DeleteProductButton>
         </fieldset>
+        <UsageLink className="logusagebutton" to="/productShelf/logUsage">Log my products usage</UsageLink>
       </form>
-    </>
+    </div>
   );
 }
 
