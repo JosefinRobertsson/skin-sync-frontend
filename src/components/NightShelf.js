@@ -273,7 +273,7 @@ const NightShelf = () => {
         }}
         responsiveProps={[
           {
-            itemsToShow: 3,
+            itemsToShow: 1,
             itemsToScroll: 1,
             minWidth: 768
           }
@@ -287,8 +287,10 @@ const NightShelf = () => {
               alt={product.category}
               onClick={() => handleNightEdit(product._id)} />
 
-            <h5> {product.name} </h5>
-            <h6> {product.brand} </h6>
+            <div className="productsnameandbrand">
+              <h5> {product.name} :  {product.brand}  </h5>
+
+            </div>
 
           </div>
         ))}

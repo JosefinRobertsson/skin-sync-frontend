@@ -5,7 +5,7 @@
 
 import React, { useState } from 'react';
 import './DailyReport.css';
-import { Bounce } from 'react-awesome-reveal';
+import { Slide } from 'react-awesome-reveal';
 import { RegisterButton } from '../styles/StyledButtons';
 import 'react-toggle/style.css'
 
@@ -80,9 +80,9 @@ const DailyReport = () => {
 
   return (
     <div className="dailyreportbody">
-      <Bounce>
+      <Slide>
         <h1>Log your Day</h1>
-      </Bounce>
+      </Slide>
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="waterRange">Water Intake:</label>

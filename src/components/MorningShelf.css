@@ -1,5 +1,5 @@
 .bodyshelves{
-    background-color: #FFF5E9;
+    background-color:#FFF5E9 ;
     height: 180vh;
 }
 
@@ -106,3 +106,8 @@ text-decoration: none
     align-items: center;
 
 }
+
+.productsnameandbrand {
+color: #2A152A;
+}
+

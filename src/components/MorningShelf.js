@@ -277,7 +277,6 @@ const MorningShelf = () => {
               cursor: 'pointer',
               fontSize: '20px',
               height: 30,
-              lineHeight: 1,
               textAlign: 'center',
               width: 30
             },
@@ -285,7 +284,7 @@ const MorningShelf = () => {
           }}
           responsiveProps={[
             {
-              itemsToShow: 3,
+              itemsToShow: 1,
               itemsToScroll: 1,
               minWidth: 768
             }
@@ -293,15 +292,16 @@ const MorningShelf = () => {
           speed={400}
           easing="linear">
           {morningProducts.map((product) => (
-            <div className="carousel-item" key={product._id} style={{ width: 200, height: 200, background: '#FFF5E9' }}>
+            <div className="carousel-item" key={product._id}>
               <ProductImage
+                className="product-image"
                 src={getImagePath(product.category)}
                 alt={product.category}
                 onClick={() => handleMorningEdit(product._id)} />
 
-              <h5> {product.name} </h5>
-              <h6> {product.brand} </h6>
-
+              <div className="productsnameandbrand">
+                <h5>{product.name} : {product.brand}</h5>
+              </div>
             </div>
           ))}
         </ReactSimplyCarousel>
