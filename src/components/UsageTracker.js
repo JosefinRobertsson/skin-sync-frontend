@@ -372,10 +372,10 @@ const UsageTracker = () => {
           icons={false}
           className="my-toggle"
           id="toggle-all-night"
-          checked={nightProducts.every((product) => product.usedToday)}
+          checked={morningProducts.every((product) => product.usedToday)}
           onChange={(e) => {
             const action = e.target.checked ? 'toggleOn' : 'toggleOff';
-            toggleAllUsage(action, 'night', setNightProducts);
+            toggleAllUsage(action, 'morning', setMorningProducts);
           }} />
       </div>
 
