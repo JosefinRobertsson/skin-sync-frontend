@@ -1,0 +1,73 @@
+
+
+
+.productsWrapper {
+    padding: 1rem;
+}
+
+.daysAndNights {
+ /*   background-color: salmon; */
+    min-height: fit-content;
+    font-size: 1rem;
+    font-weight: bold;
+    color: rgb(29, 13, 72);
+}
+
+.allMornings,
+.allNights {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 0.5rem;
+}
+
+.allMornings {
+ /*   background-color: rgb(118, 210, 118); */
+}
+.allNights {
+    color: #FFF5E9;
+}
+
+.morningProductContainer,
+.nightProductContainer {
+    position: relative;
+    display: flex;
+    height:120px;
+    flex: 1 1 140px;
+    flex-direction: column;
+    text-align: center;
+    padding-top: 1rem;
+    overflow-y: auto;
+    border-radius: 0.8rem;
+ /*   background-image: linear-gradient(to bottom, rgba(221, 207, 207, 0), rgba(0, 0, 0, 0.5));
+  background-size: 100% 20px;
+  background-repeat: no-repeat;
+  background-position: bottom; */
+
+}
+
+.morningProductContainer {
+    background-color: #FFF5E9;
+}
+
+.nightProductContainer {
+    border: 2px solid rgb(227, 216, 227);
+    background-color: rgb(29, 13, 72);
+}
+
+.morningProductContainer img,
+.nightProductContainer img {
+    height: 80px;
+    object-fit: contain;
+}
+
+.morningProductContainer.is-expanded,
+.nightProductContainer.is-expanded {
+    width: 400px;
+    height: 400px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+}

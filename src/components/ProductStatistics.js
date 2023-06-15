@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import moment from 'moment';
 import { v4 as uuidv4 } from 'uuid';
+import './ProductStatistics.css'
 import cleanserImage from '../images/cleanser.png';
 import moisturizerImage from '../images/moisturizer.png';
 import serumImage from '../images/serum.png';
@@ -35,6 +36,8 @@ const ProductStatistics = ({ chosenDate }) => {
   const [loading, setLoading] = useState(false);
   const [formattedMorningProducts, setformattedMorningProducts] = useState([]);
   const [formattedNightProducts, setFormattedNightProducts] = useState([]);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [isExpandedNight, setIsExpandedNight] = useState(false);
   axios.defaults.baseURL = 'http://localhost:8080';
 
   useEffect(() => {
@@ -149,33 +152,59 @@ const ProductStatistics = ({ chosenDate }) => {
     });
   }
 
+  const toggleMorningProduct = () => {
+    setIsExpanded(!isExpanded);
+  };
+
+  const toggleNightProduct = () => {
+    setIsExpandedNight(!isExpandedNight);
+  };
+
   return (
-    <div>
+    <div className="productsWrapper">
       {week.map((weekday) => (
-        <div className={weekday.name} key={weekday.number}>
+        <div className={`${weekday.name} daysAndNights`} key={weekday.number}>
           {weekday.name} {weekday.formattedDate}
-          <div className={`${weekday.name}Morning`}>
+          <div className={`${weekday.name}Morning allMornings`}>
             {formattedMorningProducts
               .filter((data) => moment(data.productUsage).isSame(weekday.date, 'day'))
               .map((data) => (
                 <div
-                  className="morningProductContainer"
+                  className={`morningProductContainer ${isExpanded ? 'is-expanded' : ''}`}
+                  onClick={toggleMorningProduct}
+                  onKeyDown={(event) => {
+                    if (event.key === 'Enter') {
+                      toggleNightProduct();
+                    }
+                  }}
+                  role="button"
+                  tabIndex={0}
                   key={`${data.productName}-${uuidv4()}`}>
                   <img src={getImagePath(data.productCategory)} alt={data.productCategory} />
                   {data.productName}
                 </div>
+
               ))}
           </div>
-          <div className={`${weekday.name}Night`}>
+          <div className={`${weekday.name}Night allNights`}>
             {formattedNightProducts
               .filter((data) => moment(data.productUsage).isSame(weekday.date, 'day'))
               .map((data) => (
                 <div
-                  className="nightProductContainer"
+                  className={`nightProductContainer ${isExpandedNight ? 'is-expanded' : ''}`}
+                  onClick={toggleNightProduct}
+                  onKeyDown={(event) => {
+                    if (event.key === 'Enter') {
+                      toggleNightProduct();
+                    }
+                  }}
+                  role="button"
+                  tabIndex={0}
                   key={`${data.productName}-${uuidv4()}`}>
                   <img src={getImagePath(data.productCategory)} alt={data.productCategory} />
                   {data.productName}
                 </div>
+
               ))}
           </div>
         </div>
