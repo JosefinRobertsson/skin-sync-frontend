@@ -241,7 +241,7 @@ const NightShelf = () => {
         // here you can also pass className, or any other button element attributes
           style: {
             alignSelf: 'center',
-            background: 'black',
+            background: '#3F1C3A',
             border: 'none',
             borderRadius: '50%',
             color: 'white',
@@ -258,7 +258,7 @@ const NightShelf = () => {
         // here you can also pass className, or any other button element attributes
           style: {
             alignSelf: 'center',
-            background: 'black',
+            background: '#3F1C3A',
             border: 'none',
             borderRadius: '50%',
             color: 'white',
