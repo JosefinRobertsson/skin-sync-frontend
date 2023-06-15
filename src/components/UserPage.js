@@ -39,10 +39,10 @@ const UserPage = () => {
           </Zoom>
           {uvIndex !== null && (
             <div className="uv-index-box">
-              <p>
-            The UV index is: {uvIndex}
-                <h2>Remember to wear sunscreen!</h2>
-              </p>
+              <h9> The UV index is:</h9>
+              <h1> {uvIndex} </h1>
+              <h2>Remember to wear sunscreen!</h2>
+
             </div>
           )}
         </div>
