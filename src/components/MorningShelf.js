@@ -17,6 +17,7 @@ import sunscreenImage from '../images/sunscreen.png';
 import otherImage from '../images/other.png';
 import defaultImage from '../images/default.png';
 import './MorningShelf.css'
+import Shelfblob from '../images/Shelfblob.png'
 /*
 const SingleProductWrapper = styled.div`
   display: flex;
@@ -237,9 +238,10 @@ const MorningShelf = () => {
 
   return (
     <div className="bodyshelves">
+      <img src={Shelfblob} className="Shelfblob" alt="Descriptive text" />
       <div>
         <Slide>
-          <h1>Product Shelves</h1>
+          <h1 className="shelvestitle">Product Shelves</h1>
         </Slide>
         <h2>Morning Shelf</h2>
         <ReactSimplyCarousel

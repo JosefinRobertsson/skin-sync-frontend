@@ -60,6 +60,15 @@ text-decoration: none
   }
 
 .labelusage {
-    color: #2A152A;
+    color:#2A152A
+    
+}
+
+.Shelfblob {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+    height: 250px;
 }
   

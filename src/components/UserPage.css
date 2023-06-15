@@ -90,4 +90,21 @@
     background-position: center;
   }
   
+
+
+.uv-index-box {
+  background-color: white;
+  padding: 10px;
+  border-radius: 40px;
+  width: 50%;
+  color: #DB5A4F;
+}
+
+
+
+.uv-index-box h2 {
+text-align:center;
+font-size: 18px;
+  color: #DB5A4F;
+}
   

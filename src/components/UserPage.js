@@ -38,10 +38,12 @@ const UserPage = () => {
             <h1>Welcome Back!</h1>
           </Zoom>
           {uvIndex !== null && (
-            <p>
-              The UV index is: {uvIndex}
-              <h2>Remember to wear sunscreen!</h2>
-            </p>
+            <div className="uv-index-box">
+              <p>
+            The UV index is: {uvIndex}
+                <h2>Remember to wear sunscreen!</h2>
+              </p>
+            </div>
           )}
         </div>
 
