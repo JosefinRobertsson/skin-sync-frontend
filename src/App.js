@@ -59,13 +59,17 @@ export const App = () => {
           <Route
             path="/productShelf/logUsage"
             element={
+              <UsageTracker />
+            } />
+          <Route
+            path="/statisticsPage"
+            element={
               <>
-                <UsageTracker />
                 <CalendarComponent onDateChoice={handleDateChoice} />
                 <ProductStatistics chosenDate={chosenDate} />
+                <StatisticsPage />
               </>
             } />
-          <Route path="/statisticsPage" element={<StatisticsPage />} />
           <Route path="/logout" element={<Logout />} />
 
         </Routes>

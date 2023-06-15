@@ -4,6 +4,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import confetti from 'canvas-confetti';
+
+import ReactSimplyCarousel from 'react-simply-carousel';
 import { AddProductButton, DeleteProductButton } from '../styles/StyledButtons';
 import { UsageLink } from '../styles/StyledLinks';
 import cleanserImage from '../images/cleanser.png';
@@ -12,12 +14,12 @@ import serumImage from '../images/serum.png';
 import sunscreenImage from '../images/sunscreen.png';
 import otherImage from '../images/other.png';
 import defaultImage from '../images/default.png';
-
+/*
 const SingleProductWrapper = styled.div`
   display: flex;
   border: 1px solid black;
   `
-
+*/
 const ProductImage = styled.img`
   width: 80px;
   height: 80px;
@@ -48,6 +50,7 @@ const NightShelf = () => {
   const [nightCategory, setNightCategory] = useState('');
   const [clickCount, setClickCount] = useState(0);
   const buttonRef = useRef(null);
+  const [activeSlideIndexNight, setActiveSlideIndexNight] = useState(0);
 
   // Gets the categories for the dropdown menu
   useEffect(() => {
@@ -229,9 +232,56 @@ const NightShelf = () => {
     <>
       <UsageLink to="/productShelf/logUsage">Log my products usage</UsageLink>
       <h2>Night shelf</h2>
-      <SingleProductWrapper>
+      <ReactSimplyCarousel
+        activeSlideIndex={activeSlideIndexNight}
+        onRequestChange={setActiveSlideIndexNight}
+        itemsToShow={1}
+        itemsToScroll={1}
+        forwardBtnProps={{
+        // here you can also pass className, or any other button element attributes
+          style: {
+            alignSelf: 'center',
+            background: 'black',
+            border: 'none',
+            borderRadius: '50%',
+            color: 'white',
+            cursor: 'pointer',
+            fontSize: '20px',
+            height: 30,
+            lineHeight: 1,
+            textAlign: 'center',
+            width: 30
+          },
+          children: <span>{'>'}</span>
+        }}
+        backwardBtnProps={{
+        // here you can also pass className, or any other button element attributes
+          style: {
+            alignSelf: 'center',
+            background: 'black',
+            border: 'none',
+            borderRadius: '50%',
+            color: 'white',
+            cursor: 'pointer',
+            fontSize: '20px',
+            height: 30,
+            lineHeight: 1,
+            textAlign: 'center',
+            width: 30
+          },
+          children: <span>{'<'}</span>
+        }}
+        responsiveProps={[
+          {
+            itemsToShow: 3,
+            itemsToScroll: 1,
+            minWidth: 768
+          }
+        ]}
+        speed={400}
+        easing="linear">
         {nightProducts.map((product) => (
-          <div key={product._id}>
+          <div key={product._id} style={{ width: 200, height: 200, background: '#FFF5E9' }}>
             <ProductImage
               src={getImagePath(product.category)}
               alt={product.category}
@@ -242,7 +292,7 @@ const NightShelf = () => {
 
           </div>
         ))}
-      </SingleProductWrapper>
+      </ReactSimplyCarousel>
       <form onSubmit={handleSubmitNightRoutine}>
         <fieldset><legend>{nightEditing ? 'Edit ' : 'Add to '}Night shelf</legend>
           <div>

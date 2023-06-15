@@ -7,7 +7,6 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Toggle from 'react-toggle';
 import './UsageTracker.css';
-import Slider from 'react-slick';
 import '../styles/slick.css';
 import '../styles/slick-theme.css';
 import '../styles/slick-docs.css';
@@ -21,20 +20,6 @@ import 'react-toggle/style.css'
 import sunscreenImage from '../images/sunscreen.png';
 import otherImage from '../images/other.png';
 import defaultImage from '../images/default.png';
-
-const settings = {
-  dots: true,
-  arrows: true,
-  swipe: true,
-  infinite: true,
-  speed: 500,
-  slidesToShow: 4,
-  slidesToScroll: 1,
-  autoplay: false,
-  autoplaySpeed: 2000,
-  centerMode: true,
-  fade: false
-};
 
 const getImagePath = (category) => {
   switch (category) {
@@ -58,6 +43,7 @@ const UsageTracker = () => {
   const [nightProducts, setNightProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
+  const [activeSlideIndexNight, setActiveSlideIndexNight] = useState(0);
   const [error, setError] = useState('');
   // const [lastVisited, setLastVisited] = useState(null);
   axios.defaults.baseURL = 'http://localhost:8080';
@@ -384,9 +370,56 @@ const UsageTracker = () => {
       <div>
         <ShelfLink to="/productShelf">Edit routine</ShelfLink>
       </div>
-      <Slider {...settings}>
+      <ReactSimplyCarousel
+        activeSlideIndex={activeSlideIndexNight}
+        onRequestChange={setActiveSlideIndexNight}
+        itemsToShow={4}
+        itemsToScroll={1}
+        forwardBtnProps={{
+        // here you can also pass className, or any other button element attributes
+          style: {
+            alignSelf: 'center',
+            background: 'black',
+            border: 'none',
+            borderRadius: '50%',
+            color: 'white',
+            cursor: 'pointer',
+            fontSize: '20px',
+            height: 30,
+            lineHeight: 1,
+            textAlign: 'center',
+            width: 30
+          },
+          children: <span>{'>'}</span>
+        }}
+        backwardBtnProps={{
+        // here you can also pass className, or any other button element attributes
+          style: {
+            alignSelf: 'center',
+            background: 'black',
+            border: 'none',
+            borderRadius: '50%',
+            color: 'white',
+            cursor: 'pointer',
+            fontSize: '20px',
+            height: 30,
+            lineHeight: 1,
+            textAlign: 'center',
+            width: 30
+          },
+          children: <span>{'<'}</span>
+        }}
+        responsiveProps={[
+          {
+            itemsToShow: 5,
+            itemsToScroll: 2,
+            minWidth: 768
+          }
+        ]}
+        speed={400}
+        easing="linear">
         {nightProducts.map((product) => (
-          <div className="productItem" key={product._id}>
+          <div className="productItem" key={product._id} style={{ width: 140, height: 240, background: '#FFF5E9' }}>
             <img src={getImagePath(product.category)} alt={product.category} />
             <p>{product.name}</p>
             <p>{product.brand}</p>
@@ -401,7 +434,7 @@ const UsageTracker = () => {
             </div>
           </div>
         ))}
-      </Slider>
+      </ReactSimplyCarousel>
       <Toggle
         id="toggle-all-night"
         checked={nightProducts.every((product) => product.usedToday)}
