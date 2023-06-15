@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   BrowserRouter, Routes, Route
 } from 'react-router-dom';
@@ -8,6 +8,7 @@ import DailyReport from './components/DailyReport';
 import MorningShelf from './components/MorningShelf';
 import UserPage from './components/UserPage';
 import StatisticsPage from './components/StatisticsPage';
+import OpenPage from './components/OpenPage';
 import Logout from './components/Logout';
 import Header from './components/Header';
 import UsageTracker from './components/UsageTracker';
@@ -18,6 +19,19 @@ import ProductStatistics from './components/ProductStatistics';
 
 export const App = () => {
   const [chosenDate, setChosenDate] = useState(new Date());
+
+  useEffect(() => {
+    const handlePageShow = (event) => {
+      if (event.persisted) {
+        setChosenDate(new Date());
+      }
+    };
+    window.addEventListener('pageshow', handlePageShow);
+
+    return () => {
+      window.removeEventListener('pageshow', handlePageShow);
+    };
+  }, []);
 
   const handleDateChoice = (date) => {
     setChosenDate(date);
@@ -30,7 +44,7 @@ export const App = () => {
         <Header />
 
         <Routes>
-          <Route path="/" element={<LandingLogo />} />
+          <Route path="/" element={<OpenPage />} />
           <Route path="/LandingLogo" element={<LandingLogo />} />
           <Route path="/Login" element={<Login />} />
           <Route path="/userpage" element={<UserPage />} />
