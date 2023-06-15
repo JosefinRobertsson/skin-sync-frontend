@@ -236,6 +236,8 @@ const MorningShelf = () => {
     }
   };
 
+  const morningProductCount = morningProducts.length;
+
   return (
     <div className="bodyshelves">
       <img src={Shelfblob} className="Shelfblob" alt="Descriptive text" />
@@ -305,6 +307,7 @@ const MorningShelf = () => {
             </div>
           ))}
         </ReactSimplyCarousel>
+        <p>{morningProductCount} products</p>
 
         <form className="form-wrapper" onSubmit={handleSubmitMorningRoutine}>
           <fieldset className="fieldset"><legend>{morningEditing ? 'Edit' : 'Add to '} Morning shelf</legend>

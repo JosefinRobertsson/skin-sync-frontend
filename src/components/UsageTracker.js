@@ -285,6 +285,9 @@ const UsageTracker = () => {
     return <p>{error}</p>;
   }
 
+  const morningProductsCount = morningProducts.length;
+  const nightProductsCount = nightProducts.length;
+
   return (
     <div className="usageTrackerWrapper">
 
@@ -364,7 +367,7 @@ const UsageTracker = () => {
         ))}
       </ReactSimplyCarousel>
       <div className="Selectall">
-        <h5> Select all</h5>
+        <h5> Select all {morningProductsCount}</h5>
         <Toggle
           icons={false}
           className="my-toggle"
@@ -451,7 +454,7 @@ const UsageTracker = () => {
         ))}
       </ReactSimplyCarousel>
       <div className="Selectall">
-        <h5> Select all</h5>
+        <h5> Select all {nightProductsCount}</h5>
         <Toggle
           icons={false}
           className="my-toggle"

@@ -39,6 +39,7 @@
     padding-top: 1rem;
     overflow-y: auto;
     border-radius: 0.8rem;
+    scrollbar-width: none;
  /*   background-image: linear-gradient(to bottom, rgba(221, 207, 207, 0), rgba(0, 0, 0, 0.5));
   background-size: 100% 20px;
   background-repeat: no-repeat;
@@ -61,13 +62,7 @@
     object-fit: contain;
 }
 
-.morningProductContainer.is-expanded,
-.nightProductContainer.is-expanded {
-    width: 400px;
-    height: 400px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 2;
+.morningProductContainer::webkit-scrollbar,
+.nightProductContainer::webkit-scrollbar {
+    display: none;
 }

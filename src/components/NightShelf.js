@@ -229,6 +229,8 @@ const NightShelf = () => {
     }
   };
 
+  const nightProductCount = nightProducts.length;
+
   return (
     <div className="bodyshelves">
       <h2>Night shelf</h2>
@@ -295,6 +297,7 @@ const NightShelf = () => {
           </div>
         ))}
       </ReactSimplyCarousel>
+      <p>{nightProductCount} products</p>
       <form className="form-wrapper" onSubmit={handleSubmitNightRoutine}>
         <fieldset className="fieldset"><legend>{nightEditing ? 'Edit ' : 'Add to '}Night shelf</legend>
           <div>

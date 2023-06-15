@@ -1,6 +1,6 @@
 .bodyshelves{
     background-color:#FFF5E9 ;
-    height: 200vh;
+    height: 150vh;
 }
 
 .logusagebutton {
@@ -114,3 +114,6 @@ text-decoration: none
 color: #2A152A;
 }
 
+p {
+  text-align: center;
+}
