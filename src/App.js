@@ -42,7 +42,6 @@ export const App = () => {
       <BrowserRouter>
         <>
           <Header />
-
           <Routes>
             <Route path="/" element={<LandingLogo />} />
             <Route path="/Login" element={<Login />} />
@@ -66,9 +65,9 @@ export const App = () => {
               path="/statisticsPage"
               element={
                 <>
+                  <StatisticsPage />
                   <CalendarComponent onDateChoice={handleDateChoice} />
                   <ProductStatistics chosenDate={chosenDate} />
-                  <StatisticsPage />
                 </>
               } />
             <Route path="/logout" element={<Logout />} />

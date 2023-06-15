@@ -6,7 +6,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Toggle from 'react-toggle';
-import './UsageTracker.css';
 import '../styles/slick.css';
 import '../styles/slick-theme.css';
 import '../styles/slick-docs.css';
@@ -20,6 +19,7 @@ import 'react-toggle/style.css'
 import sunscreenImage from '../images/sunscreen.png';
 import otherImage from '../images/other.png';
 import defaultImage from '../images/default.png';
+import './UsageTracker.css';
 
 const getImagePath = (category) => {
   switch (category) {
@@ -297,13 +297,13 @@ const UsageTracker = () => {
       <ReactSimplyCarousel
         activeSlideIndex={activeSlideIndex}
         onRequestChange={setActiveSlideIndex}
-        itemsToShow={4}
+        itemsToShow={1}
         itemsToScroll={1}
         forwardBtnProps={{
         // here you can also pass className, or any other button element attributes
           style: {
             alignSelf: 'center',
-            background: 'black',
+            background: '#3F1C3A',
             border: 'none',
             borderRadius: '50%',
             color: 'white',
@@ -320,7 +320,7 @@ const UsageTracker = () => {
         // here you can also pass className, or any other button element attributes
           style: {
             alignSelf: 'center',
-            background: 'black',
+            background: '#3F1C3A',
             border: 'none',
             borderRadius: '50%',
             color: 'white',
@@ -343,7 +343,7 @@ const UsageTracker = () => {
         speed={400}
         easing="linear">
         {morningProducts.map((product) => (
-          <div className="productItem" key={product._id} style={{ width: 140, height: 240, background: '#FFF5E9' }}>
+          <div className="productItem" key={product._id} style={{ width: 250, height: 240, background: '#FFF5E9' }}>
             <img src={getImagePath(product.category)} alt={product.category} />
 
             <div className="productsnameandbrand">
@@ -353,6 +353,8 @@ const UsageTracker = () => {
               <label htmlFor={`toggle-${product._id}`}>
                 Used today:
                 <Toggle
+                  icons={false}
+                  className="my-toggle"
                   id={`toggle-${product._id}`}
                   checked={product.usedToday}
                   onChange={() => handleUsageChange(product)} />
@@ -361,13 +363,18 @@ const UsageTracker = () => {
           </div>
         ))}
       </ReactSimplyCarousel>
-      <Toggle
-        id="toggle-all-morning"
-        checked={morningProducts.every((product) => product.usedToday)}
-        onChange={(e) => {
-          const action = e.target.checked ? 'toggleOn' : 'toggleOff';
-          toggleAllUsage(action, 'morning', setMorningProducts);
-        }} />
+      <div className="Selectall">
+        <h5> Select all</h5>
+        <Toggle
+          icons={false}
+          className="my-toggle"
+          id="toggle-all-night"
+          checked={nightProducts.every((product) => product.usedToday)}
+          onChange={(e) => {
+            const action = e.target.checked ? 'toggleOn' : 'toggleOff';
+            toggleAllUsage(action, 'night', setNightProducts);
+          }} />
+      </div>
 
       <div className="editbutton">
         <ShelfLink to="/productShelf">Edit routine</ShelfLink>
@@ -378,13 +385,13 @@ const UsageTracker = () => {
       <ReactSimplyCarousel
         activeSlideIndex={activeSlideIndexNight}
         onRequestChange={setActiveSlideIndexNight}
-        itemsToShow={4}
+        itemsToShow={1}
         itemsToScroll={1}
         forwardBtnProps={{
         // here you can also pass className, or any other button element attributes
           style: {
             alignSelf: 'center',
-            background: 'black',
+            background: '#3F1C3A',
             border: 'none',
             borderRadius: '50%',
             color: 'white',
@@ -401,7 +408,7 @@ const UsageTracker = () => {
         // here you can also pass className, or any other button element attributes
           style: {
             alignSelf: 'center',
-            background: 'black',
+            background: '#3F1C3A',
             border: 'none',
             borderRadius: '50%',
             color: 'white',
@@ -424,7 +431,7 @@ const UsageTracker = () => {
         speed={400}
         easing="linear">
         {nightProducts.map((product) => (
-          <div className="productItem" key={product._id} style={{ width: 140, height: 240, background: '#FFF5E9' }}>
+          <div className="productItem" key={product._id} style={{ width: 250, height: 240, background: '#FFF5E9' }}>
             <img src={getImagePath(product.category)} alt={product.category} />
             <div className="productsnameandbrand">
               <h5>{product.name} : {product.brand}</h5>
@@ -433,6 +440,8 @@ const UsageTracker = () => {
               <label htmlFor={`toggle-${product._id}`}>
                 Used today:
                 <Toggle
+                  icons={false}
+                  className="my-toggle"
                   id={`toggle-${product._id}`}
                   checked={product.usedToday}
                   onChange={() => handleUsageChange(product)} />
@@ -441,13 +450,18 @@ const UsageTracker = () => {
           </div>
         ))}
       </ReactSimplyCarousel>
-      <Toggle
-        id="toggle-all-night"
-        checked={nightProducts.every((product) => product.usedToday)}
-        onChange={(e) => {
-          const action = e.target.checked ? 'toggleOn' : 'toggleOff';
-          toggleAllUsage(action, 'night', setNightProducts);
-        }} />
+      <div className="Selectall">
+        <h5> Select all</h5>
+        <Toggle
+          icons={false}
+          className="my-toggle"
+          id="toggle-all-night"
+          checked={nightProducts.every((product) => product.usedToday)}
+          onChange={(e) => {
+            const action = e.target.checked ? 'toggleOn' : 'toggleOff';
+            toggleAllUsage(action, 'night', setNightProducts);
+          }} />
+      </div>
       <div className="editbutton">
         <ShelfLink to="/productShelf">Edit routine</ShelfLink>
       </div>

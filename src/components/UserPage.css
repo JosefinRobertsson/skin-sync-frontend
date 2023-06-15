@@ -95,15 +95,19 @@
 /* UserPage.css */
 
 .uv-index-box {
-  background-color: white;
+
+  background: rgba(255, 255, 255, 0.29);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(8.2px);
+  -webkit-backdrop-filter: blur(8.2px);
   border-radius: 40px;
   width: 60%;
-  color: #DB5A4F;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 8px 16px 0px rgba(81, 48, 2, 0.2);
   margin: 0 auto; 
 }
 
@@ -111,22 +115,24 @@
 .uv-index-box h2 {
 text-align:center;
 font-size: 16px;
-  color: #2A152A;
+  color: #2a152a3c;
+
 }
 
 .uv-index-box h1 {
   text-align:center;
   margin-bottom: -40px;
   font-size: 35px;
-    color: #2A152A;
+  color: #EFAB95;
 
   }
 
   .uv-index-box h9 {
     margin-bottom: -100px;
+    margin-top: 20px;
     text-align:center;
     font-size: 18px;
-      color:#2A152A;
+    color: #2a152a4f;
       font-family: 'Poppins', sans-serif;
       font-weight:600
     }

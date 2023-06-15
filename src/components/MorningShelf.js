@@ -204,7 +204,7 @@ const MorningShelf = () => {
     setMorningCategory('');
 
     if (editingProductId === productId) {
-      setEditingProductId(null); // Hide the form if the same product image is clicked again
+      setEditingProductId(null);
       setMorningEditing(false);
     } else {
       const product = morningProducts.find((prod) => prod._id === productId);
@@ -253,7 +253,7 @@ const MorningShelf = () => {
             // here you can also pass className, or any other button element attributes
             style: {
               alignSelf: 'center',
-              background: 'black',
+              background: '#3F1C3A',
               border: 'none',
               borderRadius: '50%',
               color: 'white',
@@ -270,7 +270,7 @@ const MorningShelf = () => {
             // here you can also pass className, or any other button element attributes
             style: {
               alignSelf: 'center',
-              background: 'black',
+              background: '#3F1C3A',
               border: 'none',
               borderRadius: '50%',
               color: 'white',
