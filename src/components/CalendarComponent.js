@@ -12,8 +12,8 @@ const StyledDiv = styled.div`
   height: 100vh;
 `;
 const StyledH1 = styled.h1`
-  padding-top: 20%;
-  padding-bottom: 0%;
+  padding-top: -20px;
+  padding-bottom: 10%;
   font-size: 32px;
   letter-spacing: 0.5%;
   text-align: center;
