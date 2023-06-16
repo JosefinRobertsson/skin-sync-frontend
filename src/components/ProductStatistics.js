@@ -30,8 +30,7 @@ const getImagePath = (category) => {
 };
 
 const ProductStatistics = ({ chosenDate }) => {
-  const [morningProducts, setMorningProducts] = useState([]);
-  const [nightProducts, setNightProducts] = useState([]);
+  const [products, setProducts] = useState([]);
   // eslint-disable-next-line no-unused-vars
   const [loading, setLoading] = useState(false);
   const [formattedMorningProducts, setformattedMorningProducts] = useState([]);
@@ -40,9 +39,9 @@ const ProductStatistics = ({ chosenDate }) => {
 
   useEffect(() => {
     const fetchSkincareProducts = async () => {
-      console.log('fetching skincare products...');
-      console.log('chosenDate:', chosenDate);
-      // setLoading(true);
+      setLoading(true);
+      let morningResponse;
+      let nightResponse;
 
       try {
         const accessToken = localStorage.getItem('accessToken');
@@ -55,25 +54,25 @@ const ProductStatistics = ({ chosenDate }) => {
             Authorization: accessToken
           }
         };
-        const morningResponse = await axios.get('/productShelf/morning', config);
-        console.log('morningResponse:', morningResponse);
-        const nightResponse = await axios.get('/productShelf/night', config);
+        morningResponse = await axios.get('/productShelf/morning', config);
+        nightResponse = await axios.get('/productShelf/night', config);
         if (!morningResponse.data.success || !nightResponse.data.success) {
           throw new Error('Failed to fetch skincare products');
         }
-
-        const morningProductsArray = morningResponse.data.response;
-        const nightProductsArray = nightResponse.data.response;
-
-        setMorningProducts(morningProductsArray);
-        setNightProducts(nightProductsArray);
-        setLoading(false);
-      } catch (e) {
-        console.error(e);
+      } catch (error) {
+        console.error('An error occurred:', error);
       }
+      const mergedProducts = [...morningResponse.data.response, ...nightResponse.data.response];
+
+      setProducts(mergedProducts);
+      setLoading(false);
     };
+
+    if (loading) {
+      return <p>Loading statistics, please wait...</p>;
+    }
     fetchSkincareProducts();
-  }, [chosenDate]);
+  }, []);
 
   // get the week number and day of week from a usageDate in correct format
   const getWeekAndDay = (date) => {
@@ -88,9 +87,10 @@ const ProductStatistics = ({ chosenDate }) => {
       const weekMorningData = [];
       const weekNightData = [];
 
-      morningProducts.forEach((product) => {
+      products.forEach((product) => {
         product.usageHistory.forEach((usageDate) => {
           const { weekNumber, dayOfWeek } = getWeekAndDay(usageDate);
+          // console.log('weekNumber:', weekNumber);
 
           const formattedProduct = {
             weekNumber,
@@ -103,35 +103,18 @@ const ProductStatistics = ({ chosenDate }) => {
             productUsage: usageDate
           };
 
-          weekMorningData.push(formattedProduct);
+          if (product.routine === 'morning') {
+            weekMorningData.push(formattedProduct);
+          } else if (product.routine === 'night') {
+            weekNightData.push(formattedProduct);
+          }
         });
       });
-
-      nightProducts.forEach((product) => {
-        product.usageHistory.forEach((usageDate) => {
-          const { weekNumber, dayOfWeek } = getWeekAndDay(usageDate);
-
-          const formattedProduct = {
-            weekNumber,
-            dayOfWeek,
-            productId: product._id,
-            productName: product.name,
-            productBrand: product.brand,
-            productCategory: product.category,
-            productRoutine: product.routine,
-            productUsage: usageDate
-          };
-
-          weekNightData.push(formattedProduct);
-        });
-      });
-
       setformattedMorningProducts(weekMorningData);
       setFormattedNightProducts(weekNightData);
     };
-
     formatProducts();
-  }, [morningProducts, nightProducts]);
+  }, [products]);
 
   const currentDate = moment(chosenDate);
   const week = [];
