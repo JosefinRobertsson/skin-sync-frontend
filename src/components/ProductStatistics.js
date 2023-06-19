@@ -35,7 +35,7 @@ const ProductStatistics = ({ chosenDate }) => {
   const [loading, setLoading] = useState(false);
   const [formattedMorningProducts, setformattedMorningProducts] = useState([]);
   const [formattedNightProducts, setFormattedNightProducts] = useState([]);
-  axios.defaults.baseURL = 'http://localhost:8080';
+  axios.defaults.baseURL = ' https://skinsync-mgydyyeela-no.a.run.app';
 
   useEffect(() => {
     const fetchSkincareProducts = async () => {

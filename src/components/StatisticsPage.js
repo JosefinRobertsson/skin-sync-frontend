@@ -134,7 +134,7 @@ const AverageData = (data) => {
 
 const GetFinalData = (data, index) => {
   console.log('data for barchart:', data);
-  const filteredData = FilterData(24, data)
+  const filteredData = FilterData(25, data)
   console.log('filtered data', filteredData)
   const averageData = AverageData(filteredData)
   console.log('averaged data', averageData)
@@ -158,7 +158,7 @@ const StatisticsPage = () => {
             Authorization: accessToken
           }
         };
-        const reportResponse = await axios.get('http://localhost:8080/dailyReport', config);
+        const reportResponse = await axios.get('https://skinsync-mgydyyeela-no.a.run.app/dailyReport', config);
         console.log('fullDailyReport:', reportResponse.data);
         if (reportResponse.data.success) {
           setData(reportResponse.data.response);

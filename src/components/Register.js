@@ -12,7 +12,7 @@ const Register = () => {
 
   const register = () => {
     axios
-      .post('http://localhost:8080/register', {
+      .post(' https://skinsync-mgydyyeela-no.a.run.app/register', {
         username,
         password
       })
