@@ -11,3 +11,10 @@
      text-align: center;
      color: #FFF4E9;
 }
+
+@media (min-width: 768px) {
+    .statisticsbody  {
+      min-width:375px; 
+      height: 667px; 
+    }
+  }
