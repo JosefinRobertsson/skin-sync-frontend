@@ -18,12 +18,6 @@ import otherImage from '../images/other.png';
 import defaultImage from '../images/default.png';
 import './MorningShelf.css'
 import Shelfblob from '../images/Shelfblob.png'
-/*
-const SingleProductWrapper = styled.div`
-  display: flex;
-  border: 1px solid black;
-  `
-  */
 
 const ProductImage = styled.img`
   width: 80px;
@@ -71,9 +65,7 @@ const MorningShelf = () => {
           throw new Error(`Error: ${response.status}`);
         }
         const data = await response.json();
-        console.log(data);
         setCategories(data.categories);
-        console.log(categories);
       } catch (error) {
         console.error('An error occurred:', error);
       }
@@ -151,7 +143,6 @@ const MorningShelf = () => {
       .then((response) => response.json())
       .then((data) => {
         if (data.success) {
-          console.log('Product submitted successfully');
           setMorningName('');
           setMorningBrand('');
           setMorningCategory('');
@@ -183,7 +174,6 @@ const MorningShelf = () => {
         .then((res) => res.json())
         .then((data) => {
           if (data.success) {
-            console.log('Product deleted successfully');
             getMorningProducts();
           } else {
             console.error('Failed to delete product');

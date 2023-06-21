@@ -6,9 +6,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Toggle from 'react-toggle';
-import '../styles/slick.css';
-import '../styles/slick-theme.css';
-import '../styles/slick-docs.css';
 import ReactSimplyCarousel from 'react-simply-carousel';
 import { Slide } from 'react-awesome-reveal';
 import { ShelfLink } from '../styles/StyledLinks';
@@ -41,6 +38,7 @@ const getImagePath = (category) => {
 const UsageTracker = () => {
   const [morningProducts, setMorningProducts] = useState([]);
   const [nightProducts, setNightProducts] = useState([]);
+  // const [initialProducts, setInitialProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
   const [activeSlideIndexNight, setActiveSlideIndexNight] = useState(0);
@@ -50,7 +48,6 @@ const UsageTracker = () => {
 
   useEffect(() => {
     const fetchSkincareProducts = async () => {
-      console.log('UsageTracker');
       try {
         const accessToken = localStorage.getItem('accessToken');
         if (!accessToken) {
@@ -69,79 +66,11 @@ const UsageTracker = () => {
         if (!morningResponse.data.success || !nightResponse.data.success) {
           throw new Error('Failed to fetch skincare products');
         }
-
-        const morningProducts = morningResponse.data.response;
-        const nightProducts = nightResponse.data.response;
-
-        /* Maps through both arrays, compares todays date with last usage date if usedToday is true,
-         and updates usedToday to false if last usage date is not today.
-         Saves in promises before sending to backend
-        const now = new Date();
-        const todayDate = now.toISOString().split('T')[0];
-        console.log('now', now);
-        const testArray = [];
-        morningProducts.forEach((product) => {
-          if (product.usedToday) {
-            const lastUsageDateStr = product.usageHistory[product.usageHistory.length - 1];
-            console.log('lastUsageDateStr', lastUsageDateStr)
-            const lastUsageDate = lastUsageDateStr ? new Date(lastUsageDateStr) : null;
-            const lastUsageDateFormatted = lastUsageDate && lastUsageDate instanceof Date ?
-            lastUsageDate.toISOString().split('T')[0] : null;
-
-            if (lastUsageDateFormatted !== todayDate) {
-              console.log('whats happening')
-              // product = { productId: product._id, usedToday: false }
-              testArray.push({ productId: product._id, usedToday: false })
-            }
-          }
-        });
-        try {
-          await axios.put('/productShelf/usageReset', {
-            productIds: testArray
-          }, config);
-        } catch (error) {
-          console.error(error);
-          setError('Failed to fetch skincare products');
-        }
-        console.log('testArray', testArray)
-        try {
-          // Promise.all waits for all promises to resolve, then triggers them all concurrently
-          // await Promise.all(morningPromises);
-        } catch (e) {
-          console.error(e);
-          setError('Failed to fetch skincare products');
-        }
-
-        const nightPromises = nightProducts.map(async (product) => {
-          if (product.usedToday) {
-            const lastUsageDateStr = product.usageHistory[product.usageHistory.length - 1];
-            const lastUsageDate = lastUsageDateStr ? new Date(lastUsageDateStr) : null;
-
-            const lastUsageDateFormatted = lastUsageDate && lastUsageDate instanceof Date ?
-            lastUsageDate.toISOString().split('T')[0] : null;
-
-            if (lastUsageDateFormatted !== todayDate) {
-              try {
-                await axios.put('/productShelf/usageReset', {
-                  productId: product._id,
-                  usedToday: false
-                }, config);
-              } catch (error) {
-                console.error(error);
-                setError('Failed to fetch skincare products');
-              }
-            }
-          }
-          return Promise.resolve();
-        });
-        try {
-          await Promise.all(nightPromises);
-        } catch (e) {
-          console.error(e);
-          setError('Failed to fetch skincare products');
-        } */
-        setMorningProducts(morningProducts);
-        setNightProducts(nightProducts);
+        // make one array of all products
+        const initialProducts = [...morningResponse.data.response, ...nightResponse.data.response];
+        console.log('initialProducts', initialProducts);
+        // eslint-disable-next-line no-use-before-define
+        (isNewDate(initialProducts))
         setIsLoading(false);
       } catch (e) {
         console.error(e);
@@ -150,8 +79,80 @@ const UsageTracker = () => {
     };
     fetchSkincareProducts();
   }, []);
+  // End fetchSkincareProducts
 
-  // Change usage status of all products in a routine
+  const isNewDate = async (initialProducts) => {
+    try {
+      const accessToken = localStorage.getItem('accessToken');
+      if (!accessToken) {
+        setError('No access token found');
+        return;
+      }
+      const config = {
+        headers: {
+          Authorization: accessToken
+        }
+      };
+
+      const now = new Date();
+      const todayDate = now.toISOString().split('T')[0];
+
+      // collect the products that have been reset in an array
+      // so we can update them in the database too
+      const resetProducts = [];
+
+      initialProducts.forEach((product) => {
+        if (product.usedToday) {
+          const lastUsageDateStr = product.usageHistory[product.usageHistory.length - 1];
+          const lastUsageDate = lastUsageDateStr ? new Date(lastUsageDateStr) : null;
+          const lastUsageDateFormatted = lastUsageDate && lastUsageDate instanceof Date
+            ? lastUsageDate.toISOString().split('T')[0] : null;
+
+          if (lastUsageDateFormatted !== todayDate) {
+            product.usedToday = false;
+            resetProducts.push(product);
+          }
+        }
+      });
+
+      resetProducts.filter(async (product) => {
+        try {
+          await axios.post(
+            '/productShelf/usageReset',
+            {
+              productId: product._id
+            },
+            config
+          );
+        } catch (error) {
+          console.error(error);
+          setError('Failed to send reset request');
+        }
+      })
+    } catch (e) {
+      console.error(e);
+      setError('Failed to reset usedToday');
+    }
+    // eslint-disable-next-line no-use-before-define
+    splitProducts(initialProducts);
+  };
+
+  // Split products into morning and night products
+  const splitProducts = (initialProducts) => {
+    const morningArray = [];
+    const nightArray = [];
+    initialProducts.forEach((product) => {
+      if (product.routine === 'morning') {
+        morningArray.push(product);
+      } else if (product.routine === 'night') {
+        nightArray.push(product);
+      }
+    })
+    setMorningProducts(morningArray);
+    setNightProducts(nightArray);
+  };
+
+  // Change usage status of all products in a routine at once
   const toggleAllUsage = async (action, productType, setProducts) => {
     try {
       const accessToken = localStorage.getItem('accessToken');
@@ -180,7 +181,7 @@ const UsageTracker = () => {
       const updatedProducts = await Promise.all(
         productsToUpdate.map(async (product) => {
           if (action === 'toggleOn' && !product.usedToday) {
-          // Set usedToday to true and push the current date to usageHistory
+            // Set usedToday to true and push the current date to usageHistory
             try {
               const response = await axios.post('/productShelf/toggleAllUsage', {
                 productId: product._id,
@@ -193,12 +194,14 @@ const UsageTracker = () => {
               setError('Failed to toggle on all morning products');
             }
           } else if (action === 'toggleOff' && product.usedToday) {
-          // Set usedToday to false and pop the last date from usageHistory
+            // Set usedToday to false and pop the last date from usageHistory
             product.usageHistory.pop();
             try {
-              const response = await axios.post('/productShelf/toggleAllUsage', { productId: product._id,
+              const response = await axios.post('/productShelf/toggleAllUsage', {
+                productId: product._id,
                 usedToday: false,
-                usageHistory: [...product.usageHistory] }, config);
+                usageHistory: [...product.usageHistory]
+              }, config);
               return response.data.response;
             } catch (error) {
               console.error(error);
@@ -238,17 +241,7 @@ const UsageTracker = () => {
           Authorization: accessToken
         }
       };
-      /*
-      const updatedUsedToday = !usedToday;
-      const updatedUsageHistory = [...usageHistory];
-      if (updatedUsedToday) {
-        updatedUsageHistory.push(new Date());
-      } else {
-        updatedUsageHistory.pop();
-        console.log('popped:', updatedUsageHistory);
-        console.log('length:', updatedUsageHistory.length);
-      }
-      */
+
       const response = await axios.post(
         '/productShelf/logUsage',
         {
@@ -303,7 +296,7 @@ const UsageTracker = () => {
         itemsToShow={1}
         itemsToScroll={1}
         forwardBtnProps={{
-        // here you can also pass className, or any other button element attributes
+          // here you can also pass className, or any other button element attributes
           style: {
             alignSelf: 'center',
             background: '#3F1C3A',
@@ -320,7 +313,7 @@ const UsageTracker = () => {
           children: <span>{'>'}</span>
         }}
         backwardBtnProps={{
-        // here you can also pass className, or any other button element attributes
+          // here you can also pass className, or any other button element attributes
           style: {
             alignSelf: 'center',
             background: '#3F1C3A',
@@ -371,7 +364,7 @@ const UsageTracker = () => {
         <Toggle
           icons={false}
           className="my-toggle"
-          id="toggle-all-night"
+          id="toggle-all-morning"
           checked={morningProducts.every((product) => product.usedToday)}
           onChange={(e) => {
             const action = e.target.checked ? 'toggleOn' : 'toggleOff';
@@ -391,7 +384,7 @@ const UsageTracker = () => {
         itemsToShow={1}
         itemsToScroll={1}
         forwardBtnProps={{
-        // here you can also pass className, or any other button element attributes
+          // here you can also pass className, or any other button element attributes
           style: {
             alignSelf: 'center',
             background: '#3F1C3A',
@@ -408,7 +401,7 @@ const UsageTracker = () => {
           children: <span>{'>'}</span>
         }}
         backwardBtnProps={{
-        // here you can also pass className, or any other button element attributes
+          // here you can also pass className, or any other button element attributes
           style: {
             alignSelf: 'center',
             background: '#3F1C3A',

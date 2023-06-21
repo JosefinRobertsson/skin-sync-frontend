@@ -26,7 +26,6 @@ const CalendarComponent = ({ onDateChoice }) => {
   const handleDateChange = (date) => {
     setChosenDate(date);
     onDateChoice(date);
-    console.log('chosenDate:', chosenDate);
   };
 
   return (

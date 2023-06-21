@@ -67,9 +67,7 @@ const NightShelf = () => {
           throw new Error(`Error: ${response.status}`);
         }
         const data = await response.json();
-        console.log(data);
         setCategories(data.categories);
-        console.log(categories);
       } catch (error) {
         console.error('An error occurred:', error);
       }
@@ -145,8 +143,6 @@ const NightShelf = () => {
       .then((response) => response.json())
       .then((data) => {
         if (data.success) {
-          console.log(data)
-          // console.log('Night routine product submitted successfully');
           setNightName('');
           setNightBrand('');
           setNightCategory('');
@@ -175,7 +171,6 @@ const NightShelf = () => {
         .then((res) => res.json())
         .then((data) => {
           if (data.success) {
-            console.log('Product deleted successfully');
             getNightProducts();
           } else {
             console.error('Failed to delete product');
@@ -205,8 +200,7 @@ const NightShelf = () => {
         setNightBrand(product.brand);
         setNightCategory(product.category);
         setEditingProductId(productId);
-        setNightEditing(true); // Set morningEditing to true
-        console.log('editing night category:', product.category)
+        setNightEditing(true);
       }
     }
   };

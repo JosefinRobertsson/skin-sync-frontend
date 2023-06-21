@@ -23,7 +23,7 @@ const UserPage = () => {
         const { uvIndex } = response.data;
         setUvIndex(uvIndex);
       } catch (error) {
-        console.log('Error fetching UV index:', error);
+        console.error('Error fetching UV index:', error);
       }
     };
 

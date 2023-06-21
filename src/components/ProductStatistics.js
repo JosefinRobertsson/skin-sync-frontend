@@ -31,7 +31,6 @@ const getImagePath = (category) => {
 
 const ProductStatistics = ({ chosenDate }) => {
   const [products, setProducts] = useState([]);
-  // eslint-disable-next-line no-unused-vars
   const [loading, setLoading] = useState(false);
   const [formattedMorningProducts, setformattedMorningProducts] = useState([]);
   const [formattedNightProducts, setFormattedNightProducts] = useState([]);
@@ -47,6 +46,7 @@ const ProductStatistics = ({ chosenDate }) => {
         const accessToken = localStorage.getItem('accessToken');
         if (!accessToken) {
           console.error('No access token found');
+          setLoading(false);
           return;
         }
         const config = {
@@ -90,7 +90,6 @@ const ProductStatistics = ({ chosenDate }) => {
       products.forEach((product) => {
         product.usageHistory.forEach((usageDate) => {
           const { weekNumber, dayOfWeek } = getWeekAndDay(usageDate);
-          // console.log('weekNumber:', weekNumber);
 
           const formattedProduct = {
             weekNumber,
@@ -118,11 +117,8 @@ const ProductStatistics = ({ chosenDate }) => {
 
   const currentDate = moment(chosenDate);
   const week = [];
-  // const startOfWeek = moment(chosenDate).startOf('isoWeek');
-  // console.log('startOfWeek:', startOfWeek);
   // eslint-disable-next-line no-plusplus
   for (let i = 0; i < 7; i++) {
-    // const day = startOfWeek.clone().add(i, 'days');
     const day = currentDate.clone().startOf('isoWeek').add(i, 'days');
     const formattedDate = day.format('DD/MM');
     week.push({
