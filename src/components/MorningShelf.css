@@ -134,7 +134,7 @@ p {
 
 @media (max-width: 500px) {
   .bodyshelves  {
-    width: 375px; 
+    min-width: 375px; 
     min-height: 200vh;
   
   }
