@@ -49,8 +49,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-   
-    
+  
   }
 
   .button-image1 {
@@ -58,7 +57,7 @@
     flex-direction: column;
     align-items: center;
     width: 60px;
-  height: auto;
+   height: auto;
     padding-top: 20%;
     padding-bottom: 10%;
   }
@@ -76,22 +75,22 @@
     flex-direction: column;
     align-items: center;
     width: 100px;
-  height: auto;
+   height: auto;
     padding-top: 20%;
     padding-bottom: 10%;
   }
   
 
   .user-page {
-   
-    height: 200vh;
+
+    height: 105vh;
+    width: 375px;
     background-image: url('../images/Userpageimg.png');
     background-size: cover; 
     background-repeat: no-repeat; 
     background-position: center;
   }
   
-
 
 /* UserPage.css */
 
@@ -103,7 +102,8 @@
   backdrop-filter: blur(8.2px);
   -webkit-backdrop-filter: blur(8.2px);
   border-radius: 40px;
-  width: 60%;
+  width: 50%;
+
   display: flex;
   flex-direction: column;
   justify-content: center;

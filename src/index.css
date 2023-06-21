@@ -3,7 +3,31 @@ body {
   font-family: 'Poppins', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #997FC5;
+  background-color: #8669b9;
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  height: 100vh; 
+  margin: 0; 
+  padding: 0; 
+}
+
+
+
+.allWrapper {
+  width: 100%; 
+  height: 100%; 
+  max-width: 375px; 
+  max-height: 667px; 
+
+  overflow: auto; 
+}
+
+@media (min-width: 768px) {
+  .allWrapper  {
+    width: 100%; 
+    height: 667px; 
+  }
 }
 
 code {
@@ -14,13 +38,4 @@ code {
 button {
   font-family: 'Poppins', sans-serif;
   font-weight:600
-}
-
-.allWrapper {
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  min-height: 100vh;
-  max-width: 667px;
 }

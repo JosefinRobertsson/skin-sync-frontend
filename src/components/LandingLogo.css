@@ -7,25 +7,23 @@
 .background-image {
   display: flex;
   width: 100%; /* Set the width to cover the entire container */
-  height: 100vh /* Adjust the height to maintain aspect ratio */
+  height: 100% /* Adjust the height to maintain aspect ratio */
 }
 
 /* Add additional styles for the button */
 .get-started-button {
-
-  position: absolute;
+  position: relative;
   bottom: 70px; 
   left: 50%;
   transform: translateX(-50%);
   font-size: 14px; 
   padding: 10px;
-  margin-top: 10px;
   background-color: #DB5A4F;
   color:#FFF5E9;
   border: none;
   border-radius: 43px;
   cursor: pointer;
   text-align: center;
-  width: 40%;
+  width: fit-content; 
 }
 

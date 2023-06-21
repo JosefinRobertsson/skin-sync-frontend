@@ -3,6 +3,7 @@
     flex-direction: column;
     align-items: center;
     padding-top: 100%;
+    width: 375px;
 
   }
 
@@ -18,7 +19,7 @@
     margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    width: 50%;
+    max-width: 375px;
   }
 
   .login-input:focus {
@@ -61,7 +62,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 110vh;
     background-image: url('../images/Loginimg.png');
     background-size: cover; 
     background-repeat: no-repeat; 
@@ -69,11 +69,5 @@
   }
   
 
-  
-  @media (max-width: 700px) {
-    .login-container {
-      width: 100%;
-      margin: 0 auto;
-    }
-  }
+
   

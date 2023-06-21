@@ -14,12 +14,6 @@ const OpenPage = () => {
 
   return (
     <div>
-      <h1>
-        Here we will summarize the app and say that
-        we will save their data so we dont go to jail
-        {' '}
-
-      </h1>
       <GetStartedLink to="/login">Get Started</GetStartedLink>
     </div>
   );
