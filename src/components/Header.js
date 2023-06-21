@@ -12,7 +12,7 @@ const Header = () => {
   const handleLogout = () => {
     const accessToken = localStorage.getItem('accessToken');
 
-    axios.post('http://localhost:8080/logout', {
+    axios.post(' https://skinsync-mgydyyeela-no.a.run.app/logout', {
       accessToken
     })
       .then((response) => {

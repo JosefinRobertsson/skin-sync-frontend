@@ -58,7 +58,7 @@ const NightShelf = () => {
     const fetchCategories = async () => {
       try {
         const accessToken = localStorage.getItem('accessToken');
-        const response = await fetch('http://localhost:8080/categories', {
+        const response = await fetch(' https://skinsync-mgydyyeela-no.a.run.app/categories', {
           headers: {
             Authorization: accessToken
           }
@@ -91,7 +91,7 @@ const NightShelf = () => {
 
   const getNightProducts = () => {
     const accessToken = localStorage.getItem('accessToken');
-    fetch('http://localhost:8080/productShelf/night', {
+    fetch(' https://skinsync-mgydyyeela-no.a.run.app/productShelf/night', {
       headers: {
         Authorization: accessToken
       }
@@ -131,7 +131,7 @@ const NightShelf = () => {
       })
     };
 
-    let requestUrl = 'http://localhost:8080/productShelf';
+    let requestUrl = ' https://skinsync-mgydyyeela-no.a.run.app/productShelf';
     let requestMethod = 'POST';
 
     if (editingProductId) {
@@ -162,7 +162,7 @@ const NightShelf = () => {
       setClickCount(1);
     } else {
       const accessToken = localStorage.getItem('accessToken');
-      fetch(`http://localhost:8080/productShelf/${productId}`, {
+      fetch(` https://skinsync-mgydyyeela-no.a.run.app/productShelf/${productId}`, {
         method: 'DELETE',
         headers: {
           Authorization: accessToken
