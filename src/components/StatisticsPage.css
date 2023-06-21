@@ -1,6 +1,6 @@
 .statisticsbody {
     background-color: #1f101f;
-    padding-bottom: -30px;
+
 }
 
 .statisticsbody h1 {
@@ -12,9 +12,12 @@
      color: #FFF4E9;
 }
 
-@media (min-width: 768px) {
+
+
+
+@media (min-width: 500px) {
     .statisticsbody  {
-      min-width:375px; 
-      height: 667px; 
+        height: 100vh; 
     }
   }
+  

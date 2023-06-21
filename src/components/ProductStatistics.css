@@ -66,3 +66,16 @@
 .nightProductContainer::webkit-scrollbar {
     display: none;
 }
+
+
+@media (max-width: 500px) {
+
+   
+.productsWrapper {
+    margin-top: 0px;
+     
+    }
+
+ 
+
+  }

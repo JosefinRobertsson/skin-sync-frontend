@@ -31,7 +31,6 @@
   }
 
   .route-button {
-  
     font-size: 18px;
     padding: 10px;
     margin-top: 10px;
@@ -81,16 +80,14 @@
   }
   
 
-  .user-page {
-
-    height: 105vh;
-    width: 375px;
+  
+  .my-background-class {
     background-image: url('../images/Userpageimg.png');
-    background-size: cover; 
+    background-size:cover; 
     background-repeat: no-repeat; 
     background-position: center;
+    min-height: 120vh;
   }
-  
 
 /* UserPage.css */
 
@@ -137,4 +134,25 @@ font-size: 16px;
       font-family: 'Poppins', sans-serif;
       font-weight:600
     }
+
+
+
   
+    @media (max-width: 500px) {
+
+    
+      .my-background-class {
+   
+        background-repeat: no-repeat; 
+        background-position: center;
+        min-height: 140vh;
+      }
+
+      .user-page {
+       min-height: 120vh;
+       padding-bottom: 470px;
+    
+      }
+  
+    }
+    

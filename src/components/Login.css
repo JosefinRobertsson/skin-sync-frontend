@@ -2,9 +2,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 100%;
-    width: 375px;
-
   }
 
   .login-title {
@@ -67,7 +64,32 @@
     background-repeat: no-repeat; 
     background-position: center;
   }
-  
 
+
+  @media (min-width: 768px) {
+    .login-container   {
+      padding-top: 100%;
+      width: 100vh;
+    }
+  }
+
+
+  
+  @media (max-width: 500px) {
+    .login-page     {
+      min-width: 90vw;
+      min-height: 101vh; 
+    }
+
+    .login-container{
+      padding-top:360px;
+      
+    }
+
+    .login-button, .register-button {
+      width: 100%
+    }
+
+  }
 
   

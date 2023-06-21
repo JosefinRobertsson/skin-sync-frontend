@@ -8,11 +8,12 @@
 }
 
 .usageTrackerWrapper {
-    height: 140vh;
+    height: 150vh;
     background-image: url('../images/backgroundUsage.png');
     background-size: cover; 
     background-repeat: no-repeat; 
     background-position: center;
+    padding-bottom: 100px;
 }
 
 .usageTrackerWrapper h2 {
@@ -118,3 +119,20 @@
     align-items: center;
     justify-content: center;
 }
+
+@media (max-width: 500px) {
+
+    .usageTrackerWrapper {
+      background-repeat: no-repeat; 
+      background-position: center;
+      min-height: 140vh;
+    }
+
+    .usageTrackerWrapper {
+     min-height: 120vh;
+     padding-bottom: 770px;
+  
+    }
+
+  }
+  

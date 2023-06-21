@@ -31,42 +31,44 @@ const UserPage = () => {
   }, []);
 
   return (
-    <div className="user-page">
-      <div>
+    <div className="my-background-class">
+      <div className="user-page">
         <div>
-          <Zoom>
-            <h1>Welcome Back!</h1>
-          </Zoom>
-          {uvIndex !== null && (
-            <div className="uv-index-box">
-              <h9> The UV index is:</h9>
-              <h1> {uvIndex} </h1>
-              <h2>Remember to wear sunscreen!</h2>
+          <div>
+            <Zoom>
+              <h1>Welcome Back!</h1>
+            </Zoom>
+            {uvIndex !== null && (
+              <div className="uv-index-box">
+                <h9> The UV index is:</h9>
+                <h1> {uvIndex} </h1>
+                <h2>Remember to wear sunscreen!</h2>
 
-            </div>
-          )}
-        </div>
+              </div>
+            )}
+          </div>
 
-        <div>
-          <div className="imagesandbuttons">
-            <img src={dailyImage} alt="Daily Report" className="button-image1" />
-            <DailyLink to="/DailyReport" className="route-button">
+          <div>
+            <div className="imagesandbuttons">
+              <img src={dailyImage} alt="Daily Report" className="button-image1" />
+              <DailyLink to="/DailyReport" className="route-button">
               Log day
-            </DailyLink>
-          </div>
+              </DailyLink>
+            </div>
 
-          <div className="imagesandbuttons">
-            <img src={shelfImage} alt="Product Shelf" className="button-image2" />
-            <ShelfLink to="/productShelf" className="route-button">
+            <div className="imagesandbuttons">
+              <img src={shelfImage} alt="Product Shelf" className="button-image2" />
+              <ShelfLink to="/productShelf" className="route-button">
               Product shelf
-            </ShelfLink>
-          </div>
+              </ShelfLink>
+            </div>
 
-          <div className="imagesandbuttons">
-            <img src={statisticsImage} alt="Statistics" className="button-image3" />
-            <StatisticsLink to="/statisticsPage" className="route-button">
+            <div className="imagesandbuttons">
+              <img src={statisticsImage} alt="Statistics" className="button-image3" />
+              <StatisticsLink to="/statisticsPage" className="route-button">
               Statistics
-            </StatisticsLink>
+              </StatisticsLink>
+            </div>
           </div>
         </div>
       </div>

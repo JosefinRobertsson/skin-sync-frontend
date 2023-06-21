@@ -126,6 +126,16 @@ p {
 @media (min-width: 768px) {
   .bodyshelves  {
     width: 375px; 
+    min-height: 115vh;
+  
+  }
+}
+
+
+@media (max-width: 500px) {
+  .bodyshelves  {
+    width: 375px; 
+    min-height: 200vh;
   
   }
 }
