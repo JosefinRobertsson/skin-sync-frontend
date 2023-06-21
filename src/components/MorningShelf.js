@@ -278,7 +278,7 @@ const MorningShelf = () => {
             {
               itemsToShow: 1,
               itemsToScroll: 1,
-              minWidth: 768
+              minWidth: 200
             }
           ]}
           speed={400}

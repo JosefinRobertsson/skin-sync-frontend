@@ -2,7 +2,9 @@
 
 
 .productsWrapper {
-    padding: 1rem;
+  margin-top: -190px;
+  padding: 1em;
+  background-color: #1f101f;
 }
 
 .daysAndNights {
@@ -10,7 +12,8 @@
     min-height: fit-content;
     font-size: 1rem;
     font-weight: bold;
-    color: rgb(29, 13, 72);
+    color: #FFF5E9;
+    background-color: #1f101f;
 }
 
 .allMornings,
@@ -21,9 +24,6 @@
     margin-top: 0.5rem;
 }
 
-.allMornings {
- /*   background-color: rgb(118, 210, 118); */
-}
 .allNights {
     color: #FFF5E9;
 }

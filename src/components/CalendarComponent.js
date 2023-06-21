@@ -9,15 +9,15 @@ const StyledDiv = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  height: 90vh;
 `;
 const StyledH1 = styled.h1`
-  padding-top: -20px;
+  padding-top: 150px;
   padding-bottom: 10%;
   font-size: 32px;
   letter-spacing: 0.5%;
   text-align: center;
-  color: #FFF4E9;
+  color: #FFF5E9;
 `;
 
 const CalendarComponent = ({ onDateChoice }) => {
