@@ -10,7 +10,7 @@ body {
   min-height: 100vh;
   margin: 0;
   padding: 0;
-  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 
@@ -23,8 +23,6 @@ body {
   overflow-x: hidden;
   scrollbar-width: none;
   -ms-overflow-style: none;
- /* scrollbar-width: 20px;
-  scrollbar-color: #8669b9 #FFF5E9; */
 }
 
 
@@ -35,7 +33,7 @@ body {
 @media (min-width: 768px) {
   .allWrapper {
     width: 375px;
-    height: 667px;
+    height: 768px;
   }
 }
 
@@ -46,7 +44,6 @@ body {
   }
 }
 
-
 code {
   font-family: 'Poppins', sans-serif;
   ;
@@ -55,5 +52,5 @@ code {
 
 button {
   font-family: 'Poppins', sans-serif;
-  font-weight: 600
+  font-weight: 600;
 }

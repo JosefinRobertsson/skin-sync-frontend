@@ -6,13 +6,10 @@
   padding: 0; 
 }
 
-
-/* Add the following styles to round the lines */
 .menu-icon .hamburger-react div {
   border-radius: 50px; 
 }
 
-/* Hide the box shadow */
 .menu-icon .hamburger-react div span {
   box-shadow: none;
 }
@@ -25,7 +22,6 @@ list-style: none;
   color: #FFF5E9; 
  
 }
-
 
 nav {
   background-color: #DB5A4F;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import styled from 'styled-components';
@@ -21,15 +21,13 @@ const StyledH1 = styled.h1`
 
 const Styledp = styled.p`
 color: #FFF5E9;
-padding-left: 10px;
+padding-left: 1rem;
+padding-right: 1rem;
 `;
 
-const CalendarComponent = ({ onDateChoice }) => {
-  const [chosenDate, setChosenDate] = useState(new Date());
-
+const CalendarComponent = ({ chosenDate, setChosenDate }) => {
   const handleDateChange = (date) => {
     setChosenDate(date);
-    onDateChoice(date);
   };
 
   return (

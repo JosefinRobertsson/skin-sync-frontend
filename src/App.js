@@ -33,11 +33,6 @@ export const App = () => {
     };
   }, []);
 
-  const handleDateChoice = (date) => {
-    setChosenDate(date);
-    console.log('chosenDate:', chosenDate);
-  }
-
   return (
     <div className="allWrapper">
       <BrowserRouter>
@@ -67,7 +62,7 @@ export const App = () => {
               element={
                 <>
                   <StatisticsPage />
-                  <CalendarComponent onDateChoice={handleDateChoice} />
+                  <CalendarComponent chosenDate={chosenDate} setChosenDate={setChosenDate} />
                   <ProductStatistics chosenDate={chosenDate} />
                 </>
               } />
@@ -81,8 +76,3 @@ export const App = () => {
 }
 
 export default App;
-
-/*
-  <Route path="/productStatistics"
-  element={<ProductStats handleDateChoice={handleDateChoice} chosenDate={chosenDate} />} />
-  */
