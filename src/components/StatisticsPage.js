@@ -32,7 +32,7 @@ const formatYAxis = (tickItem) => {
   if (tickItem > 40 && tickItem <= 75) {
     return '75%';
   }
-  if (tickItem > 60) {
+  if (tickItem > 76 && tickItem <= 100) {
     return '100%';
   }
   return '';
@@ -101,7 +101,7 @@ const AverageData = (data) => {
       value: average.sugar
     },
     {
-      name: 'acne',
+      name: 'skin issues',
       value: average.acne
     }
 
@@ -124,7 +124,7 @@ const AverageData = (data) => {
       value: average.stress
     },
     {
-      name: 'acne',
+      name: 'skin issues',
       value: average.acne
     }
   ]

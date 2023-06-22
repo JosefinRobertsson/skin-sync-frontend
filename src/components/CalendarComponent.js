@@ -12,12 +12,16 @@ const StyledDiv = styled.div`
   height: 90vh;
 `;
 const StyledH1 = styled.h1`
-  padding-top: 150px;
   padding-bottom: 10%;
   font-size: 32px;
   letter-spacing: 0.5%;
   text-align: center;
   color: #FFF5E9;
+`;
+
+const Styledp = styled.p`
+color: #FFF5E9;
+padding-left: 10px;
 `;
 
 const CalendarComponent = ({ onDateChoice }) => {
@@ -31,6 +35,7 @@ const CalendarComponent = ({ onDateChoice }) => {
   return (
     <StyledDiv>
       <StyledH1>Products</StyledH1>
+      <Styledp>Choose a date to see the products you used that week</Styledp>
       <Calendar onChange={handleDateChange} value={chosenDate} />
     </StyledDiv>
   )
