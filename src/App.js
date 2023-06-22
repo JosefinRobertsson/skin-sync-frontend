@@ -18,6 +18,7 @@ import ProductStatistics from './components/ProductStatistics';
 
 export const App = () => {
   const [chosenDate, setChosenDate] = useState(new Date());
+  const [username, setUsername] = useState('');
 
   useEffect(() => {
     const handlePageShow = (event) => {
@@ -44,8 +45,8 @@ export const App = () => {
           <Header />
           <Routes>
             <Route path="/" element={<LandingLogo />} />
-            <Route path="/Login" element={<Login />} />
-            <Route path="/userpage" element={<UserPage />} />
+            <Route path="/Login" element={<Login username={username} setUsername={setUsername} />} />
+            <Route path="/userpage" element={<UserPage username={username} />} />
             <Route path="/Register" element={<Register />} />
             <Route path="/DailyReport" element={<DailyReport />} />
             <Route

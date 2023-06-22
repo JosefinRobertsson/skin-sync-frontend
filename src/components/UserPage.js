@@ -8,7 +8,7 @@ import dailyImage from '../images/dailyImage.png';
 import shelfImage from '../images/shelfImage.png';
 import statisticsImage from '../images/statisticsImage.png';
 
-const UserPage = () => {
+const UserPage = ({ username }) => {
   const [uvIndex, setUvIndex] = useState(null);
 
   useEffect(() => {
@@ -36,7 +36,7 @@ const UserPage = () => {
         <div>
           <div>
             <Zoom>
-              <h1>Welcome Back!</h1>
+              <h1>Welcome {username}!</h1>
             </Zoom>
             {uvIndex !== null && (
               <div className="uv-index-box">

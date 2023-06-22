@@ -53,7 +53,12 @@ const Header = () => {
         </li>
         <li>
           <Link to="/DailyReport" onClick={toggleMenu} style={{ textDecoration: 'none' }} className="link-styling">
-            Log details
+            Log day
+          </Link>
+        </li>
+        <li>
+          <Link to="/productShelf/logUsage" onClick={toggleMenu} style={{ textDecoration: 'none' }} className="link-styling">
+            Log skincare
           </Link>
         </li>
         <li>

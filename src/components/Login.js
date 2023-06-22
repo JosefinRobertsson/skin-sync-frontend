@@ -8,8 +8,8 @@ import 'react-toggle/style.css'
 
 /* eslint-disable no-console */
 
-const Auth = () => {
-  const [username, setUsername] = useState('');
+const Auth = ({ username, setUsername }) => {
+  // const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isLogin, setIsLogin] = useState(true);
   const navigate = useNavigate();
