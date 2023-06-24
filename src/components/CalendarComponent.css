@@ -1,7 +1,7 @@
 
 .react-calendar {
-    background-color: #FFF5E9;
-    border-radius: 10px;
+    background-color: rgba(255, 244, 233, 0.80);
+    border-radius: 0.8rem;
     border: none;
     color: #FFF5E9;
     font-family: 'Poppins', sans-serif;
@@ -9,4 +9,25 @@
     margin: 0 auto;
     padding: 1rem;
     display: block;
+    width: 80%;
+    height: min-content;
+}
+
+abbr {
+    color:  #1f101f;
+}
+
+.react-calendar__tile {
+    border-radius: 0.8rem;
+}
+
+.react-calendar__tile--active,
+.react-calendar__tile--active:enabled:hover, 
+.react-calendar__tile--active:enabled:focus {
+    background: #997FC5;
+}
+
+.react-calendar__tile--now,
+.react-calendar__tile--now:enabled:hover, .react-calendar__tile--now:enabled:focus {
+    background: white;
 }
