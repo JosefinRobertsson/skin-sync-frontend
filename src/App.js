@@ -14,11 +14,13 @@ import UsageTracker from './components/UsageTracker';
 import NightShelf from './components/NightShelf';
 import LandingLogo from './components/LandingLogo';
 import CalendarComponent from './components/CalendarComponent';
+import WeeklyDiagrams from './components/WeeklyDiagrams';
 import ProductStatistics from './components/ProductStatistics';
 
 export const App = () => {
   const [chosenDate, setChosenDate] = useState(new Date());
   const [username, setUsername] = useState('');
+  const [reportData, setReportData] = useState([]);
 
   useEffect(() => {
     const handlePageShow = (event) => {
@@ -37,7 +39,7 @@ export const App = () => {
     <div className="allWrapper">
       <BrowserRouter>
         <>
-          <Header />
+          <Header username={username} />
           <Routes>
             <Route path="/" element={<LandingLogo />} />
             <Route path="/Login" element={<Login username={username} setUsername={setUsername} />} />
@@ -61,8 +63,9 @@ export const App = () => {
               path="/statisticsPage"
               element={
                 <>
-                  <StatisticsPage />
+                  <StatisticsPage reportData={reportData} setReportData={setReportData} />
                   <CalendarComponent chosenDate={chosenDate} setChosenDate={setChosenDate} />
+                  <WeeklyDiagrams chosenDate={chosenDate} reportData={reportData} />
                   <ProductStatistics chosenDate={chosenDate} />
                 </>
               } />
