@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import moment from 'moment';
 import { v4 as uuidv4 } from 'uuid';
+import { PopUp } from './PopUp';
 import './ProductStatistics.css'
 import cleanserImage from '../images/cleanser.png';
 import moisturizerImage from '../images/moisturizer.png';
@@ -34,7 +35,11 @@ const ProductStatistics = ({ chosenDate }) => {
   const [loading, setLoading] = useState(false);
   const [formattedMorningProducts, setformattedMorningProducts] = useState([]);
   const [formattedNightProducts, setFormattedNightProducts] = useState([]);
+  const [showPopUp, setShowPopUp] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+
   axios.defaults.baseURL = ' https://skinsync-mgydyyeela-no.a.run.app';
+  // axios.defaults.baseURL = 'http://localhost:8080';
 
   useEffect(() => {
     const fetchSkincareProducts = async () => {
@@ -54,6 +59,7 @@ const ProductStatistics = ({ chosenDate }) => {
             Authorization: accessToken
           }
         };
+
         morningResponse = await axios.get('/productShelf/morning', config);
         nightResponse = await axios.get('/productShelf/night', config);
         if (!morningResponse.data.success || !nightResponse.data.success) {
@@ -99,7 +105,8 @@ const ProductStatistics = ({ chosenDate }) => {
             productBrand: product.brand,
             productCategory: product.category,
             productRoutine: product.routine,
-            productUsage: usageDate
+            productUsage: usageDate,
+            usageCount: product.usageHistory.length
           };
 
           if (product.routine === 'morning') {
@@ -129,8 +136,21 @@ const ProductStatistics = ({ chosenDate }) => {
     });
   }
 
+  const handleProductSelection = (data) => {
+    setSelectedProduct(data);
+    setShowPopUp(true);
+    console.log(showPopUp);
+  };
+
+  const handleKeyPress = (event, data) => {
+    if (event.key === 'Enter') {
+      handleProductSelection(data);
+    }
+  };
+
   return (
     <div className="productsWrapper">
+      <h2>Skincare used</h2>
       {week.map((weekday) => (
         <div className={`${weekday.name} daysAndNights`} key={weekday.number}>
           {weekday.name} {weekday.formattedDate}
@@ -140,9 +160,13 @@ const ProductStatistics = ({ chosenDate }) => {
               .map((data) => (
                 <div
                   className="morningProductContainer"
-                  key={`${data.productName}-${uuidv4()}`}>
+                  key={`${data.productName}-${uuidv4()}`}
+                  onClick={() => handleProductSelection(data)}
+                  onKeyDown={(event) => handleKeyPress(event, data)}
+                  tabIndex={0}
+                  role="button">
                   <img src={getImagePath(data.productCategory)} alt={data.productCategory} />
-                  {data.productName}
+                  <span>{data.productName}</span>
                 </div>
               ))}
           </div>
@@ -152,14 +176,26 @@ const ProductStatistics = ({ chosenDate }) => {
               .map((data) => (
                 <div
                   className="nightProductContainer"
-                  key={`${data.productName}-${uuidv4()}`}>
+                  key={`${data.productName}-${uuidv4()}`}
+                  onClick={() => handleProductSelection(data)}
+                  onKeyDown={(event) => handleKeyPress(event, data)}
+                  tabIndex={0}
+                  role="button">
                   <img src={getImagePath(data.productCategory)} alt={data.productCategory} />
-                  {data.productName}
+                  <span>{data.productName}</span>
                 </div>
               ))}
           </div>
         </div>
       ))}
+      {selectedProduct && (
+        <PopUp
+          data={selectedProduct}
+          setSelectedProduct={setSelectedProduct}
+          getImagePath={getImagePath}
+          setShowPopUp={setShowPopUp}
+          showPopUp={showPopUp} />
+      )}
     </div>
   );
 };
