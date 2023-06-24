@@ -4,7 +4,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import confetti from 'canvas-confetti';
-
+import { v4 as uuidv4 } from 'uuid';
 import ReactSimplyCarousel from 'react-simply-carousel';
 import { AddProductButton, DeleteProductButton } from '../styles/StyledButtons';
 import { UsageLink } from '../styles/StyledLinks';
@@ -14,7 +14,7 @@ import serumImage from '../images/serum.png';
 import sunscreenImage from '../images/sunscreen.png';
 import otherImage from '../images/other.png';
 import defaultImage from '../images/default.png';
-import './MorningShelf.css'
+import './Shelves.css'
 /*
 const SingleProductWrapper = styled.div`
   display: flex;
@@ -34,7 +34,7 @@ const handleConfetti = () => {
     startVelocity: 30,
     gravity: 0.4,
     scalar: 0.7,
-    origin: { y: 0.9 },
+    origin: { y: 0.7 },
     resize: true,
     ticks: 260,
     disableForReducedMotion: true // For users with motion sensitivity
@@ -58,6 +58,7 @@ const NightShelf = () => {
     const fetchCategories = async () => {
       try {
         const accessToken = localStorage.getItem('accessToken');
+        // const response = await fetch(' http://localhost:8080/categories', {
         const response = await fetch(' https://skinsync-mgydyyeela-no.a.run.app/categories', {
           headers: {
             Authorization: accessToken
@@ -91,6 +92,7 @@ const NightShelf = () => {
 
   const getNightProducts = () => {
     const accessToken = localStorage.getItem('accessToken');
+    // fetch('http://localhost:8080/productShelf/night', {
     fetch(' https://skinsync-mgydyyeela-no.a.run.app/productShelf/night', {
       headers: {
         Authorization: accessToken
@@ -117,6 +119,7 @@ const NightShelf = () => {
   const handleSubmitNightRoutine = (event) => {
     event.preventDefault();
     handleConfetti();
+
     const accessToken = localStorage.getItem('accessToken');
     const options = {
       headers: {
@@ -124,13 +127,14 @@ const NightShelf = () => {
         Authorization: accessToken
       },
       body: JSON.stringify({
-        name: nightName,
-        brand: nightBrand,
+        name: nightName.charAt(0).toUpperCase() + nightName.slice(1),
+        brand: nightBrand.charAt(0).toUpperCase() + nightBrand.slice(1),
         category: nightCategory,
         routine: 'night'
       })
     };
 
+    // let requestUrl = 'http://localhost:8080/productShelf';
     let requestUrl = ' https://skinsync-mgydyyeela-no.a.run.app/productShelf';
     let requestMethod = 'POST';
 
@@ -162,6 +166,7 @@ const NightShelf = () => {
       setClickCount(1);
     } else {
       const accessToken = localStorage.getItem('accessToken');
+      // fetch(` http://localhost:8080/productShelf/${productId}`, {
       fetch(` https://skinsync-mgydyyeela-no.a.run.app/productShelf/${productId}`, {
         method: 'DELETE',
         headers: {
@@ -223,6 +228,34 @@ const NightShelf = () => {
     }
   };
 
+  const handleInputChange = (event) => {
+    const { id, value } = event.target;
+    const words = value.split(' ');
+
+    const truncatedWords = words.map((word) => {
+      if (word.length > 15) {
+        return word.substring(0, 15);
+      }
+      return word;
+    });
+
+    const truncatedValue = truncatedWords.join(' ');
+    if (truncatedValue.length <= 30) {
+      if (id === 'nightName') {
+        setNightName(truncatedValue);
+      } else if (id === 'nightBrand') {
+        setNightBrand(truncatedValue);
+      }
+    }
+  };
+
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      // eslint-disable-next-line no-undef
+      handleNightEdit(product._id)
+    }
+  };
+
   const nightProductCount = nightProducts.length;
 
   return (
@@ -234,7 +267,7 @@ const NightShelf = () => {
         itemsToShow={1}
         itemsToScroll={1}
         forwardBtnProps={{
-        // here you can also pass className, or any other button element attributes
+          // here you can also pass className, or any other button element attributes
           style: {
             alignSelf: 'center',
             background: '#3F1C3A',
@@ -251,7 +284,7 @@ const NightShelf = () => {
           children: <span>{'>'}</span>
         }}
         backwardBtnProps={{
-        // here you can also pass className, or any other button element attributes
+          // here you can also pass className, or any other button element attributes
           style: {
             alignSelf: 'center',
             background: '#3F1C3A',
@@ -269,29 +302,37 @@ const NightShelf = () => {
         }}
         responsiveProps={[
           {
-            itemsToShow: 1,
+            itemsToShow: 2,
             itemsToScroll: 1,
             minWidth: 200
           }
         ]}
-        speed={400}
+        speed={300}
         easing="linear">
         {nightProducts.map((product) => (
-          <div className="carousel-item" key={product._id} style={{ width: 200, height: 200, background: '#FFF5E9' }}>
-            <ProductImage
-              src={getImagePath(product.category)}
-              alt={product.category}
-              onClick={() => handleNightEdit(product._id)} />
+          <div className="carousel-item-wrapper" key={uuidv4()}>
+            <div
+              className="carousel-item nightCarousel"
+              key={product._id}
+              onClick={() => handleNightEdit(product._id)}
+              onKeyDown={(event) => handleKeyPress(event, product._id)}
+              tabIndex={0}
+              role="button">
+              <ProductImage
+                src={getImagePath(product.category)}
+                alt={product.category} />
 
-            <div className="productsnameandbrand">
-              <h5> {product.name} :  {product.brand}  </h5>
-
+              <div className="productsnameandbrand">
+                <span>{product.name}</span>
+                <span>{product.brand}</span>
+              </div>
             </div>
-
           </div>
         ))}
       </ReactSimplyCarousel>
       <p>{nightProductCount} products</p>
+      <p>Click a product to edit</p>
+
       <form className="form-wrapper" onSubmit={handleSubmitNightRoutine}>
         <fieldset className="fieldset"><legend>{nightEditing ? 'Edit ' : 'Add to '}Night shelf</legend>
           <div>
@@ -302,7 +343,7 @@ const NightShelf = () => {
               placeholder="product name"
               id="nightName"
               value={nightName}
-              onChange={(e) => setNightName(e.target.value)}
+              onChange={handleInputChange}
               required />
           </div>
 
@@ -313,7 +354,7 @@ const NightShelf = () => {
               placeholder="brand name"
               id="nightBrand"
               value={nightBrand}
-              onChange={(e) => setNightBrand(e.target.value)} />
+              onChange={handleInputChange} />
           </div>
           <div>
             <label className="labelusage" htmlFor="nightCategory">Category:</label>

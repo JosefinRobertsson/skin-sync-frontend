@@ -6,6 +6,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import confetti from 'canvas-confetti';
+import { v4 as uuidv4 } from 'uuid';
 import { Slide } from 'react-awesome-reveal';
 import ReactSimplyCarousel from 'react-simply-carousel';
 import { AddProductButton, DeleteProductButton } from '../styles/StyledButtons';
@@ -16,7 +17,7 @@ import serumImage from '../images/serum.png';
 import sunscreenImage from '../images/sunscreen.png';
 import otherImage from '../images/other.png';
 import defaultImage from '../images/default.png';
-import './MorningShelf.css'
+import './Shelves.css'
 import Shelfblob from '../images/Shelfblob.png'
 
 const ProductImage = styled.img`
@@ -56,6 +57,7 @@ const MorningShelf = () => {
     const fetchCategories = async () => {
       try {
         const accessToken = localStorage.getItem('accessToken');
+        // const response = await fetch('http://localhost:8080/categories', {
         const response = await fetch('https://skinsync-mgydyyeela-no.a.run.app/categories', {
           headers: {
             Authorization: accessToken
@@ -88,6 +90,7 @@ const MorningShelf = () => {
 
   const getMorningProducts = () => {
     const accessToken = localStorage.getItem('accessToken');
+    // fetch('http://localhost:8080/productShelf/morning', {
     fetch('https://skinsync-mgydyyeela-no.a.run.app/productShelf/morning', {
       headers: {
         Authorization: accessToken
@@ -124,14 +127,15 @@ const MorningShelf = () => {
         Authorization: accessToken
       },
       body: JSON.stringify({
-        name: morningName,
-        brand: morningBrand,
+        name: morningName.charAt(0).toUpperCase() + morningName.slice(1),
+        brand: morningBrand.charAt(0).toUpperCase() + morningBrand.slice(1),
         category: morningCategory,
         routine: 'morning'
       })
     };
 
-    let requestUrl = ' https://skinsync-mgydyyeela-no.a.run.app/productShelf';
+    // let requestUrl = 'http://localhost:8080/productShelf';
+    let requestUrl = 'https://skinsync-mgydyyeela-no.a.run.app/productShelf';
     let requestMethod = 'POST';
 
     if (editingProductId) {
@@ -165,6 +169,7 @@ const MorningShelf = () => {
       setClickCount(1);
     } else {
       const accessToken = localStorage.getItem('accessToken');
+      // fetch(`http://localhost:8080/productShelf/${productId}`, {
       fetch(` https://skinsync-mgydyyeela-no.a.run.app/productShelf/${productId}`, {
         method: 'DELETE',
         headers: {
@@ -226,6 +231,33 @@ const MorningShelf = () => {
     }
   };
 
+  const handleInputChange = (event) => {
+    const { id, value } = event.target;
+    const words = value.split(' ');
+
+    const truncatedWords = words.map((word) => {
+      if (word.length > 15) {
+        return word.substring(0, 15);
+      }
+      return word;
+    });
+
+    const truncatedValue = truncatedWords.join(' ');
+    if (truncatedValue.length <= 30) {
+      if (id === 'morningName') {
+        setMorningName(truncatedValue);
+      } else if (id === 'morningBrand') {
+        setMorningBrand(truncatedValue);
+      }
+    }
+  };
+
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      handleMorningEdit(product._id)
+    }
+  };
+
   const morningProductCount = morningProducts.length;
 
   return (
@@ -239,7 +271,7 @@ const MorningShelf = () => {
         <ReactSimplyCarousel
           activeSlideIndex={activeSlideIndex}
           onRequestChange={setActiveSlideIndex}
-          itemsToShow={1}
+          itemsToShow={2}
           itemsToScroll={1}
           forwardBtnProps={{
             // here you can also pass className, or any other button element attributes
@@ -276,28 +308,37 @@ const MorningShelf = () => {
           }}
           responsiveProps={[
             {
-              itemsToShow: 1,
+              itemsToShow: 2,
               itemsToScroll: 1,
-              minWidth: 200
+              minWidth: 150
             }
           ]}
-          speed={400}
+          speed={300}
           easing="linear">
           {morningProducts.map((product) => (
-            <div className="carousel-item" key={product._id}>
-              <ProductImage
-                className="product-image"
-                src={getImagePath(product.category)}
-                alt={product.category}
-                onClick={() => handleMorningEdit(product._id)} />
+            <div className="carousel-item-wrapper" key={uuidv4()}>
+              <div
+                className="carousel-item"
+                key={product._id}
+                onClick={() => handleMorningEdit(product._id)}
+                onKeyDown={(event) => handleKeyPress(event, product._id)}
+                tabIndex={0}
+                role="button">
+                <ProductImage
+                  className="product-image"
+                  src={getImagePath(product.category)}
+                  alt={product.category} />
 
-              <div className="productsnameandbrand">
-                <h5>{product.name} : {product.brand}</h5>
+                <div className="productsnameandbrand">
+                  <span>{product.name}</span>
+                  <span>{product.brand}</span>
+                </div>
               </div>
             </div>
           ))}
         </ReactSimplyCarousel>
         <p>{morningProductCount} products</p>
+        <p>Click a product to edit</p>
 
         <form className="form-wrapper" onSubmit={handleSubmitMorningRoutine}>
           <fieldset className="fieldset"><legend>{morningEditing ? 'Edit' : 'Add to '} Morning shelf</legend>
@@ -308,7 +349,7 @@ const MorningShelf = () => {
                 placeholder="product name"
                 id="morningName"
                 value={morningName}
-                onChange={(e) => setMorningName(e.target.value)}
+                onChange={handleInputChange}
                 required />
             </div>
             <div>
@@ -318,7 +359,7 @@ const MorningShelf = () => {
                 placeholder="brand name"
                 id="morningBrand"
                 value={morningBrand}
-                onChange={(e) => setMorningBrand(e.target.value)} />
+                onChange={handleInputChange} />
             </div>
             <div>
               <label className="labelusage" htmlFor="morningCategory">Category:</label>
