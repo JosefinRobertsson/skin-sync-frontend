@@ -1,31 +1,62 @@
-
 .menu-icon {
-  background-color: transparent; 
-  color:#FFF5E9;
-  border: none; 
-  padding: 0; 
+  background-color: #DB5A4F;
+  color: #FFF5E9;
+  border: none;
+  padding: 0;
+  position: fixed;
+  border-radius: 0.6rem;
+  z-index: 100;
+  margin: 5px 0 0 5px;
+  box-shadow:2px 3px 6px rgba(0, 0, 0, 0.37);
 }
 
 .menu-icon .hamburger-react div {
-  border-radius: 50px; 
+  border-radius: 50px;
+  position: fixed;
 }
 
 .menu-icon .hamburger-react div span {
   box-shadow: none;
+  position: fixed;
 }
 
+.menu-items {
+  position: fixed;
+  height: min-content;
+  background-color: #DB5A4F;
+  z-index: 10;
+  padding: 0.8rem 1.2rem 1rem 65px;
+  border-bottom-right-radius: 2rem;
+}
+
+.menu-items.open {
+  display: block;
+}
+
+ul {
+  margin-top: 0;
+}
+
+
 li {
-list-style: none;
+  list-style: none;
+  font-style: italic;
+  font-size: 1rem;
 }
 
 .link-styling {
-  color: #FFF5E9; 
- 
+  color: #FFF5E9;
 }
+
+.link-styling:hover {
+  display: block;
+  background-color: rgba(228, 218, 217, 0.641);
+}
+
 
 nav {
   background-color: #DB5A4F;
   padding-bottom: 20px;
   display: flex;
-  margin-bottom: -25px;
-  }
+  height: 60px;
+}

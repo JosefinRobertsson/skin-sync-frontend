@@ -4,14 +4,16 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Spin as Hamburger } from 'hamburger-react';
 import './Header.css';
 
-const Header = () => {
+const Header = ({ username }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
+  console.log('username:', username);
 
   const handleLogout = () => {
     const accessToken = localStorage.getItem('accessToken');
 
+    // axios.post('http://localhost:8080/logout', {
     axios.post(' https://skinsync-mgydyyeela-no.a.run.app/logout', {
       accessToken
     })
@@ -28,26 +30,27 @@ const Header = () => {
     setIsOpen(!isOpen);
   };
 
+  const hideHeader = location.pathname !== '/login'
+    && location.pathname !== '/'
+    && location.pathname !== '/logout';
+
   return (
-    <nav>
-      {/* prevent the hamburger menu to show in the loginpage */}
-      {(location.pathname !== '/login' && location.pathname !== '/LandingLogo' && location.pathname !== '/') && (
-        <button type="button" className="menu-icon" onClick={toggleMenu}>
-          <Hamburger
-            hideOutline={false}
-            toggled={isOpen}
-            rounded
-            toggle={setIsOpen}
-            size={25}
-            label="Show menu" />
-        </button>
-      )}
+    <nav style={{ display: hideHeader ? 'block' : 'none' }}>
+      <button type="button" className="menu-icon" onClick={toggleMenu}>
+        <Hamburger
+          hideOutline={false}
+          toggled={isOpen}
+          rounded
+          toggle={setIsOpen}
+          size={25}
+          label="Show menu" />
+      </button>
 
       <ul
         className="menu-items"
         style={{ display: isOpen ? 'block' : 'none' }}>
         <li>
-          <Link to="/userpage" onClick={toggleMenu} style={{ textDecoration: 'none' }} className="link-styling">
+          <Link to={`/userpage?username=${username}`} onClick={toggleMenu} style={{ textDecoration: 'none' }} className="link-styling">
             Home
           </Link>
         </li>
