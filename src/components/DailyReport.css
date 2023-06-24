@@ -8,10 +8,12 @@
     letter-spacing: 0.5%;
     text-align: center;
     color: #FFF4E9;
+    margin-top: 0;
 }
 
 .dailyreportbody {
     background-color: #2A152A;
+    padding: 5% 3% 0 5%;
 }
 
 
@@ -51,26 +53,29 @@ select {
 }
 
 .RegisterButton {
-    
     font-size: 16px;
     padding: 10px;
     margin-top: 15%;
     margin-bottom: 15%;
     background-color: #DB5A4F;
-    color: white;
+    color: rgba(255, 255, 255, 0.85);
     border: none;
     border-radius: 43px;
     cursor: pointer;
     text-align: center;
     width: 50%;
+    font-family: 'Lalezar', cursive;
+    letter-spacing: 1px;
+    font-weight: 400;
 }
 input[type='range'] {
 	-webkit-appearance: none;
 	height: 5px;
 	background: grey;
 	border-radius: 4px;
-	background-image: linear-gradient(#dbd4f4, #997FC5);
+	background-image: linear-gradient(to right, #bc748d, #9b82c6);
 	background-repeat: no-repeat;
+    cursor: pointer;
 }
 
 input[type='range']::-webkit-slider-thumb {
@@ -82,6 +87,9 @@ input[type='range']::-webkit-slider-thumb {
 	cursor: pointer;
 	box-shadow: 0 0 2px 0 #555;
 }
+
+
+
 
 @media (min-width: 768px) {
     .dailyreportbody {

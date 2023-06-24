@@ -4,6 +4,7 @@
 /* eslint-disable no-console */
 
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './DailyReport.css';
 import { Slide } from 'react-awesome-reveal';
 import { RegisterButton } from '../styles/StyledButtons';
@@ -21,12 +22,13 @@ const DailyReport = () => {
   const [waterAmount, setWaterAmount] = useState(0);
   const [sleepHours, setSleepHours] = useState(0);
 
+  const navigate = useNavigate();
   const getLabel = (value) => {
     // eslint-disable-next-line eqeqeq
     if (value == 0) return 'None';
     if (value > 0 && value <= 25) return 'Low';
-    if (value >= 26 && value <= 50) return 'Medium';
-    if (value >= 51 && value <= 75) return 'Average';
+    if (value >= 26 && value <= 55) return 'Average';
+    if (value >= 56 && value <= 75) return 'Generous';
     if (value >= 76 && value <= 100) return 'High';
     return '';
   };
@@ -54,7 +56,7 @@ const DailyReport = () => {
 
       })
     };
-
+    // fetch('http://localhost:8080/dailyReport', options)
     fetch('https://skinsync-mgydyyeela-no.a.run.app/dailyReport', options)
       .then((response) => response.json())
       .then((data) => {
@@ -76,6 +78,9 @@ const DailyReport = () => {
       })
       .catch((error) => {
         console.error('An error occurred:', error);
+      })
+      .finally(() => {
+        navigate('/productShelf/logUsage');
       });
   };
 
@@ -95,7 +100,10 @@ const DailyReport = () => {
               max={100}
               step={1}
               value={waterAmount}
-              onChange={(event) => setWaterAmount(event.target.value)} />
+              onChange={(event) => {
+                console.log('water slider value:', event.target.value);
+                setWaterAmount(event.target.value);
+              }} />
             <span>{getLabel(waterAmount)}</span>
 
           </div>
@@ -110,7 +118,10 @@ const DailyReport = () => {
             max={100}
             step={1}
             value={sleepHours}
-            onChange={(event) => setSleepHours(event.target.value)} />
+            onChange={(event) => {
+              console.log('sleep slider value:', event.target.value);
+              setSleepHours(event.target.value)
+            }} />
           <span>{getLabel(sleepHours, 'sleepRange')}</span>
         </div>
 
@@ -123,7 +134,10 @@ const DailyReport = () => {
             max={100}
             step={1}
             value={stress}
-            onChange={(e) => setStress(e.target.value)} />
+            onChange={(event) => {
+              console.log('stress slider value:', event.target.value);
+              setStress(event.target.value)
+            }} />
           <span>{getLabel(stress, 'stressRange')}</span>
         </div>
 
@@ -136,7 +150,10 @@ const DailyReport = () => {
             max={100}
             step={1}
             value={acne}
-            onChange={(e) => setAcne(e.target.value)} />
+            onChange={(event) => {
+              console.log('acne slider value:', event.target.value);
+              setAcne(event.target.value)
+            }} />
           <span>{getLabel(acne, 'acneRange')}</span>
         </div>
 
@@ -149,7 +166,10 @@ const DailyReport = () => {
             max={100}
             step={1}
             value={exercised}
-            onChange={(e) => setExercised(e.target.value)} />
+            onChange={(event) => {
+              console.log('exercise slider value:', event.target.value);
+              setExercised(event.target.value)
+            }} />
           <span>{getLabel(exercised, 'exercisedRange')}</span>
         </div>
 
@@ -162,7 +182,10 @@ const DailyReport = () => {
             max={100}
             step={1}
             value={sugar}
-            onChange={(e) => setSugar(e.target.value)} />
+            onChange={(event) => {
+              console.log('sugar slider value:', event.target.value);
+              setSugar(event.target.value)
+            }} />
           <span>{getLabel(sugar, 'sugarRange')}</span>
         </div>
         <div>
@@ -174,7 +197,10 @@ const DailyReport = () => {
             max={100}
             step={1}
             value={alcohol}
-            onChange={(e) => setAlcohol(e.target.value)} />
+            onChange={(event) => {
+              console.log('alcohol slider value:', event.target.value);
+              setAlcohol(event.target.value)
+            }} />
           <span>{getLabel(alcohol, 'alcoholRange')}</span>
         </div>
 
@@ -187,12 +213,15 @@ const DailyReport = () => {
             max={100}
             step={1}
             value={dairy}
-            onChange={(e) => setDairy(e.target.value)} />
+            onChange={(event) => {
+              console.log('dairy slider value:', event.target.value);
+              setDairy(event.target.value)
+            }} />
           <span>{getLabel(dairy, 'dairyRange')}</span>
 
         </div>
         <div>
-          <label htmlFor="greasyFood">Greasy Food:</label>
+          <label htmlFor="greasyFood">Fastfood:</label>
           <input
             type="range"
             id="greasyFoodRange"
@@ -200,11 +229,14 @@ const DailyReport = () => {
             max={100}
             step={1}
             value={greasyFood}
-            onChange={(e) => setGreasyFood(e.target.value)} />
+            onChange={(event) => {
+              console.log('fastfood slider value:', event.target.value);
+              setGreasyFood(event.target.value)
+            }} />
           <span>{getLabel(greasyFood, 'greasyFoodRange')}</span>
         </div>
 
-        <RegisterButton className="RegisterButton" type="submit">SUBMIT</RegisterButton>
+        <RegisterButton className="RegisterButton" type="submit">Save day</RegisterButton>
       </form>
     </div>
   );
