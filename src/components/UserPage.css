@@ -4,6 +4,7 @@
   font-size: 35px;
   padding-bottom: 20%;
   padding-top: 40%;
+  margin-top: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -36,20 +37,27 @@
     padding: 10px;
     margin-top: 10px;
     background-color: #DB5A4F;
-    color: white;
+    color: rgba(255, 255, 255, 0.85);
     border: none;
     border-radius: 43px;
     cursor: pointer;
     text-align: center;
     width: 50%;
     text-decoration: none;
+    font-family: 'Lalezar', cursive;
+    letter-spacing: 1px;
+    font-weight: 400;
+    box-shadow:2px 3px 6px rgba(0, 0, 0, 0.37);
+  }
+
+  .route-button:hover {
+    background-color: rgba(230, 179, 176, 0.9);
   }
 
   .imagesandbuttons {
     display: flex;
     flex-direction: column;
     align-items: center;
-  
   }
 
   .button-image1 {
@@ -90,8 +98,6 @@
     min-height: 120vh;
   }
 
-/* UserPage.css */
-
 .uv-index-box {
 
   background: rgba(255, 255, 255, 0.29);
@@ -126,7 +132,7 @@ font-size: 16px;
 
   }
 
-  .uv-index-box h9 {
+  .uv-index-box h6 {
     margin-bottom: -100px;
     margin-top: 20px;
     text-align:center;
@@ -146,13 +152,7 @@ font-size: 16px;
    
         background-repeat: no-repeat; 
         background-position: center;
-        min-height: 140vh;
-      }
-
-      .user-page {
-       min-height: 120vh;
-       padding-bottom: 470px;
-    
+        min-height: 160vh;
       }
   
     }

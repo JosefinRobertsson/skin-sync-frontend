@@ -8,12 +8,12 @@
 }
 
 .usageTrackerWrapper {
-    height: 150vh;
+    min-height: 100vh;
     background-image: url('../images/backgroundUsage.png');
     background-size: cover; 
     background-repeat: no-repeat; 
     background-position: center;
-    padding-bottom: 100px;
+    padding-bottom: 160px;
 }
 
 .usageTrackerWrapper h2 {
@@ -34,7 +34,12 @@
     align-items: center;
     padding-top: 270px;
     padding-bottom: 100px;
-    color: #FFF5E9
+    color: #FFF5E9;
+    font-size: 42px;
+}
+
+.productsnameandbrand span {
+    font-weight: 600;
 }
 
 .editbutton {
@@ -53,6 +58,14 @@
     text-align: center;
     width: 70%;
     text-decoration: none;
+    font-family: 'Lalezar', cursive;
+    letter-spacing: 1px;
+    font-weight: 400;
+    box-shadow:2px 3px 6px rgba(0, 0, 0, 0.37);
+    }
+
+    .editbutton:hover {
+        background-color: rgba(230, 179, 176, 0.9);
     }
 
     a {
@@ -62,7 +75,6 @@
     }
 
     .productItem {
- 
     background: #FFF5E9;
     border-radius: 30px;
     display: flex;
@@ -70,14 +82,20 @@
     justify-content: center; 
     align-items: center;
     margin: 0 auto;
+    padding-top: 10px;
+}
+
+.productItem .night {
+    background: #1d0d48;
 }
 
 .Selectall h5{
-   
+    font-family: 'Athiti', sans-serif;
     font-weight: 500;
     color: #FFF5E9;
     font-size: 16px;
-    padding-right: 20px ;
+    padding-right: 20px;
+    font-weight: 600;
 }
 
 .Selectall{
@@ -120,19 +138,4 @@
     justify-content: center;
 }
 
-@media (max-width: 500px) {
-
-    .usageTrackerWrapper {
-      background-repeat: no-repeat; 
-      background-position: center;
-      min-height: 140vh;
-    }
-
-    .usageTrackerWrapper {
-     min-height: 120vh;
-     padding-bottom: 770px;
-  
-    }
-
-  }
   

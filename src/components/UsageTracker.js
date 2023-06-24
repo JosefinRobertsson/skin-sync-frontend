@@ -44,6 +44,7 @@ const UsageTracker = () => {
   const [activeSlideIndexNight, setActiveSlideIndexNight] = useState(0);
   const [error, setError] = useState('');
   // const [lastVisited, setLastVisited] = useState(null);
+  // axios.defaults.baseURL = 'http://localhost:8080';
   axios.defaults.baseURL = ' https://skinsync-mgydyyeela-no.a.run.app';
 
   useEffect(() => {
@@ -285,7 +286,7 @@ const UsageTracker = () => {
     <div className="usageTrackerWrapper">
 
       <Slide>
-        <h1 className="usagetitle">Skincare Usage</h1>
+        <h1 className="usagetitle">Skincare Log</h1>
       </Slide>
 
       <h2>Morning Routine</h2>
@@ -343,7 +344,8 @@ const UsageTracker = () => {
             <img src={getImagePath(product.category)} alt={product.category} />
 
             <div className="productsnameandbrand">
-              <h5>{product.name} : {product.brand}</h5>
+              <span>{product.name}</span>
+              <span>{product.brand}</span>
             </div>
             <div>
               <label htmlFor={`toggle-${product._id}`}>
@@ -373,7 +375,7 @@ const UsageTracker = () => {
       </div>
 
       <div className="editbutton">
-        <ShelfLink to="/productShelf">Edit routine</ShelfLink>
+        <ShelfLink to="/productShelf">Go to shelf</ShelfLink>
       </div>
 
       <h2>Night Routine</h2>
@@ -427,7 +429,7 @@ const UsageTracker = () => {
         speed={400}
         easing="linear">
         {nightProducts.map((product) => (
-          <div className="productItem" key={product._id} style={{ width: 250, height: 240, background: '#FFF5E9' }}>
+          <div className="productItem night" key={product._id} style={{ width: 250, height: 240, background: '#FFF5E9' }}>
             <img src={getImagePath(product.category)} alt={product.category} />
             <div className="productsnameandbrand">
               <h5>{product.name} : {product.brand}</h5>
@@ -459,7 +461,7 @@ const UsageTracker = () => {
           }} />
       </div>
       <div className="editbutton">
-        <ShelfLink to="/productShelf">Edit routine</ShelfLink>
+        <ShelfLink to="/productShelf">Go to shelf</ShelfLink>
       </div>
     </div>
   );
