@@ -26,6 +26,10 @@ export const ReportButton = styled(BaseButton)`
 
 export const DeleteProductButton = styled(BaseButton)`
   display: ${(props) => (props.isVisible ? 'block' : 'none')};
+  ${(props) => props.clicked
+    && `
+    background: #1d0d48;; 
+  `}
 `;
 
 export const AddProductButton = styled(BaseButton)`
