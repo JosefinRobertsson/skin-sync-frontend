@@ -1,0 +1,194 @@
+
+.bodyshelves {
+  background-color: #FFF5E9;
+  min-height: 130vh;
+}
+
+
+.logusagebutton {
+  font-size: 18px;
+  padding: 10px;
+  margin-top: 10px;
+  background-color: #DB5A4F;
+  color: rgba(255, 255, 255, 0.85);
+  border: none;
+  border-radius: 43px;
+  cursor: pointer;
+  text-align: center;
+  width: 70%;
+  text-decoration: none;
+  font-family: 'Lalezar', cursive;
+  letter-spacing: 1px;
+  font-weight: 400;
+  box-shadow:2px 3px 6px rgba(0, 0, 0, 0.37);
+}
+
+.productbutton {
+  font-size: 14px;
+  padding: 10px;
+  margin-top: 10px;
+  background-color: #b997e8;
+  color: white;
+  border: none;
+  border-radius: 43px;
+  cursor: pointer;
+  text-align: center;
+  width: 100%;
+  text-decoration: none;
+  font-family: 'Athiti', sans-serif;
+  letter-spacing: 1px;
+}
+
+.logusagebutton:hover,
+.productbutton:hover {
+  background-color: rgba(230, 179, 176, 0.9);
+}
+
+.form-wrapper {
+  margin: 1em 0;
+  margin-bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.fieldset {
+  background-color: rgba(255, 255, 255, 0.717);
+  border-radius: 40px;
+  border: none;
+  padding: 1em;
+  margin: 0.5em 0;
+  color: #A996D5;
+  font-family: 'Athiti', sans-serif;
+}
+
+legend {
+  font-weight: 600;
+}
+
+.productsnameandbrand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 0.5em;
+}
+
+.bodyshelves input {
+  border: 2px solid #a996d576;
+  border-radius: 4px;
+  padding: 0.5em;
+  margin: 0.5em 0;
+}
+
+.select {
+  border: 2px solid #a996d576;
+  border-radius: 4px;
+  padding: 0.5em;
+  margin: 0.5em 0;
+}
+
+.labelusage {
+  color: #2A152A
+}
+
+.Shelfblob {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 70px;
+  height: 250px;
+  margin: 0 auto;
+}
+
+.shelvestitle {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+  color: #997FC5;
+  font-size: 42px;
+}
+
+.bodyshelves h2 {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 60px;
+  padding-bottom: 60px;
+  font-weight: 500;
+  color: #3F1C3A,
+}
+
+.carousel-item-wrapper {
+  width: 150px;
+  height: 150px;
+}
+
+.carousel-item {
+  min-width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  background-color: #FCD2B3;
+  border-radius: 5px;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  border-radius: 0.8rem;
+  border: 1px solid #FFF5E9;
+  background-image: linear-gradient(to bottom, rgba(221, 207, 207, 0), rgba(0, 0, 0, 0.3));
+  background-size: 100% 20px;
+  background-repeat: no-repeat;
+  background-position: bottom;
+  scrollbar-width: none; 
+  -ms-overflow-style: none;
+  cursor: pointer;
+}
+
+.carousel-item::-webkit-scrollbar {
+  display: none;
+}
+
+.carousel-item span {
+  word-break: break-all;
+  line-height: 90%;
+  max-width: 100%;
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding-bottom: 0.2rem;
+}
+
+.carousel-item img {
+  object-fit: contain;
+}
+
+.nightCarousel {
+  background-color: #1d0d48;
+}
+
+.nightCarousel span {
+  color: #FFF5E9;
+}
+
+.productsnameandbrand {
+  color: #2A152A;
+}
+
+p {
+  text-align: center;
+  margin: 8px 0;
+}
+
+
+@media (min-width: 768px) {
+  .bodyshelves {
+    width: 375px;
+    min-height: 120vh;
+  }
+}
+
+
