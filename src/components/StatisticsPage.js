@@ -1,156 +1,27 @@
 /* eslint-disable no-plusplus */
 /* eslint-disable no-unused-vars */
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import axios from 'axios';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { v4 as uuid } from 'uuid';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Cell } from 'recharts';
 import './StatisticsPage.css'
 
-// Extend Date object to get the week number
-
-// eslint-disable-next-line no-extend-native, func-names
-Date.prototype.getWeek = function () {
-  const date = new Date(this);
-  date.setHours(0, 0, 0, 0);
-  date.setDate(date.getDate() + 4 - (date.getDay() || 7));
-
-  const yearStart = new Date(date.getFullYear(), 0, 1);
-  const weekNumber = Math.ceil((((date - yearStart) / 86400000) + 1) / 7);
-
-  return weekNumber;
+const CustomYAxisTick = ({ x, y, payload }) => {
+  const value = payload.value === 100 ? '100%' : `${payload.value}%`;
+  return (
+    <text x={x} y={y} textAnchor="end" fill="white">
+      {value}
+    </text>
+  );
 };
 
-const formatYAxis = (tickItem) => {
-  if (tickItem === 0) {
-    return '0';
-  }
-  if (tickItem > 0 && tickItem <= 25) {
-    return '25%';
-  }
-  if (tickItem > 20 && tickItem <= 50) {
-    return '50%';
-  }
-  if (tickItem > 40 && tickItem <= 75) {
-    return '75%';
-  }
-  if (tickItem > 76 && tickItem <= 100) {
-    return '100%';
-  }
-  return '';
-};
-
-const FilterData = (weekNumber, data) => {
-  const filteredData = [];
-
-  for (let i = 0; i < data.length; i++) {
-    const elementDate = new Date(data[i].date);
-    const elementWeek = elementDate.getWeek();
-
-    if (elementWeek === weekNumber) {
-      filteredData.push(data[i])
-    }
-  }
-
-  return filteredData
-}
-
-const AverageData = (data) => {
-  const average = {
-    acne: 0,
-    alcohol: 0,
-    dairy: 0,
-    exercised: 0,
-    period: 0,
-    sleepHours: 0,
-    stress: 0,
-    sugar: 0,
-    waterAmount: 0,
-    greasyFood: 0
-  };
-
-  const lengthData = data.length;
-
-  for (let i = 0; i < lengthData; i++) {
-    const element = data[i];
-    average.acne += element.acne / lengthData
-    average.alcohol += element.alcohol / lengthData
-    average.dairy += element.dairy / lengthData
-    average.exercised += element.exercised / lengthData
-    average.period += element.period / lengthData
-    average.sleepHours += element.sleepHours / lengthData
-    average.stress += element.stress / lengthData
-    average.sugar += element.sugar / lengthData
-    average.waterAmount += element.waterAmount / lengthData
-    average.greasyFood += element.greasyFood / lengthData
-  }
-
-  const dataChartOne = [
-    {
-      name: 'fastfood',
-      value: average.greasyFood
-    },
-    {
-      name: 'dairy',
-      value: average.dairy
-    },
-    {
-      name: 'alcohol',
-      value: average.alcohol
-    },
-    {
-      name: 'sugar',
-      value: average.sugar
-    },
-    {
-      name: 'skin issues',
-      value: average.acne
-    }
-
-  ]
-  const dataChartTwo = [
-    {
-      name: 'water',
-      value: average.waterAmount
-    },
-    {
-      name: 'excercise',
-      value: average.exercised
-    },
-    {
-      name: 'sleep',
-      value: average.sleepHours
-    },
-    {
-      name: 'stress',
-      value: average.stress
-    },
-    {
-      name: 'skin issues',
-      value: average.acne
-    }
-  ]
-
-  return [dataChartOne, dataChartTwo]
-}
-
-const GetFinalData = (data, index) => {
-  console.log('data for barchart:', data);
-  const filteredData = FilterData(25, data)
-  console.log('filtered data', filteredData)
-  const averageData = AverageData(filteredData)
-  console.log('averaged data', averageData)
-
-  return averageData[index]
-}
-
-const StatisticsPage = () => {
-  const [data, setData] = useState([]);
-
+const StatisticsPage = ({ reportData, setReportData }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
         const accessToken = localStorage.getItem('accessToken');
         if (!accessToken) {
-          console.log('No access token found');
+          console.error('No access token found');
           return;
         }
         const config = {
@@ -158,10 +29,11 @@ const StatisticsPage = () => {
             Authorization: accessToken
           }
         };
+        // const reportResponse = await axios.get('http://localhost:8080/dailyReport', config);
         const reportResponse = await axios.get('https://skinsync-mgydyyeela-no.a.run.app/dailyReport', config);
         console.log('fullDailyReport:', reportResponse.data);
         if (reportResponse.data.success) {
-          setData(reportResponse.data.response);
+          setReportData(reportResponse.data.response);
         } else {
           throw new Error('Failed to fetch daily report');
         }
@@ -171,51 +43,200 @@ const StatisticsPage = () => {
     };
 
     fetchData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const latestDailyReport = reportData[reportData.length - 1] || {};
+  console.log('latestDailyReport:', latestDailyReport);
+
+  const requiredKeys = ['greasyFood', 'dairy', 'alcohol', 'sugar', 'acne', 'water', 'exercised', 'sleep', 'stress'];
+  const isDataAvailable = requiredKeys.every(
+    (key) => key in latestDailyReport || latestDailyReport[key] === 0
+    || latestDailyReport[key] === undefined
+  );
+
+  if (!isDataAvailable) {
+    // Render a loading state or return early
+    return <div>Loading...</div>;
+  }
+
+  const dataChartOne = [
+    {
+      name: 'fastfood',
+      value: latestDailyReport.greasyFood
+    },
+    {
+      name: 'dairy',
+      value: latestDailyReport.dairy
+    },
+    {
+      name: 'alcohol',
+      value: latestDailyReport.alcohol
+    },
+    {
+      name: 'sugar',
+      value: latestDailyReport.sugar
+    },
+    {
+      name: 'skin issues',
+      value: latestDailyReport.acne
+    }
+  ];
+
+  const dataChartTwo = [
+    {
+      name: 'water',
+      value: latestDailyReport.waterAmount
+    },
+    {
+      name: 'excercise',
+      value: latestDailyReport.exercised
+    },
+    {
+      name: 'sleep',
+      value: latestDailyReport.sleepHours
+    },
+    {
+      name: 'stress',
+      value: latestDailyReport.stress
+    },
+    {
+      name: 'skin issues',
+      value: latestDailyReport.acne
+    }
+  ];
 
   return (
     <div className="statisticsbody">
-      {data.length > 0 ? (
+      <div className="svgs">
+        <svg>
+          <defs>
+            <linearGradient id="barGradientDiet" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#D57816" />
+              <stop offset="60%" stopColor="#A516D5" />
+              <stop offset="100%" stopColor="#722ED1" />
+            </linearGradient>
+          </defs>
+        </svg>
+        <svg>
+          <defs>
+            <linearGradient id="barGradientHabits" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#D57816" />
+              <stop offset="60%" stopColor="#A516D5" />
+              <stop offset="100%" stopColor="#eee" />
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+
+      {reportData.length > 0 ? (
         <div>
-          <h1>Diet</h1>
-          <ResponsiveContainer width="100%" height={300}>
+          <h1>Your log today</h1>
+          <h2>Diet</h2>
+          <ResponsiveContainer width="100%" height={340}>
             <BarChart
+              barSize={38}
               width={500}
               height={300}
-              data={GetFinalData(data, 0)}
+              data={dataChartOne}
               margin={{
                 top: 5,
-                right: 30,
-                left: 20,
+                right: 35,
+                left: 5,
                 bottom: 5
               }}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis tickFormatter={formatYAxis} />
+              <CartesianGrid strokeDasharray="2 2" />
+              <XAxis
+                dataKey="name"
+                angle={45}
+                dx={15}
+                dy={20}
+                interval={0}
+                minTickGap={-200}
+                tickMargin={5}
+                height={70}
+                tick={{ fill: 'white' }} />
+              <YAxis
+                tick={<CustomYAxisTick />}
+                domain={[0, 100]}
+                tickFormatter={(value) => `${value}%`} />
               <Tooltip />
               <Legend />
-              <Bar dataKey="value" fill="#A996D5" />
+              <Bar
+                dataKey="value"
+                name="value"
+                legendType="none">
+                {
+                  dataChartOne.map((entry) => {
+                    const isSkinIssues = entry.name === 'skin issues';
+                    const barColor = isSkinIssues ? 'salmon' : 'url(#barGradientDiet)';
+                    const uniqueKey = uuid();
+
+                    return (
+                      <Cell
+                        key={uniqueKey}
+                        fill={barColor}
+                        fillOpacity={1}
+                        stroke={isSkinIssues ? 'salmon' : '#A556D5'}
+                        strokeWidth={1} />
+                    );
+                  })
+                }
+              </Bar>
             </BarChart>
           </ResponsiveContainer>
 
-          <h1>Habits</h1>
-          <ResponsiveContainer width="100%" height={300}>
+          <h2>Habits</h2>
+          <ResponsiveContainer width="100%" height={340}>
             <BarChart
+              barSize={38}
               width={500}
               height={300}
-              data={GetFinalData(data, 1)}
+              data={dataChartTwo}
               margin={{
                 top: 5,
-                right: 30,
-                left: 20,
+                right: 35,
+                left: 5,
                 bottom: 5
               }}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis tickFormatter={formatYAxis} />
+              <CartesianGrid strokeDasharray="2 2" />
+              <XAxis
+                dataKey="name"
+                angle={45}
+                dx={15}
+                dy={20}
+                interval={0}
+                minTickGap={-200}
+                tickMargin={5}
+                height={70}
+                tick={{ fill: 'white' }} />
+              <YAxis
+                tick={<CustomYAxisTick />}
+                domain={[0, 100]}
+                tickFormatter={(value) => `${value}%`} />
               <Tooltip />
               <Legend />
-              <Bar dataKey="value" fill="#997FC5" />
+              <Bar
+                dataKey="value"
+                name="value"
+                legendType="none">
+                {
+                  dataChartTwo.map((entry) => {
+                    const isSkinIssues = entry.name === 'skin issues';
+                    const barColor = isSkinIssues ? 'salmon' : 'url(#barGradientHabits)';
+                    const uniqueKey = uuid();
+
+                    return (
+                      <Cell
+                        key={uniqueKey}
+                        fill={barColor}
+                        fillOpacity={1}
+                        stroke={isSkinIssues ? 'salmon' : '#A556D5'}
+                        strokeWidth={1} />
+                    );
+                  })
+                }
+              </Bar>
             </BarChart>
           </ResponsiveContainer>
         </div>
