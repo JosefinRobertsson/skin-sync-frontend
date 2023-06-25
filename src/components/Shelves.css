@@ -97,7 +97,7 @@ legend {
   flex-direction: column;
   align-items: center;
   padding-top: 70px;
-  height: 250px;
+  height: 300px;
   margin: 0 auto;
 }
 
@@ -108,7 +108,7 @@ legend {
   align-items: center;
   padding-top: 20px;
   color: #997FC5;
-  font-size: 42px;
+  font-size: 32px;
 }
 
 .bodyshelves h2 {

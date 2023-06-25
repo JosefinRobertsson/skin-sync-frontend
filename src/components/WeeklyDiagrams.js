@@ -185,7 +185,7 @@ const WeeklyDiagrams = ({ chosenDate, reportData }) => {
                 {
                   dietData.map((entry) => {
                     const isSkinIssues = entry.name === 'skin issues';
-                    const barColor = isSkinIssues ? 'salmon' : 'url(#barGradientDiet2)';
+                    const barColor = isSkinIssues ? '#DB5A4F' : '#997FC5';
                     const uniqueKey = uuid();
 
                     return (
@@ -193,7 +193,7 @@ const WeeklyDiagrams = ({ chosenDate, reportData }) => {
                         key={uniqueKey}
                         fill={barColor}
                         fillOpacity={1}
-                        stroke={isSkinIssues ? 'salmon' : '#A556D5'}
+                        stroke={isSkinIssues ? '#DB5A4F' : '#997FC5'}
                         strokeWidth={1} />
                     );
                   })
@@ -239,7 +239,7 @@ const WeeklyDiagrams = ({ chosenDate, reportData }) => {
                 {
                   habitsData.map((entry) => {
                     const isSkinIssues = entry.name === 'skin issues';
-                    const barColor = isSkinIssues ? 'salmon' : 'url(#barGradientHabits2)';
+                    const barColor = isSkinIssues ? '#DB5A4F' : '#997FC5';
                     const uniqueKey = uuid();
 
                     return (
@@ -247,7 +247,7 @@ const WeeklyDiagrams = ({ chosenDate, reportData }) => {
                         key={uniqueKey}
                         fill={barColor}
                         fillOpacity={1}
-                        stroke={isSkinIssues ? 'salmon' : '#A556D5'}
+                        stroke={isSkinIssues ? '#DB5A4F' : '#997FC5'}
                         strokeWidth={1} />
                     );
                   })

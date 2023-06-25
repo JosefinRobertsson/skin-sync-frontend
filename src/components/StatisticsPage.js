@@ -131,7 +131,7 @@ const StatisticsPage = ({ reportData, setReportData }) => {
 
       {reportData.length > 0 ? (
         <div>
-          <h1>Your log today</h1>
+          <h1>Your Statistics</h1>
           <h2>Diet</h2>
           <ResponsiveContainer width="100%" height={340}>
             <BarChart
@@ -169,7 +169,7 @@ const StatisticsPage = ({ reportData, setReportData }) => {
                 {
                   dataChartOne.map((entry) => {
                     const isSkinIssues = entry.name === 'skin issues';
-                    const barColor = isSkinIssues ? 'salmon' : 'url(#barGradientDiet)';
+                    const barColor = isSkinIssues ? '#DB5A4F' : '#997FC5';
                     const uniqueKey = uuid();
 
                     return (
@@ -177,7 +177,7 @@ const StatisticsPage = ({ reportData, setReportData }) => {
                         key={uniqueKey}
                         fill={barColor}
                         fillOpacity={1}
-                        stroke={isSkinIssues ? 'salmon' : '#A556D5'}
+                        stroke={isSkinIssues ? '#DB5A4F' : '#997FC5'}
                         strokeWidth={1} />
                     );
                   })
@@ -223,7 +223,7 @@ const StatisticsPage = ({ reportData, setReportData }) => {
                 {
                   dataChartTwo.map((entry) => {
                     const isSkinIssues = entry.name === 'skin issues';
-                    const barColor = isSkinIssues ? 'salmon' : 'url(#barGradientHabits)';
+                    const barColor = isSkinIssues ? '#DB5A4F' : '#997FC5';
                     const uniqueKey = uuid();
 
                     return (
@@ -231,7 +231,7 @@ const StatisticsPage = ({ reportData, setReportData }) => {
                         key={uniqueKey}
                         fill={barColor}
                         fillOpacity={1}
-                        stroke={isSkinIssues ? 'salmon' : '#A556D5'}
+                        stroke={isSkinIssues ? '#DB5A4F' : '#997FC5'}
                         strokeWidth={1} />
                     );
                   })
