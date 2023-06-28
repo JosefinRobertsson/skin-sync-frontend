@@ -15,8 +15,8 @@ const UserPage = ({ username }) => {
     const fetchUVIndex = async () => {
       try {
         const accessToken = localStorage.getItem('accessToken');
-        // const response = await axios.get('http://localhost:8080/userPage', {
-        const response = await axios.get(' https://skinsync-mgydyyeela-no.a.run.app/userPage', {
+        const response = await axios.get('http://localhost:8080/userPage', {
+        // const response = await axios.get(' https://skinsync-mgydyyeela-no.a.run.app/userPage', {
           headers: {
             Authorization: accessToken
           }

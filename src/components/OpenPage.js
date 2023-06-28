@@ -5,8 +5,8 @@ import { GetStartedLink } from '../styles/StyledLinks';
 const OpenPage = () => {
   useEffect(() => {
     const accessToken = localStorage.getItem('accessToken');
-    // axios.get('http://localhost:8080/', {
-    axios.get(' https://skinsync-mgydyyeela-no.a.run.app/', {
+    axios.get('http://localhost:8080/', {
+    // axios.get(' https://skinsync-mgydyyeela-no.a.run.app/', {
       headers: {
         Authorization: accessToken
       }

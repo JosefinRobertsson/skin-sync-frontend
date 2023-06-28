@@ -44,8 +44,8 @@ const UsageTracker = () => {
   const [activeSlideIndexNight, setActiveSlideIndexNight] = useState(0);
   const [error, setError] = useState('');
   // const [lastVisited, setLastVisited] = useState(null);
-  // axios.defaults.baseURL = 'http://localhost:8080';
-  axios.defaults.baseURL = ' https://skinsync-mgydyyeela-no.a.run.app';
+  axios.defaults.baseURL = 'http://localhost:8080';
+  // axios.defaults.baseURL = ' https://skinsync-mgydyyeela-no.a.run.app';
 
   useEffect(() => {
     const fetchSkincareProducts = async () => {

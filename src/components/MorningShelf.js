@@ -57,8 +57,8 @@ const MorningShelf = () => {
     const fetchCategories = async () => {
       try {
         const accessToken = localStorage.getItem('accessToken');
-        // const response = await fetch('http://localhost:8080/categories', {
-        const response = await fetch('https://skinsync-mgydyyeela-no.a.run.app/categories', {
+        const response = await fetch('http://localhost:8080/categories', {
+        // const response = await fetch('https://skinsync-mgydyyeela-no.a.run.app/categories', {
           headers: {
             Authorization: accessToken
           }
@@ -90,8 +90,8 @@ const MorningShelf = () => {
 
   const getMorningProducts = () => {
     const accessToken = localStorage.getItem('accessToken');
-    // fetch('http://localhost:8080/productShelf/morning', {
-    fetch('https://skinsync-mgydyyeela-no.a.run.app/productShelf/morning', {
+    fetch('http://localhost:8080/productShelf/morning', {
+    // fetch('https://skinsync-mgydyyeela-no.a.run.app/productShelf/morning', {
       headers: {
         Authorization: accessToken
       }
@@ -134,8 +134,8 @@ const MorningShelf = () => {
       })
     };
 
-    // let requestUrl = 'http://localhost:8080/productShelf';
-    let requestUrl = 'https://skinsync-mgydyyeela-no.a.run.app/productShelf';
+    let requestUrl = 'http://localhost:8080/productShelf';
+    // let requestUrl = 'https://skinsync-mgydyyeela-no.a.run.app/productShelf';
     let requestMethod = 'POST';
 
     if (editingProductId) {
@@ -169,8 +169,8 @@ const MorningShelf = () => {
       setClickCount(1);
     } else {
       const accessToken = localStorage.getItem('accessToken');
-      // fetch(`http://localhost:8080/productShelf/${productId}`, {
-      fetch(` https://skinsync-mgydyyeela-no.a.run.app/productShelf/${productId}`, {
+      fetch(`http://localhost:8080/productShelf/${productId}`, {
+      // fetch(` https://skinsync-mgydyyeela-no.a.run.app/productShelf/${productId}`, {
         method: 'DELETE',
         headers: {
           Authorization: accessToken

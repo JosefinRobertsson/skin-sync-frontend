@@ -29,8 +29,8 @@ const StatisticsPage = ({ reportData, setReportData }) => {
             Authorization: accessToken
           }
         };
-        // const reportResponse = await axios.get('http://localhost:8080/dailyReport', config);
-        const reportResponse = await axios.get('https://skinsync-mgydyyeela-no.a.run.app/dailyReport', config);
+        const reportResponse = await axios.get('http://localhost:8080/dailyReport', config);
+        // const reportResponse = await axios.get('https://skinsync-mgydyyeela-no.a.run.app/dailyReport', config);
         console.log('fullDailyReport:', reportResponse.data);
         if (reportResponse.data.success) {
           setReportData(reportResponse.data.response);
@@ -131,7 +131,7 @@ const StatisticsPage = ({ reportData, setReportData }) => {
 
       {reportData.length > 0 ? (
         <div>
-          <h1>Your Statistics</h1>
+          <h1>Your latest log</h1>
           <h2>Diet</h2>
           <ResponsiveContainer width="100%" height={340}>
             <BarChart
@@ -169,7 +169,7 @@ const StatisticsPage = ({ reportData, setReportData }) => {
                 {
                   dataChartOne.map((entry) => {
                     const isSkinIssues = entry.name === 'skin issues';
-                    const barColor = isSkinIssues ? '#DB5A4F' : '#997FC5';
+                    const barColor = isSkinIssues ? 'salmon' : 'url(#barGradientDiet)';
                     const uniqueKey = uuid();
 
                     return (
@@ -177,7 +177,7 @@ const StatisticsPage = ({ reportData, setReportData }) => {
                         key={uniqueKey}
                         fill={barColor}
                         fillOpacity={1}
-                        stroke={isSkinIssues ? '#DB5A4F' : '#997FC5'}
+                        stroke={isSkinIssues ? 'salmon' : '#A556D5'}
                         strokeWidth={1} />
                     );
                   })
@@ -223,7 +223,7 @@ const StatisticsPage = ({ reportData, setReportData }) => {
                 {
                   dataChartTwo.map((entry) => {
                     const isSkinIssues = entry.name === 'skin issues';
-                    const barColor = isSkinIssues ? '#DB5A4F' : '#997FC5';
+                    const barColor = isSkinIssues ? 'salmon' : 'url(#barGradientHabits)';
                     const uniqueKey = uuid();
 
                     return (
@@ -231,7 +231,7 @@ const StatisticsPage = ({ reportData, setReportData }) => {
                         key={uniqueKey}
                         fill={barColor}
                         fillOpacity={1}
-                        stroke={isSkinIssues ? '#DB5A4F' : '#997FC5'}
+                        stroke={isSkinIssues ? 'salmon' : '#A556D5'}
                         strokeWidth={1} />
                     );
                   })

@@ -11,12 +11,11 @@ const Register = () => {
   const [password, setPassword] = useState('');
 
   const register = () => {
-    // axios.post('http://localhost:8080/register', {
-    axios
-      .post(' https://skinsync-mgydyyeela-no.a.run.app/register', {
-        username,
-        password
-      })
+    axios.post('http://localhost:8080/register', {
+    // axios.post(' https://skinsync-mgydyyeela-no.a.run.app/register', {
+      username,
+      password
+    })
       .then((response) => {
         console.log(response);
         const token = response.data.accessToken;

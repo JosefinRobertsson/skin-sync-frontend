@@ -15,8 +15,8 @@ const Auth = ({ username, setUsername }) => {
   const navigate = useNavigate();
 
   const auth = () => {
-    // const url = isLogin ? 'http://localhost:8080/login' : 'http://localhost:8080/register';
-    const url = isLogin ? ' https://skinsync-mgydyyeela-no.a.run.app/login' : ' https://skinsync-mgydyyeela-no.a.run.app/register';
+    const url = isLogin ? 'http://localhost:8080/login' : 'http://localhost:8080/register';
+    // const url = isLogin ? ' https://skinsync-mgydyyeela-no.a.run.app/login' : ' https://skinsync-mgydyyeela-no.a.run.app/register';
     axios
       .post(url, {
         username,
