@@ -91,11 +91,11 @@
 
   
   .my-background-class {
-    background-image: url('../images/Userpageimg.png');
-    background-size:cover; 
+    background-image: url('../images/pexels-jimmy-liao-16526019.jpg');
+    background-size: contain;
     background-repeat: no-repeat; 
-    background-position: center;
-    min-height: 120vh;
+    background-position: top;
+    background-color: #F5F5F5;
   }
 
 .uv-index-box {

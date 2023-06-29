@@ -23,7 +23,8 @@
     outline-color:#A996D5
   }
   
-  .login-button, .register-button {
+  .login-button, 
+  .register-button {
     font-size: 18px;
     padding: 10px;
     margin-top: 10px;
@@ -34,14 +35,14 @@
     border-radius: 43px;
     cursor: pointer;
     text-align: center;
-    width: 50%;
+    width: fit-content;
     font-family: 'Lalezar', cursive;
     letter-spacing: 1px;
     font-weight: 400;
   }
-
+/*
   .login-page .my-toggle .react-toggle-track {
-    background-color: #FCD2B3; /* Default color for the track */
+    background-color: #FCD2B3; 
   }
   
   .login-page .my-toggle .react-toggle-thumb {
@@ -56,43 +57,6 @@
   .my-toggle.react-toggle--checked:hover:not(.react-toggle--disabled) .react-toggle-track {
     background-color: #FCD2B3;
   }
-  
 
- .login-page {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-image: url('../images/Loginimg.png');
-    background-size: cover; 
-    background-repeat: no-repeat; 
-    background-position: center;
-  }
-
-
-  @media (min-width: 768px) {
-    .login-container   {
-      padding-top: 100%;
-      width: 100vh;
-    }
-  }
-
-
-  
-  @media (max-width: 500px) {
-    .login-page     {
-      min-width: 90vw;
-      min-height: 101vh; 
-    }
-
-    .login-container{
-      padding-top:360px;
-      
-    }
-
-    .login-button, .register-button {
-      width: 100%
-    }
-
-  }
-
+*/
   

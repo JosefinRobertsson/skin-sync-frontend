@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import {
   BrowserRouter, Routes, Route
 } from 'react-router-dom';
-import Login from './components/Login';
 import Register from './components/Register';
 import DailyReport from './components/DailyReport';
 import MorningShelf from './components/MorningShelf';
@@ -12,7 +11,7 @@ import Logout from './components/Logout';
 import Header from './components/Header';
 import UsageTracker from './components/UsageTracker';
 import NightShelf from './components/NightShelf';
-import LandingLogo from './components/LandingLogo';
+import LandingPage from './components/LandingPage';
 import CalendarComponent from './components/CalendarComponent';
 import WeeklyDiagrams from './components/WeeklyDiagrams';
 import ProductStatistics from './components/ProductStatistics';
@@ -41,8 +40,7 @@ export const App = () => {
         <>
           <Header username={username} />
           <Routes>
-            <Route path="/" element={<LandingLogo />} />
-            <Route path="/Login" element={<Login username={username} setUsername={setUsername} />} />
+            <Route path="/" element={<LandingPage username={username} setUsername={setUsername} />} />
             <Route path="/userpage" element={<UserPage username={username} />} />
             <Route path="/Register" element={<Register />} />
             <Route path="/DailyReport" element={<DailyReport />} />
