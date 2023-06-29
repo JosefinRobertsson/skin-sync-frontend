@@ -8,12 +8,12 @@ body {
   /*font-family: 'Athiti', sans-serif;*/
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #052f32;
+  background-color: #051306;
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  margin: 0;
+  margin: 0 auto;
   padding: 0;
 }
 
@@ -26,7 +26,8 @@ p, span, form, li {
   font-family: 'Poppins', sans-serif;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5, h6,
+legend, label {
   font-family: 'Lalezar', cursive;
   letter-spacing: 1px;
 }
@@ -45,15 +46,16 @@ code {
   ;
 }
 
+label {
+  margin: 0;
+	padding: 0;
+	border: 0;
+}
+
 button {
   font-family: 'Poppins', sans-serif;
   font-weight: 600;
 }
-
-button:hover {
-  background-color: rgba(230, 179, 176, 0.9);
-}
-
 
 .allWrapper::-webkit-scrollbar {
   display: none;
@@ -65,8 +67,11 @@ button:hover {
   }
 }
 
-@media (max-width: 1024px) {
+@media (min-width: 1024px) {
   .allWrapper {
-    width: 50vw;
+    width: 45vw;
+    height: 80vh;
+    border-radius: 2rem;
+    border: 1px solid rgba(255, 244, 233, 0.85);
   }
 }

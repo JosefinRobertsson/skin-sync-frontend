@@ -16,7 +16,7 @@ import 'react-toggle/style.css'
 import sunscreenImage from '../images/sunscreen.png';
 import otherImage from '../images/other.png';
 import defaultImage from '../images/default.png';
-import './UsageTracker.css';
+import './compCSS/UsageTracker.css';
 
 const getImagePath = (category) => {
   switch (category) {

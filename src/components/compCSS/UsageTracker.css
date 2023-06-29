@@ -9,7 +9,7 @@
 
 .usageTrackerWrapper {
     min-height: 100vh;
-    background-image: url('../images/backgroundUsage.png');
+    background-image: url('../../images/backgroundUsage.png');
     background-size: cover; 
     background-repeat: no-repeat; 
     background-position: center;

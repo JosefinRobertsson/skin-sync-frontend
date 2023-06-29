@@ -17,7 +17,7 @@ import serumImage from '../images/serum.png';
 import sunscreenImage from '../images/sunscreen.png';
 import otherImage from '../images/other.png';
 import defaultImage from '../images/default.png';
-import './Shelves.css'
+import './compCSS/Shelves.css';
 import Shelfblob from '../images/Shelfblob.png'
 
 const ProductImage = styled.img`

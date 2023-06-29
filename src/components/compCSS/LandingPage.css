@@ -1,0 +1,177 @@
+
+
+.logo-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.landing-h1 {
+  font-size: 4em;
+  margin-bottom: 3rem;
+  text-shadow: 1px 1px 4px rgba(5, 19, 6, 0.3);
+}
+
+label[for="register-radio"],
+legend.register-legend {
+  color: #ea9350;
+}
+
+legend.login-legend {
+  text-shadow: rgba(255, 255, 255, 0.95) 1px 1px 1px;
+}
+
+#register-legend-id {
+  text-shadow: #051306 1px 1px 1px;
+  font-family: 'Lalezar', cursive;
+}
+
+
+label[for="register-radio"]:hover,
+label[for="login-radio"]:hover {
+  /*background: #ea9350;*/
+  background-color: rgba(232, 140, 93, 0.85);
+  transition: all 0.3s ease;
+}
+
+label[for="register-radio"]:hover,
+label[for="register-radio"]:focus {
+  color: #051306;
+}
+
+label[for="register-radio"]:focus,
+label[for="login-radio"]:focus {
+  background-color: rgba(232, 140, 93, 0.85);
+
+}
+
+.login-legend {
+  margin: 0;
+  padding: 0;
+  font-size: 1.3rem;
+}
+
+.form-button-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+.form-and-buttonContainer input[type="radio"] {
+  opacity: 0;
+  width: 1px;
+  aspect-ratio:  1/1;
+}
+
+.background-landing {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  background-image: url('../../images/pexels-felipe-helfstein-14705286.jpg');
+    background-size: cover;
+    background-repeat: no-repeat; 
+}
+
+#form-login {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: -50%;
+  padding: 1rem;
+  gap: 0.6rem;
+  border:rgba(255, 255, 255, 0.85) 1px solid;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.45);
+  max-width: max-content;
+  height: min-content;
+}
+
+fieldset {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  border-radius: 5px;
+}
+
+.radio-button-container {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  margin-top: 0.6rem;
+  margin-bottom: 2rem;
+}
+
+.form-and-buttonContainer p {
+  display: inline-block;
+  background-color: #051306;
+  padding: 0.6rem 1rem 1rem 1rem;
+  width: 90%;
+  text-align: center;
+  border: 1px solid #313131;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.75);
+  box-shadow: 1px 1px 8px 4px rgba(5, 19, 6, 0.3);
+}
+
+.description {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+}
+
+.description-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.6rem 0 0.6rem 0;
+  background-color: rgba(255, 255, 255, 0.45);
+  width: 85%;
+  border:rgba(255, 255, 255, 0.85) 1px solid;
+  border-radius: 5px;
+  margin-top: -40%;
+  margin-bottom: 1.5rem;
+  box-shadow: 1px 1px 8px 4px rgba(5, 19, 6, 0.3);
+}
+
+form input {
+  margin-bottom: 10px;
+  height: 1.6rem;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  box-shadow: 1px 1px 8px 4px rgba(5, 19, 6, 0.3);
+}
+
+.form-and-buttonContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+}
+
+@media screen and (min-width: 530px){
+
+  .description-container {
+    width: 60%;
+  }
+
+  @media (min-width: 1024px) {
+    .landing-h1 {
+      margin-bottom: 18rem;
+    }
+    .description-container {
+      width: 40%;
+      margin-top: -35%;
+    }
+}
+}

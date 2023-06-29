@@ -2,13 +2,12 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Spin as Hamburger } from 'hamburger-react';
-import './Header.css';
+import './compCSS/Header.css';
 
 const Header = ({ username }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
-  console.log('username:', username);
 
   const handleLogout = () => {
     const accessToken = localStorage.getItem('accessToken');
@@ -32,6 +31,7 @@ const Header = ({ username }) => {
 
   const hideHeader = location.pathname !== '/login'
     && location.pathname !== '/'
+    && location.pathname !== '/register'
     && location.pathname !== '/logout';
 
   return (

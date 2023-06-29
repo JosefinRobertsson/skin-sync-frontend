@@ -4,7 +4,7 @@ import React, { useEffect } from 'react';
 import axios from 'axios';
 import { v4 as uuid } from 'uuid';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Cell } from 'recharts';
-import './StatisticsPage.css'
+import './compCSS/StatisticsPage.css'
 
 const CustomYAxisTick = ({ x, y, payload }) => {
   const value = payload.value === 100 ? '100%' : `${payload.value}%`;

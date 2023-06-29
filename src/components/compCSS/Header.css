@@ -1,5 +1,5 @@
 .menu-icon {
-  background-color: #DB5A4F;
+  background-color: #ea9350;
   color: #FFF5E9;
   border: none;
   padding: 0;
@@ -23,7 +23,7 @@
 .menu-items {
   position: fixed;
   height: min-content;
-  background-color: #DB5A4F;
+  background-color: #ea9350;
   z-index: 10;
   padding: 0.8rem 1.2rem 1rem 65px;
   border-bottom-right-radius: 2rem;
@@ -60,8 +60,9 @@ li:last-of-type {
 
 
 nav {
-  background-color: #DB5A4F;
+  background-color: #ea9350;
   padding-bottom: 20px;
   display: flex;
   height: 60px;
+  transition: all 3s ease;
 }

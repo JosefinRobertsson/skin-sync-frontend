@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import {
   BrowserRouter, Routes, Route
 } from 'react-router-dom';
-import Register from './components/Register';
 import DailyReport from './components/DailyReport';
 import MorningShelf from './components/MorningShelf';
 import UserPage from './components/UserPage';
@@ -42,7 +41,7 @@ export const App = () => {
           <Routes>
             <Route path="/" element={<LandingPage username={username} setUsername={setUsername} />} />
             <Route path="/userpage" element={<UserPage username={username} />} />
-            <Route path="/Register" element={<Register />} />
+
             <Route path="/DailyReport" element={<DailyReport />} />
             <Route
               path="/productShelf"

@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Cell } from 'recharts';
 import { v4 as uuid } from 'uuid';
 import moment from 'moment';
-import './WeeklyDiagrams.css';
-import './StatisticsPage.css'
+import './compCSS/WeeklyDiagrams.css';
+import './compCSS/StatisticsPage.css'
 
 const CustomYAxisTick = ({ x, y, payload }) => {
   const value = payload.value === 100 ? '100%' : `${payload.value}%`;

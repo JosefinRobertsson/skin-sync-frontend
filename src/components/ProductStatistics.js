@@ -5,7 +5,7 @@ import axios from 'axios';
 import moment from 'moment';
 import { v4 as uuidv4 } from 'uuid';
 import { PopUp } from './PopUp';
-import './ProductStatistics.css'
+import './compCSS/ProductStatistics.css'
 import cleanserImage from '../images/cleanser.png';
 import moisturizerImage from '../images/moisturizer.png';
 import serumImage from '../images/serum.png';

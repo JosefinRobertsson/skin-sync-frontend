@@ -1,7 +1,7 @@
 import React from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
-import './CalendarComponent.css';
+import './compCSS/CalendarComponent.css';
 import styled from 'styled-components';
 
 const StyledDiv = styled.div`

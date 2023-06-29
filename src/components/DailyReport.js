@@ -5,9 +5,9 @@
 
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './DailyReport.css';
+import './compCSS/DailyReport.css';
 import { Slide } from 'react-awesome-reveal';
-import { RegisterButton } from '../styles/StyledButtons';
+import { UserFormButton } from '../styles/StyledButtons';
 import 'react-toggle/style.css'
 
 const DailyReport = () => {
@@ -89,9 +89,9 @@ const DailyReport = () => {
       <Slide>
         <h1>Log your Day</h1>
       </Slide>
-      <form onSubmit={handleSubmit}>
+      <form id="form-report" onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="waterRange">Water:</label>
+          <label htmlFor="waterRange" className="label-report">Water:</label>
           <div className="range-container">
             <input
               type="range"
@@ -236,7 +236,7 @@ const DailyReport = () => {
           <span>{getLabel(greasyFood, 'greasyFoodRange')}</span>
         </div>
 
-        <RegisterButton className="RegisterButton" type="submit">Save day</RegisterButton>
+        <UserFormButton className="RegisterButton" type="submit">Save day</UserFormButton>
       </form>
     </div>
   );
