@@ -1,5 +1,5 @@
-/* eslint-disable no-lone-blocks */
 /* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable no-lone-blocks */
 /* eslint-disable react/jsx-filename-extension */
 /* eslint-disable no-console */
 
@@ -85,13 +85,15 @@ const DailyReport = () => {
   };
 
   return (
-    <div className="dailyreportbody">
+    <div className="dailyreportWrapper">
       <Slide>
         <h1>Log your Day</h1>
       </Slide>
+      <div className="ball2" />
+      <div className="ball3" />
       <form id="form-report" onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="waterRange" className="label-report">Water:</label>
+          <label htmlFor="waterRange" className="label-report">Water</label>
           <div className="range-container">
             <input
               type="range"
@@ -110,7 +112,7 @@ const DailyReport = () => {
         </div>
 
         <div>
-          <label htmlFor="sleepRange">Sleep:</label>
+          <label htmlFor="sleepRange">Sleep</label>
           <input
             type="range"
             id="sleepRange"
@@ -126,7 +128,7 @@ const DailyReport = () => {
         </div>
 
         <div>
-          <label htmlFor="stress">Stress:</label>
+          <label htmlFor="stressRange">Stress</label>
           <input
             type="range"
             id="stressRange"
@@ -142,7 +144,7 @@ const DailyReport = () => {
         </div>
 
         <div>
-          <label htmlFor="acne">Skin issues:</label>
+          <label htmlFor="acneRange">Skin issues</label>
           <input
             type="range"
             id="acneRange"
@@ -158,7 +160,7 @@ const DailyReport = () => {
         </div>
 
         <div>
-          <label htmlFor="exercised">Exercise:</label>
+          <label htmlFor="exercisedRange">Exercise</label>
           <input
             type="range"
             id="exercisedRange"
@@ -174,7 +176,7 @@ const DailyReport = () => {
         </div>
 
         <div>
-          <label htmlFor="sugar">Sugar:</label>
+          <label htmlFor="sugarRange">Sugar</label>
           <input
             type="range"
             id="sugarRange"
@@ -189,7 +191,7 @@ const DailyReport = () => {
           <span>{getLabel(sugar, 'sugarRange')}</span>
         </div>
         <div>
-          <label htmlFor="alcohol">Alcohol:</label>
+          <label htmlFor="alcoholRange">Alcohol</label>
           <input
             type="range"
             id="alcoholRange"
@@ -205,7 +207,7 @@ const DailyReport = () => {
         </div>
 
         <div>
-          <label htmlFor="dairy">Dairy:</label>
+          <label htmlFor="dairyRange">Dairy</label>
           <input
             type="range"
             id="dairyRange"
@@ -221,7 +223,7 @@ const DailyReport = () => {
 
         </div>
         <div>
-          <label htmlFor="greasyFood">Fastfood:</label>
+          <label htmlFor="greasyFoodRange">Fastfood</label>
           <input
             type="range"
             id="greasyFoodRange"

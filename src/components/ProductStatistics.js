@@ -6,27 +6,47 @@ import moment from 'moment';
 import { v4 as uuidv4 } from 'uuid';
 import { PopUp } from './PopUp';
 import './compCSS/ProductStatistics.css'
+import bodylotionImage from '../images/body lotion.png';
 import cleanserImage from '../images/cleanser.png';
+import herbalImage from '../images/herbal remedy.png';
+import mistImage from '../images/mist.png';
 import moisturizerImage from '../images/moisturizer.png';
+import oilImage from '../images/oil.png';
+import peelingImage from '../images/peeling.png';
 import serumImage from '../images/serum.png';
+import soapImage from '../images/soap.png';
+import spotImage from '../images/spot-treatment.png';
 import sunscreenImage from '../images/sunscreen.png';
 import otherImage from '../images/other.png';
-import defaultImage from '../images/default.png';
 
 const getImagePath = (category) => {
   switch (category) {
+    case 'body lotion':
+      return bodylotionImage;
     case 'cleanser':
       return cleanserImage;
+    case 'herbal remedy':
+      return herbalImage;
+    case 'mist':
+      return mistImage;
     case 'moisturizer':
       return moisturizerImage;
+    case 'oil':
+      return oilImage;
+    case 'peeling':
+      return peelingImage;
     case 'serum':
       return serumImage;
+    case 'soap':
+      return soapImage;
+    case 'spot-treatment':
+      return spotImage;
     case 'sunscreen':
       return sunscreenImage;
     case 'other':
       return otherImage;
     default:
-      return defaultImage;
+      return otherImage;
   }
 };
 

@@ -6,7 +6,7 @@
   position: fixed;
   border-radius: 0.6rem;
   z-index: 100;
-  margin: 5px 0 0 5px;
+  margin: 5px 0 0 15px;
   box-shadow:2px 3px 6px rgba(0, 0, 0, 0.37);
 }
 
@@ -25,7 +25,7 @@
   height: min-content;
   background-color: #ea9350;
   z-index: 10;
-  padding: 0.8rem 1.2rem 1rem 65px;
+  padding: 0.8rem 1.2rem 1rem 75px;
   border-bottom-right-radius: 2rem;
 }
 
@@ -65,4 +65,15 @@ nav {
   display: flex;
   height: 60px;
   transition: all 3s ease;
+}
+
+@media screen and (min-width: 1024px) {
+  .menu-icon {
+    margin: 5px 0 0 25px;
+}
+.menu-items {
+  border-top-left-radius: 2rem;
+    padding: 0.8rem 1.2rem 1rem 90px;
+    border-bottom-right-radius: 2rem;
+}
 }

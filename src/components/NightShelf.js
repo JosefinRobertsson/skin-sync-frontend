@@ -2,30 +2,29 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-underscore-dangle */
 import React, { useState, useRef, useEffect } from 'react';
-import styled from 'styled-components';
 import confetti from 'canvas-confetti';
 import { v4 as uuidv4 } from 'uuid';
-import ReactSimplyCarousel from 'react-simply-carousel';
 import { AddProductButton, DeleteProductButton } from '../styles/StyledButtons';
 import { UsageLink } from '../styles/StyledLinks';
+import './compCSS/Shelves.css';
+import bodylotionImage from '../images/body lotion.png';
 import cleanserImage from '../images/cleanser.png';
+import herbalImage from '../images/herbal remedy.png';
+import mistImage from '../images/mist.png';
 import moisturizerImage from '../images/moisturizer.png';
+import oilImage from '../images/oil.png';
+import peelingImage from '../images/peeling.png';
 import serumImage from '../images/serum.png';
+import soapImage from '../images/soap.png';
+import spotImage from '../images/spot-treatment.png';
 import sunscreenImage from '../images/sunscreen.png';
 import otherImage from '../images/other.png';
-import defaultImage from '../images/default.png';
-import './compCSS/Shelves.css';
 /*
 const SingleProductWrapper = styled.div`
   display: flex;
   border: 1px solid black;
   `
 */
-const ProductImage = styled.img`
-  width: 80px;
-  height: 80px;
-  cursor: pointer;
-  `;
 
 const handleConfetti = () => {
   confetti({
@@ -51,7 +50,6 @@ const NightShelf = () => {
   const [nightCategory, setNightCategory] = useState('');
   const [clickCount, setClickCount] = useState(0);
   const buttonRef = useRef(null);
-  const [activeSlideIndexNight, setActiveSlideIndexNight] = useState(0);
 
   // Gets the categories for the dropdown menu
   useEffect(() => {
@@ -213,18 +211,32 @@ const NightShelf = () => {
   // Uses the chosen category to display the correct image
   const getImagePath = (category) => {
     switch (category) {
+      case 'body lotion':
+        return bodylotionImage;
       case 'cleanser':
         return cleanserImage;
+      case 'herbal remedy':
+        return herbalImage;
+      case 'mist':
+        return mistImage;
       case 'moisturizer':
         return moisturizerImage;
+      case 'oil':
+        return oilImage;
+      case 'peeling':
+        return peelingImage;
       case 'serum':
         return serumImage;
+      case 'soap':
+        return soapImage;
+      case 'spot-treatment':
+        return spotImage;
       case 'sunscreen':
         return sunscreenImage;
       case 'other':
         return otherImage;
       default:
-        return defaultImage;
+        return otherImage;
     }
   };
 
@@ -259,66 +271,20 @@ const NightShelf = () => {
   const nightProductCount = nightProducts.length;
 
   return (
-    <div className="bodyshelves">
+    <div className="shelvesWrapper">
       <h2>Night shelf</h2>
-      <ReactSimplyCarousel
-        activeSlideIndex={activeSlideIndexNight}
-        onRequestChange={setActiveSlideIndexNight}
-        itemsToShow={1}
-        itemsToScroll={1}
-        forwardBtnProps={{
-          // here you can also pass className, or any other button element attributes
-          style: {
-            alignSelf: 'center',
-            background: '#3F1C3A',
-            border: 'none',
-            borderRadius: '50%',
-            color: 'white',
-            cursor: 'pointer',
-            fontSize: '20px',
-            height: 30,
-            lineHeight: 1,
-            textAlign: 'center',
-            width: 30
-          },
-          children: <span>{'>'}</span>
-        }}
-        backwardBtnProps={{
-          // here you can also pass className, or any other button element attributes
-          style: {
-            alignSelf: 'center',
-            background: '#3F1C3A',
-            border: 'none',
-            borderRadius: '50%',
-            color: 'white',
-            cursor: 'pointer',
-            fontSize: '20px',
-            height: 30,
-            lineHeight: 1,
-            textAlign: 'center',
-            width: 30
-          },
-          children: <span>{'<'}</span>
-        }}
-        responsiveProps={[
-          {
-            itemsToShow: 2,
-            itemsToScroll: 1,
-            minWidth: 200
-          }
-        ]}
-        speed={300}
-        easing="linear">
+      <div className="productShelf night">
+
         {nightProducts.map((product) => (
-          <div className="carousel-item-wrapper" key={uuidv4()}>
+          <div className="product-container" key={uuidv4()}>
             <div
-              className="carousel-item nightCarousel"
+              className="product-item nightProduct"
               key={product._id}
               onClick={() => handleNightEdit(product._id)}
               onKeyDown={(event) => handleKeyPress(event, product._id)}
               tabIndex={0}
               role="button">
-              <ProductImage
+              <img
                 src={getImagePath(product.category)}
                 alt={product.category} />
 
@@ -329,7 +295,8 @@ const NightShelf = () => {
             </div>
           </div>
         ))}
-      </ReactSimplyCarousel>
+      </div>
+
       <p>{nightProductCount} products</p>
       <p>Click a product to edit</p>
 

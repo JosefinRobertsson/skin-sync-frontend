@@ -7,31 +7,50 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Toggle from 'react-toggle';
 import ReactSimplyCarousel from 'react-simply-carousel';
-import { Slide } from 'react-awesome-reveal';
 import { ShelfLink } from '../styles/StyledLinks';
-import cleanserImage from '../images/cleanser.png';
-import moisturizerImage from '../images/moisturizer.png';
-import serumImage from '../images/serum.png';
 import 'react-toggle/style.css'
+import './compCSS/UsageTracker.css';
+import bodylotionImage from '../images/body lotion.png';
+import cleanserImage from '../images/cleanser.png';
+import herbalImage from '../images/herbal remedy.png';
+import mistImage from '../images/mist.png';
+import moisturizerImage from '../images/moisturizer.png';
+import oilImage from '../images/oil.png';
+import peelingImage from '../images/peeling.png';
+import serumImage from '../images/serum.png';
+import soapImage from '../images/soap.png';
+import spotImage from '../images/spot-treatment.png';
 import sunscreenImage from '../images/sunscreen.png';
 import otherImage from '../images/other.png';
-import defaultImage from '../images/default.png';
-import './compCSS/UsageTracker.css';
 
 const getImagePath = (category) => {
   switch (category) {
+    case 'body lotion':
+      return bodylotionImage;
     case 'cleanser':
       return cleanserImage;
+    case 'herbal remedy':
+      return herbalImage;
+    case 'mist':
+      return mistImage;
     case 'moisturizer':
       return moisturizerImage;
+    case 'oil':
+      return oilImage;
+    case 'peeling':
+      return peelingImage;
     case 'serum':
       return serumImage;
+    case 'soap':
+      return soapImage;
+    case 'spot-treatment':
+      return spotImage;
     case 'sunscreen':
       return sunscreenImage;
     case 'other':
       return otherImage;
     default:
-      return defaultImage;
+      return otherImage;
   }
 };
 
@@ -284,11 +303,7 @@ const UsageTracker = () => {
 
   return (
     <div className="usageTrackerWrapper">
-
-      <Slide>
-        <h1 className="usagetitle">Skincare Log</h1>
-      </Slide>
-
+      <h1 className="usagetitle">Skincare Log</h1>
       <h2>Morning Routine</h2>
 
       <ReactSimplyCarousel

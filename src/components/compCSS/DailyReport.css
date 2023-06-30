@@ -1,21 +1,41 @@
 
+.dailyreportWrapper {
+    position: relative;
+    width: 100%;
+    padding: 2rem 2rem 0 2rem;
+    overflow: hidden;
+}
 
+.ball2,
+.ball3 {
+    position: absolute;
+    top: -10%;
+    left: 50%;
+    z-index: -1;
+    background-image: url('../../images/pexels-felipe-helfstein-14705286.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 51%;
+    border-radius: 50%;
+    width: 340px;
+    aspect-ratio: 1/1;
+}
+
+.ball3 {
+    top: 60%;
+    left: 35%;
+    background-position: 80%;
+    width: 150px;
+}
 
 .dailyreportbody h1 {
-   padding-top: 20%;
-   padding-bottom: 10%;
+   padding: 2rem 2rem 0 2rem;
     font-size: 32px;
     letter-spacing: 0.5%;
     text-align: center;
-    color: #FFF4E9;
+    color: rgba(255, 244, 233, 0.85);
     margin-top: 0;
 }
-
-.dailyreportbody {
-    background-color: #2A152A;
-    padding: 5% 3% 0 5%;
-}
-
 
 #form-report {
     display: flex;
@@ -23,23 +43,25 @@
     align-items: center;
     gap: 2em;
     padding: 1em;
-    color:#FFF4E9 ;
+    color:  #ea9350;
+}
+
+#form-report label {
+    font-size: 1.2rem;
+    padding-bottom: 1rem;
+}
+
+#form-report span {
+    font-weight: bold; 
 }
 
 form div {
     width: 100%;
 }
 
-.label-report {
-    display: block;
-    margin-bottom: .7em;
-    font-size: 16px;
-    color:#FFF4E9 ;
-   
-}
-
 input[type="range"] {
-    width: 95%;
+    width: 100%;
+    margin-top: 1rem;
   
 }
 
@@ -52,28 +74,12 @@ select {
     padding: .5em;
 }
 
-.RegisterButton {
-    font-size: 16px;
-    padding: 10px;
-    margin-top: 15%;
-    margin-bottom: 15%;
-    background-color: #DB5A4F;
-    color: rgba(255, 255, 255, 0.85);
-    border: none;
-    border-radius: 43px;
-    cursor: pointer;
-    text-align: center;
-    width: 50%;
-    font-family: 'Lalezar', cursive;
-    letter-spacing: 1px;
-    font-weight: 400;
-}
 input[type='range'] {
 	-webkit-appearance: none;
 	height: 5px;
 	background: grey;
 	border-radius: 4px;
-	background-image: linear-gradient(to right, #bc748d, #9b82c6);
+	background-image: linear-gradient(to right, #810f51, #a883e9);
 	background-repeat: no-repeat;
     cursor: pointer;
 }
@@ -88,12 +94,9 @@ input[type='range']::-webkit-slider-thumb {
 	box-shadow: 0 0 2px 0 #555;
 }
 
-
-
-
-@media (min-width: 768px) {
-    .dailyreportbody {
-      min-width:375px; 
-      min-height: 100vh;
+@media screen and (min-width: 768px) {
+    #form-report {
+        width: 80%;
+        margin: 0 auto;
     }
-  }
+    }

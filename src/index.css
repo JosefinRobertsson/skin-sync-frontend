@@ -34,11 +34,12 @@ legend, label {
 
 .allWrapper {
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   overflow-y: auto;
   overflow-x: hidden;
   scrollbar-width: none;
   -ms-overflow-style: none;
+  border: 1px solid salmon;
 }
 
 code {
@@ -69,7 +70,7 @@ button {
 
 @media (min-width: 1024px) {
   .allWrapper {
-    width: 45vw;
+    width: 55vw;
     height: 80vh;
     border-radius: 2rem;
     border: 1px solid rgba(255, 244, 233, 0.85);

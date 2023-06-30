@@ -11,8 +11,8 @@ export const BaseButton = styled.button`
   letter-spacing: 1px;
   font-size: 1.2rem;
   font-weight: 400;
-  color: rgba(255, 255, 255, 0.85);
-  border:rgba(255, 255, 255, 0.85) 1px solid;
+  color: rgba(255, 244, 233, 0.85);
+  border: rgba(255, 244, 233, 0.85) 1px solid;
   border-radius: 1rem;
   padding: 0.5rem 1rem;
   position: relative;
@@ -31,7 +31,7 @@ export const BaseButton = styled.button`
 
 export const UserFormButton = styled(BaseButton)`
  padding: 0.2rem 0.6rem;
- font-size: 1rem;
+ margin-bottom: 15%;
 `;
 
 export const ReportButton = styled(BaseButton)`
