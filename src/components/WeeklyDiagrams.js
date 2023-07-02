@@ -124,7 +124,7 @@ const WeeklyDiagrams = ({ chosenDate, reportData }) => {
   }, [reportData, chosenWeek]);
 
   return (
-    <div className="statisticsbody weeklyBarsWrapper">
+    <div className="statisticsbody weekly-bars-wrapper">
       <div className="svgs">
         <svg>
           <defs>

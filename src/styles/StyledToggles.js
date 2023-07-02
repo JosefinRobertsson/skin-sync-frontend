@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
-export const BaseToggle = styled.div`
+const BaseToggle = styled.button`
 .switch {
   position: relative;
-  display: inline-block;
+  display: block;
   width: 50px;
   height: 26px;
   border: 1 px solid red;
@@ -56,3 +56,5 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
 `;
+
+export default BaseToggle;

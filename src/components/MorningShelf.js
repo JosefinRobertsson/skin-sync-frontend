@@ -3,11 +3,11 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import confetti from 'canvas-confetti';
 import { v4 as uuidv4 } from 'uuid';
-import { AddProductButton, DeleteProductButton } from '../styles/StyledButtons';
-import { UsageLink } from '../styles/StyledLinks';
+import { ProductFormButton, SaveButton, BackButton } from '../styles/StyledButtons';
+import MorningPopUp from './MorningPopUp.js';
 import './compCSS/Shelves.css';
 import bodylotionImage from '../images/body lotion.png';
 import cleanserImage from '../images/cleanser.png';
@@ -40,12 +40,11 @@ const MorningShelf = () => {
   const [morningName, setMorningName] = useState('');
   const [morningBrand, setMorningBrand] = useState('');
   const [morningProducts, setMorningProducts] = useState([]);
-  const [morningEditing, setMorningEditing] = useState(false);
-  const [editingProductId, setEditingProductId] = useState(null);
   const [categories, setCategories] = useState([]);
   const [morningCategory, setMorningCategory] = useState('');
-  const [clickCount, setClickCount] = useState(0);
-  const buttonRef = useRef(null);
+  const [showForm, setShowForm] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [errorMsg, setErrorMsg] = useState(null);
 
   // Gets the categories for the dropdown menu
   useEffect(() => {
@@ -69,19 +68,6 @@ const MorningShelf = () => {
     };
     fetchCategories();
   }, []);
-
-  // Extra safety for delete button
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (buttonRef.current && !buttonRef.current.contains(event.target)) {
-        setClickCount(0);
-      }
-    };
-    window.addEventListener('click', handleClickOutside);
-    return () => {
-      window.removeEventListener('click', handleClickOutside);
-    };
-  }, [buttonRef]);
 
   const getMorningProducts = () => {
     const accessToken = localStorage.getItem('accessToken');
@@ -117,95 +103,40 @@ const MorningShelf = () => {
     const accessToken = localStorage.getItem('accessToken');
     // eslint-disable-next-line no-unused-vars
     const options = {
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         Authorization: accessToken
       },
       body: JSON.stringify({
-        name: morningName.charAt(0).toUpperCase() + morningName.slice(1),
-        brand: morningBrand.charAt(0).toUpperCase() + morningBrand.slice(1),
+        name: morningName.charAt(0).toUpperCase() + morningName.slice(1).toLowerCase(),
+        brand: morningBrand.charAt(0).toUpperCase() + morningBrand.slice(1).toLowerCase(),
         category: morningCategory,
         routine: 'morning'
       })
     };
 
-    let requestUrl = 'http://localhost:8080/productShelf';
     // let requestUrl = 'https://skinsync-mgydyyeela-no.a.run.app/productShelf';
-    let requestMethod = 'POST';
 
-    if (editingProductId) {
-      requestUrl += `/${editingProductId}`;
-      requestMethod = 'PUT';
-    }
-
-    fetch(requestUrl, { ...options, method: requestMethod })
+    fetch('http://localhost:8080/productShelf', options)
       .then((response) => response.json())
       .then((data) => {
         if (data.success) {
           setMorningName('');
           setMorningBrand('');
           setMorningCategory('');
-          // Reset the editing state
-          setEditingProductId(null);
-          setMorningEditing(false);
+          setErrorMsg(null);
+          setShowForm(false);
           getMorningProducts();
         } else {
           console.error('Failed to submit Skincare Product');
+          setErrorMsg(data.message);
         }
       })
       .catch((error) => {
         console.error('An error occurred:', error);
+        setErrorMsg(error.message);
       });
-  };
-
-  // DELETE
-  const handleDeleteProduct = (productId) => {
-    if (clickCount === 0) {
-      setClickCount(1);
-    } else {
-      const accessToken = localStorage.getItem('accessToken');
-      fetch(`http://localhost:8080/productShelf/${productId}`, {
-      // fetch(` https://skinsync-mgydyyeela-no.a.run.app/productShelf/${productId}`, {
-        method: 'DELETE',
-        headers: {
-          Authorization: accessToken
-        }
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.success) {
-            getMorningProducts();
-          } else {
-            console.error('Failed to delete product');
-          }
-          setMorningName('');
-          setMorningBrand('');
-          setMorningCategory('');
-          setClickCount(0);
-          setMorningEditing(false);
-        });
-    }
-  };
-
-  // EDIT
-  const handleMorningEdit = (productId) => {
-    setMorningName('');
-    setMorningBrand('');
-    setMorningCategory('');
-
-    if (editingProductId === productId) {
-      setEditingProductId(null);
-      setMorningEditing(false);
-    } else {
-      const product = morningProducts.find((prod) => prod._id === productId);
-      if (product) {
-        setMorningName(product.name);
-        setMorningBrand(product.brand);
-        setMorningCategory(product.category);
-        setEditingProductId(productId);
-        setMorningEditing(true); // Set morningEditing to true
-      }
-    }
   };
 
   // Uses the chosen category to display the correct image
@@ -261,11 +192,33 @@ const MorningShelf = () => {
     }
   };
 
-  const handleKeyPress = (event) => {
+  const handleCancelClick = () => {
+    setMorningName('');
+    setMorningBrand('');
+    setMorningCategory('');
+    setShowForm(false);
+  }
+  const handleProductSelection = (productId) => {
+    const clickedProduct = morningProducts.find((prod) => prod._id === productId);
+    console.log(clickedProduct);
+    setSelectedProduct(clickedProduct);
+    handleCancelClick();
+  };
+
+  const handleKeyPress = (event, ID) => {
     if (event.key === 'Enter') {
-      handleMorningEdit(product._id)
+      handleProductSelection(ID)
     }
   };
+  // get updated products after popup is closed
+  const handlePopUpClose = () => {
+    getMorningProducts();
+  };
+
+  const handleAddProductClick = () => {
+    setShowForm(!showForm);
+    setErrorMsg(null);
+  }
 
   const morningProductCount = morningProducts.length;
 
@@ -279,7 +232,7 @@ const MorningShelf = () => {
             <div
               className="product-item"
               key={product._id}
-              onClick={() => handleMorningEdit(product._id)}
+              onClick={() => handleProductSelection(product._id)}
               onKeyDown={(event) => handleKeyPress(event, product._id)}
               tabIndex={0}
               role="button">
@@ -287,7 +240,6 @@ const MorningShelf = () => {
                 className="product-image"
                 src={getImagePath(product.category)}
                 alt={product.category} />
-
               <div className="productsnameandbrand">
                 <span>{product.name}</span>
                 <span>{product.brand}</span>
@@ -298,9 +250,13 @@ const MorningShelf = () => {
       </div>
       <p>{morningProductCount} products</p>
       <p>Click a product to edit</p>
-
-      <form className="form-wrapper" onSubmit={handleSubmitMorningRoutine}>
-        <fieldset className="fieldset"><legend>{morningEditing ? 'Edit' : 'Add to '} Morning shelf</legend>
+      <ProductFormButton
+        type="button"
+        onClick={handleAddProductClick}>
+        {showForm ? 'Hide form' : 'Add new product'}
+      </ProductFormButton>
+      <form className="shelf-form" style={{ display: showForm ? 'flex' : 'none' }} onSubmit={handleSubmitMorningRoutine}>
+        <fieldset className="fieldset"><legend>Add to Morning shelf</legend>
           <div>
             <label className="labelusage" htmlFor="morningName">Name:</label>
             <input
@@ -336,7 +292,7 @@ const MorningShelf = () => {
               ))}
             </select>
           </div>
-          <AddProductButton
+          <SaveButton
             className="productbutton"
             type="submit"
             onClick={(event) => {
@@ -345,20 +301,25 @@ const MorningShelf = () => {
                 handleSubmitMorningRoutine(event);
               }
             }}>
-            {morningEditing ? 'Save change' : 'Put on shelf'}
-          </AddProductButton>
-          <DeleteProductButton
-            className="productbutton"
-            type="button"
-            onClick={() => handleDeleteProduct(editingProductId)}
-            clicked={clickCount > 0}
-            ref={buttonRef}
-            isVisible={morningEditing}>
-            {clickCount === 0 ? 'Delete' : 'Delete product?'}
-          </DeleteProductButton>
+            Put on shelf
+          </SaveButton>
+          <BackButton onClick={handleCancelClick}>
+            Cancel
+          </BackButton>
+          {errorMsg && <p className="error">{errorMsg}</p>}
         </fieldset>
-        <UsageLink className="logusagebutton" to="/productShelf/logUsage">Log my products usage</UsageLink>
       </form>
+      {selectedProduct && (
+        <MorningPopUp
+          product={selectedProduct}
+          setSelectedProduct={setSelectedProduct}
+          showForm={showForm}
+          setShowForm={setShowForm}
+          getImagePath={getImagePath}
+          categories={categories}
+          morningProducts={morningProducts}
+          onClose={handlePopUpClose} />
+      )}
     </div>
   );
 };

@@ -8,6 +8,7 @@ body {
   /*font-family: 'Athiti', sans-serif;*/
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow: auto;
   background-color: #051306;
   display: flex;
   justify-content: center;
@@ -39,7 +40,7 @@ legend, label {
   overflow-x: hidden;
   scrollbar-width: none;
   -ms-overflow-style: none;
-  border: 1px solid salmon;
+  border: 1px solid #ea9350;
 }
 
 code {
@@ -70,7 +71,7 @@ button {
 
 @media (min-width: 1024px) {
   .allWrapper {
-    width: 55vw;
+    width: 60vw;
     height: 80vh;
     border-radius: 2rem;
     border: 1px solid rgba(255, 244, 233, 0.85);

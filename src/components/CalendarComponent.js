@@ -4,13 +4,13 @@ import 'react-calendar/dist/Calendar.css';
 import './compCSS/CalendarComponent.css';
 import styled from 'styled-components';
 
-const StyledDiv = styled.div`
+const CalendarWrapper = styled.div`
   background-color:#1f101f;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-end;
-  height: 90vh;
+  height: fit-content;
 `;
 const Styledh2 = styled.h2`
   padding-bottom: 20%;
@@ -34,13 +34,13 @@ const CalendarComponent = ({ chosenDate, setChosenDate }) => {
   };
 
   return (
-    <StyledDiv>
+    <CalendarWrapper>
       <Styledh2>Weekly stats</Styledh2>
       <Calendar onChange={handleDateChange} value={chosenDate} />
       <Styledp>Choose a date to see your average statistics and
         the products you used that week
       </Styledp>
-    </StyledDiv>
+    </CalendarWrapper>
   )
 }
 

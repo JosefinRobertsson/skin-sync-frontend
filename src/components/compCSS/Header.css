@@ -25,7 +25,7 @@
   height: min-content;
   background-color: #ea9350;
   z-index: 10;
-  padding: 0.8rem 1.2rem 1rem 75px;
+  padding: 0.8rem 2.4rem 1rem 75px;
   border-bottom-right-radius: 2rem;
 }
 
@@ -41,7 +41,7 @@ ul {
 li {
   list-style: none;
  font-style: italic;
-  font-size: 1rem;
+  font-size: 1.1rem;
   margin-bottom: 12px;
 }
 
@@ -56,6 +56,8 @@ li:last-of-type {
 .link-styling:hover {
   display: block;
   background-color: rgba(228, 218, 217, 0.641);
+  border-radius: 5px;
+  color: #051306;
 }
 
 

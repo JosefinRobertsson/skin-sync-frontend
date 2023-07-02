@@ -365,6 +365,7 @@ const UsageTracker = () => {
             <div>
               <label htmlFor={`toggle-${product._id}`}>
                 Used today:
+
                 <Toggle
                   icons={false}
                   className="my-toggle"

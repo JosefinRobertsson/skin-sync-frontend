@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
-  BrowserRouter, Routes, Route
+  BrowserRouter, Routes, Route, useLocation
 } from 'react-router-dom';
 import DailyReport from './components/DailyReport';
 import MorningShelf from './components/MorningShelf';
@@ -14,6 +14,16 @@ import LandingPage from './components/LandingPage';
 import CalendarComponent from './components/CalendarComponent';
 import WeeklyDiagrams from './components/WeeklyDiagrams';
 import ProductStatistics from './components/ProductStatistics';
+
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+};
 
 export const App = () => {
   const [chosenDate, setChosenDate] = useState(new Date());
@@ -36,6 +46,7 @@ export const App = () => {
   return (
     <div className="allWrapper">
       <BrowserRouter>
+        <ScrollToTop />
         <>
           <Header username={username} />
           <Routes>

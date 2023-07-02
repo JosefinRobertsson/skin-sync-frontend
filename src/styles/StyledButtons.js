@@ -38,12 +38,17 @@ export const ReportButton = styled(BaseButton)`
 `;
 
 export const DeleteProductButton = styled(BaseButton)`
-  display: ${(props) => (props.isVisible ? 'block' : 'none')};
   ${(props) => props.clicked
     && `
     background: #1d0d48;; 
   `}
 `;
 
-export const AddProductButton = styled(BaseButton)`
+export const SaveButton = styled(BaseButton)`
+`;
+
+export const BackButton = styled(BaseButton)`
+`;
+
+export const ProductFormButton = styled(BaseButton)`
 `;

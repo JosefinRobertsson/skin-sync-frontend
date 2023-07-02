@@ -2,7 +2,6 @@
 
 
 .productsWrapper {
-  margin-top: -90px;
   padding: 1rem 19px 90px 19px;
   background-color: #1f101f;
 }
@@ -70,7 +69,7 @@ h2 {
     color:  #1f101f;
     border: 1px solid #1d0d48;
     scrollbar-width: none;
-    -ms-overflow-style: none;
+    -ms-overflow-style: none; 
 }
 
 .nightProductContainer {
@@ -100,11 +99,3 @@ span {
     cursor: pointer;
     border: none;
 }
-
-
-@media (max-width: 500px) {
-.productsWrapper {
-    margin-top: -110px;
-    
-    }
-  }

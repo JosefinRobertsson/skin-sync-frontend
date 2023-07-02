@@ -16,6 +16,11 @@ text-align: center;
   font-weight: 400;
   box-shadow: 1px 1px 8px 4px rgba(5, 19, 6, 0.3);
   transition: all 0.3s ease;
+  &:hover,
+  &:focus {
+    background-color: #F2F2F2;
+    color: #051306;
+  }
 `;
 
 export const HomeLink = styled(BaseLink)`

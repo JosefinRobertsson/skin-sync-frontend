@@ -1,11 +1,12 @@
 
 .shelvesWrapper {
-  min-height: 100vh;
+  min-height: 50vh;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   background: rgb(255,187,39);
+  padding-bottom: 3rem;
 }
 
 .shelvesWrapper h1 {
@@ -19,18 +20,33 @@
   text-shadow: 1px 1px 4px rgba(5, 19, 6, 0.3);
 }
 
+.shelvesWrapper h2 {
+  text-shadow: 1px 1px 4px rgba(5, 19, 6, 0.3);
+  padding-bottom: 1rem;
+}
+
 .productShelf {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   width: 90%;
+  min-height: 85px;
+  max-height: 570px;
   padding: 5px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scrollbar-width: none;
   background-color: rgba(255, 255, 255, 0.45);
   border: rgba(255, 255, 255, 0.85) 1px solid;
   border-radius: 5px;
   box-shadow: 1px 1px 8px 4px rgba(5, 19, 6, 0.3);
   gap: 5px;
 }
+
+.productShelf::-webkit-scrollbar{
+  display: none;
+} /* this hides the scrollbars in Chrome and Safari */
+
 
 .product-container {
   width: 31%;
@@ -44,12 +60,12 @@
   padding: 5px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
+  transition: all 0.3s ease;
   border-radius: 70% 50% 50% 50% / 50% 80% 30% 40%;
   border: 1px solid black;
-  background: rgb(252,235,103);
-background: radial-gradient(circle, rgba(252,235,103,1) 0%, rgba(255,187,39,1) 80%, rgba(254,124,57,1) 99%);
+  background: radial-gradient(circle, rgba(255,251,217,1) 1%, rgb(255, 197, 39) 41%, rgba(254,124,57,1) 96%);
   box-shadow: inset 1px 1px 8px 4px rgba(5, 19, 6, 0.3);
   /*background-image: linear-gradient(to bottom, rgba(221, 207, 207, 0), rgba(0, 0, 0, 0.3));
   background-size: 100% 20px;
@@ -60,9 +76,23 @@ background: radial-gradient(circle, rgba(252,235,103,1) 0%, rgba(255,187,39,1) 8
   cursor: pointer;
 }
 
+.product-item:hover,
+.product-item:focus {
+  background: rgb(255,251,217);
+  box-shadow: 1px 1px 8px 4px rgba(5, 19, 6, 0.3);
+}
+
+.product-item:focus {
+  outline: whitesmoke solid 2px;
+}
+
+.nightProduct:hover,
+.nightProduct:focus {
+  background: #051306;
+}
+
 .nightProduct {
-  background: rgb(44,161,52);
-background: radial-gradient(circle, rgba(44,161,52,1) 0%, rgba(28,93,33,1) 75%, rgba(5,19,6,1) 99%);
+  background: radial-gradient(circle, rgba(255,245,232,1) 0%, rgba(28,93,33,1) 45%, rgba(5,19,6,1) 83%);
 }
 
 .product-item::-webkit-scrollbar {
@@ -76,6 +106,7 @@ background: radial-gradient(circle, rgba(44,161,52,1) 0%, rgba(28,93,33,1) 75%, 
   justify-content: flex-end;
   align-items: center;
   text-align: center;
+  width: 85%;
   color: #2A152A;
 }
 
@@ -99,7 +130,7 @@ background: radial-gradient(circle, rgba(44,161,52,1) 0%, rgba(28,93,33,1) 75%, 
 
 .product-item img {
   object-fit: contain;
-  height: 70%;
+  height: 65%;
   margin: 5px 0 3px 0;
 }
 
@@ -107,6 +138,22 @@ background: radial-gradient(circle, rgba(44,161,52,1) 0%, rgba(28,93,33,1) 75%, 
   filter: invert(0.95);
 }
 
+.shelf-form {
+  margin-bottom: 3rem;
+  background-color: rgba(5,19,6, 0.3);
+  padding: 1rem;
+  border-radius: 6px;
+  box-shadow: 1px 1px 8px 4px rgba(5, 19, 6, 0.3);
+  border: rgba(255, 255, 255, 0.75) 1px solid;
+}
+
+hr {
+  width: 90%;
+  margin-bottom: 3rem;
+  border: none;
+  height: 1px;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));
+}
 
 .nightProduct span {
   color: rgba(255, 245, 232, 0.9);
@@ -118,20 +165,19 @@ p {
 }
 
 .select {
-  border: 6px solid #a996d576;
-  border-radius: 4px;
+  border: none;
+  border-radius: 6px;
   padding: 0.5em;
-  margin: 0.5em 0;
+  margin-bottom: 15px;
 }
-
-.labelusage {
-  color: red;
-}
-
 
 @media (min-width: 400px) {
   .product-container {
     width: 23%;
+  }
+  .productShelf {
+    min-height: 85px;
+    max-height: 480px;
   }
 }
 
@@ -141,16 +187,25 @@ p {
   }
   .productShelf {
     width: 80%;
+    max-height: 460px;
     padding: 10px 5px;
   }
 }
 @media (min-width: 1024px) {
   .product-container {
-    width: 19%;
+    width: 16%;
   }
   .productShelf {
     width: 80%;
+    min-height: 110px;
+    max-height: 500px;
     padding: 10px 10px;
+  }
+  .product-item img {
+    height: 65%;
+  }
+  .product-item span {
+    font-size: 1.2em;
   }
 }
 

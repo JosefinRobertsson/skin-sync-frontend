@@ -67,7 +67,7 @@ label[for="login-radio"]:focus {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 100%;
+  height: 100vh;
   width: 100%;
   background-image: url('../../images/pexels-felipe-helfstein-14705286.jpg');
     background-size: cover;
