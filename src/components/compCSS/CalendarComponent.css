@@ -1,33 +1,117 @@
+.calendar-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    height: fit-content;
+    background-image: url('../../images/pexels-felipe-helfstein-14705286.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.calendar-container {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: center;
+    align-items: center;
+    padding: 0 1rem;
+    height: fit-content;
+    width: 100%;
+}
+
+.stats-description {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.6rem 0 0.6rem 0;
+    background-color: rgba(255, 255, 255, 0.45);
+    height: fit-content;
+    width: 100%;
+    max-width: 500px;
+    border: rgba(255, 255, 255, 0.85) 1px solid;
+    border-radius: 5px;
+    margin: 0 1rem 1.5rem 1rem;
+    padding: 0.6rem 0 0.6rem 0;
+    box-shadow: 1px 1px 8px 4px rgba(5, 19, 6, 0.3);
+}
+
+.calendar-container p {
+    color: #051306;
+    display: inline-block;
+    /* background-color: #051306; */
+    padding: 0.6rem 1rem 1rem 1rem;
+    width: 90%;
+    text-align: center;
+    border: 1px solid #313131;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.75);
+    box-shadow: 1px 1px 8px 4px rgba(5, 19, 6, 0.3);
+}
 
 .react-calendar {
-    background-color: rgba(255, 244, 233, 0.80);
+    background-color: rgba(255, 255, 255, 0.8);
     border-radius: 0.8rem;
     border: none;
     color: #FFF5E9;
     font-family: 'Poppins', sans-serif;
-    font-size: 1.2rem;
-    margin: 0 auto;
-    padding: 1rem;
-    display: block;
-    width: 80%;
-    height: min-content;
-} 
+    font-size: 0.9rem;
+    margin: 0 1rem 2rem 1rem;
+    display: inline-block;
+    height: 240px;
+    width: 90%;
+}
 
 abbr {
-    color:  #1f101f;
+    color: #1f101f;
 }
 
 .react-calendar__tile {
     border-radius: 0.8rem;
+    padding: 5px;
+}
+
+.react-calendar__tile button {
+    flex: 0 0 0 10%;
+}
+
+.react-calendar_month-view___days___day {
+    border: 2px solid rgb(253, 202, 91);
+    flex: 0 0 0 10%;
 }
 
 .react-calendar__tile--active,
-.react-calendar__tile--active:enabled:hover, 
+.react-calendar__tile--active:enabled:hover,
 .react-calendar__tile--active:enabled:focus {
-    background: #997FC5;
+    background: rgb(253, 202, 91);
 }
 
 .react-calendar__tile--now,
-.react-calendar__tile--now:enabled:hover, .react-calendar__tile--now:enabled:focus {
+.react-calendar__tile--now:enabled:hover,
+.react-calendar__tile--now:enabled:focus {
     background: white;
+}
+
+.react-calendar__tile:enabled:hover, .react-calendar__tile:enabled:focus {
+    background: rgb(253, 202, 91);
+}
+
+@media screen and (min-width: 375px){
+    .react-calendar {
+        width: 60%;
+    }
+}
+
+@media screen and (min-width: 525px) {
+
+    .calendar-container {
+        flex-direction: row;
+        padding: 0 0.5rem;
+        align-items: flex-start;
+    }
+    .react-calendar {
+        height: 250px;
+        width: 45%;
+        max-width: 340px;
+    }
+
 }

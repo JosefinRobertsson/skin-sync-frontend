@@ -156,10 +156,11 @@ const ProductStatistics = ({ chosenDate }) => {
     });
   }
 
+  const chosenWeek = moment(chosenDate).isoWeek();
+
   const handleProductSelection = (data) => {
     setSelectedProduct(data);
     setShowPopUp(true);
-    console.log(showPopUp);
   };
 
   const handleKeyPress = (event, data) => {
@@ -170,43 +171,46 @@ const ProductStatistics = ({ chosenDate }) => {
 
   return (
     <div className="productsWrapper">
-      <h2>Skincare used</h2>
+      <h2>Skincare used week {chosenWeek}</h2>
       {week.map((weekday) => (
-        <div className={`${weekday.name} daysAndNights`} key={weekday.number}>
-          {weekday.name} {weekday.formattedDate}
-          <div className={`${weekday.name}Morning allMornings`}>
-            {formattedMorningProducts
-              .filter((data) => moment(data.productUsage).isSame(weekday.date, 'day'))
-              .map((data) => (
-                <div
-                  className="morningProductContainer"
-                  key={`${data.productName}-${uuidv4()}`}
-                  onClick={() => handleProductSelection(data)}
-                  onKeyDown={(event) => handleKeyPress(event, data)}
-                  tabIndex={0}
-                  role="button">
-                  <img src={getImagePath(data.productCategory)} alt={data.productCategory} />
-                  <span>{data.productName}</span>
-                </div>
-              ))}
+        <>
+          <hr className="weekday-divider" />
+          <h4 id="name-date-stats" key={uuidv4()}>{weekday.name} {weekday.formattedDate}</h4>
+          <div className={`${weekday.name} daysAndNights`} key={weekday.number}>
+            <div className={`${weekday.name}Morning allMornings`}>Morning
+              {formattedMorningProducts
+                .filter((data) => moment(data.productUsage).isSame(weekday.date, 'day'))
+                .map((data) => (
+                  <div
+                    className="morningProductContainer"
+                    key={`${data.productId}`}
+                    onClick={() => handleProductSelection(data)}
+                    onKeyDown={(event) => handleKeyPress(event, data)}
+                    tabIndex={0}
+                    role="button">
+                    <img src={getImagePath(data.productCategory)} alt={data.productCategory} />
+                    <h5>{data.productName}</h5>
+                  </div>
+                ))}
+            </div>
+            <div className={`${weekday.name}Night allNights`}>Night
+              {formattedNightProducts
+                .filter((data) => moment(data.productUsage).isSame(weekday.date, 'day'))
+                .map((data) => (
+                  <div
+                    className="nightProductContainer"
+                    key={`${data.productId}`}
+                    onClick={() => handleProductSelection(data)}
+                    onKeyDown={(event) => handleKeyPress(event, data)}
+                    tabIndex={0}
+                    role="button">
+                    <img src={getImagePath(data.productCategory)} alt={data.productCategory} />
+                    <h5>{data.productName}</h5>
+                  </div>
+                ))}
+            </div>
           </div>
-          <div className={`${weekday.name}Night allNights`}>
-            {formattedNightProducts
-              .filter((data) => moment(data.productUsage).isSame(weekday.date, 'day'))
-              .map((data) => (
-                <div
-                  className="nightProductContainer"
-                  key={`${data.productName}-${uuidv4()}`}
-                  onClick={() => handleProductSelection(data)}
-                  onKeyDown={(event) => handleKeyPress(event, data)}
-                  tabIndex={0}
-                  role="button">
-                  <img src={getImagePath(data.productCategory)} alt={data.productCategory} />
-                  <span>{data.productName}</span>
-                </div>
-              ))}
-          </div>
-        </div>
+        </>
       ))}
       {selectedProduct && (
         <PopUp

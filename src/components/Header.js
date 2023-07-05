@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Spin as Hamburger } from 'hamburger-react';
@@ -7,7 +7,7 @@ import './compCSS/Header.css';
 const Header = ({ username }) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(window.innerWidth > 1210);
 
   const handleLogout = () => {
     const accessToken = localStorage.getItem('accessToken');
@@ -20,14 +20,25 @@ const Header = ({ username }) => {
         console.log(response);
         // Clear the access token from localStorage
         localStorage.removeItem('accessToken');
-        navigate('/logout'); // Take user to logout screen
+        navigate('/');
       })
       .catch((error) => console.error(error));
   };
 
   const toggleMenu = () => {
-    setIsOpen(!isOpen);
+    if (window.innerWidth < 1210) { setIsOpen(!isOpen); }
   };
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsOpen(window.innerWidth > 1210);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   const hideHeader = location.pathname !== '/login'
     && location.pathname !== '/'
@@ -46,9 +57,7 @@ const Header = ({ username }) => {
           label="Show menu" />
       </button>
 
-      <ul
-        className="menu-items"
-        style={{ display: isOpen ? 'block' : 'none' }}>
+      <ul className="menu-items" style={{ display: isOpen ? 'block' : 'none' }}>
         <li>
           <Link to={`/userpage?username=${username}`} onClick={toggleMenu} style={{ textDecoration: 'none' }} className="link-styling">
             Home

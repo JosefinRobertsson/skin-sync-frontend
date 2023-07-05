@@ -18,13 +18,14 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  z-index: 5;
 `;
 
 const ProductWindow = styled.div`
   width:300px;
   height: fit-content;
   border-radius: 1rem;
-  padding: 0.5rem 1rem 0.5rem 1rem;
+  padding: 0.5rem 1rem 1.5rem 1rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -122,6 +123,7 @@ const NightPopUp = ({
             setNightCategory('');
             setClickCount(0);
             setSelectedProduct(null);
+            onClose();
           } else {
             console.error('Failed to delete product');
           }
@@ -157,8 +159,8 @@ const NightPopUp = ({
           <img src={getImagePath(product.category)} alt="product icon" />
         </ImgContainer>
         <div className="productText night-edit">
-          <h4>{product.name}</h4>
-          <h4>{product.brand}</h4>
+          <h3>{product.name}</h3>
+          {product.brand.length > 0 && (<h4>{product.brand}</h4>)}
         </div>
         <form className="shelf-form popup-form night-edit-form" onSubmit={handleProductSave}>
           <fieldset>
@@ -217,16 +219,16 @@ const NightPopUp = ({
                 ref={buttonRef}>
                 {clickCount === 0 ? 'Delete' : 'Delete product?'}
               </DeleteProductButton>
-              <BaseButton
+              <BackButton
                 type="button"
                 onClick={handleBackButtonClick}>
                 Cancel
-              </BaseButton>
+              </BackButton>
             </div>
           </fieldset>
         </form>
+        <BaseButton onClick={handleBackButtonClick}>Back</BaseButton>
       </ProductWindow>
-      <BackButton onClick={handleBackButtonClick}>Back</BackButton>
     </Wrapper>
   );
 };

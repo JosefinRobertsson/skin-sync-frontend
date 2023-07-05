@@ -4,10 +4,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100vh;
+  min-height: fit-content;
   width: 100%;
   padding: 0 2rem 0 2rem;
-  border: 3 px solid wheat;
   color: wheat;
   /*
 background: radial-gradient(circle, rgb(13, 50, 16) 0%, rgb(11, 41, 13) 75%, rgb(3, 13, 4) 99%); */
@@ -21,7 +20,7 @@ background: radial-gradient(circle, rgb(13, 50, 16) 0%, rgb(11, 41, 13) 75%, rgb
   align-items: center;
   gap: 1rem;
   width: 100%;
-  margin-top: 5rem;
+  margin: 5rem 0;
 }
 
 .link-container div {
@@ -33,7 +32,7 @@ background: radial-gradient(circle, rgb(13, 50, 16) 0%, rgb(11, 41, 13) 75%, rgb
   align-items: center;
   justify-content: flex-start;
   padding: 1rem 0.6rem;
-  background-color: rgba(255, 255, 255, 0.45);
+      background: linear-gradient(to right, rgba(226, 226, 226, 0), rgba(226, 226, 226, 0.8), rgba(226, 226, 226, 0));
   border: rgba(255, 255, 255, 0.85) 1px solid;
   border-radius: 5px;
   box-shadow: 1px 1px 8px 4px rgba(5, 19, 6, 0.3);
@@ -48,7 +47,7 @@ background: radial-gradient(circle, rgb(13, 50, 16) 0%, rgb(11, 41, 13) 75%, rgb
   color:#051306;
   border: 1px solid #051306;
   border-radius: 5px;
-  background-color: rgba(255,187,39, 0.8);
+  background-color: #ea9350d7;
   box-shadow: 1px 1px 8px 4px rgba(5, 19, 6, 0.3);
 }
 

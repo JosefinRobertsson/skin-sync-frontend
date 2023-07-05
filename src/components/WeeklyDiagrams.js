@@ -3,7 +3,7 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsive
 import { v4 as uuid } from 'uuid';
 import moment from 'moment';
 import './compCSS/WeeklyDiagrams.css';
-import './compCSS/StatisticsPage.css'
+import './compCSS/DailyDiagrams.css'
 
 const CustomYAxisTick = ({ x, y, payload }) => {
   const value = payload.value === 100 ? '100%' : `${payload.value}%`;
@@ -17,7 +17,6 @@ const CustomYAxisTick = ({ x, y, payload }) => {
 const WeeklyDiagrams = ({ chosenDate, reportData }) => {
   const [dietData, setDietData] = useState([]);
   const [habitsData, setHabitsData] = useState([]);
-
   const chosenWeek = moment(chosenDate).isoWeek();
 
   useEffect(() => {
@@ -129,18 +128,27 @@ const WeeklyDiagrams = ({ chosenDate, reportData }) => {
         <svg>
           <defs>
             <linearGradient id="barGradientDiet2" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#D57816" />
-              <stop offset="60%" stopColor="#A516D5" />
-              <stop offset="100%" stopColor="#722ED1" />
+              <stop offset="10%" stopColor="#fbcc12" />
+              <stop offset="50%" stopColor="#ea9350" />
+              <stop offset="90%" stopColor="#60207e" />
             </linearGradient>
           </defs>
         </svg>
         <svg>
           <defs>
             <linearGradient id="barGradientHabits2" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#D57816" />
-              <stop offset="60%" stopColor="#A516D5" />
-              <stop offset="100%" stopColor="#eee" />
+              <stop offset="10%" stopColor="#faff67" />
+              <stop offset="60%" stopColor="#ea9350" />
+              <stop offset="90%" stopColor="#31be2c" />
+            </linearGradient>
+          </defs>
+        </svg>
+        <svg>
+          <defs>
+            <linearGradient id="skinIssuesGradient" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="10%" stopColor="#fbf9f3" />
+              <stop offset="50%" stopColor="#868583" />
+              <stop offset="90%" stopColor="#010b00" />
             </linearGradient>
           </defs>
         </svg>
@@ -148,113 +156,119 @@ const WeeklyDiagrams = ({ chosenDate, reportData }) => {
 
       {reportData.length > 0 ? (
         <div>
-          <h2>Diet week {chosenWeek}</h2>
-          <ResponsiveContainer width="100%" height={340}>
-            <BarChart
-              barSize={38}
-              width={500}
-              height={300}
-              data={dietData}
-              margin={{
-                top: 5,
-                right: 35,
-                left: 5,
-                bottom: 5
-              }}>
-              <CartesianGrid strokeDasharray="2 2" />
-              <XAxis
-                dataKey="name"
-                angle={45}
-                dx={15}
-                dy={20}
-                interval={0}
-                minTickGap={-200}
-                tickMargin={5}
-                height={70}
-                tick={{ fill: 'white' }} />
-              <YAxis
-                tick={<CustomYAxisTick />}
-                domain={[0, 100]}
-                tickFormatter={(value) => `${value}%`} />
-              <Tooltip />
-              <Legend />
-              <Bar
-                dataKey="value"
-                name="value"
-                legendType="none">
-                {
-                  dietData.map((entry) => {
-                    const isSkinIssues = entry.name === 'skin issues';
-                    const barColor = isSkinIssues ? 'salmon' : 'url(#barGradientDiet2)';
-                    const uniqueKey = uuid();
+          <div className="weekly-bars-container">
+            <div className="diagram-wrapper">
+              <h2>Diet week {chosenWeek}</h2>
+              <ResponsiveContainer height={340} className="diet-bars">
+                <BarChart
+                  barSize={28}
+                  width={500}
+                  height={300}
+                  data={dietData}
+                  margin={{
+                    top: 5,
+                    right: 35,
+                    left: -5,
+                    bottom: 20
+                  }}>
+                  <CartesianGrid strokeDasharray="2 2" />
+                  <XAxis
+                    dataKey="name"
+                    angle={45}
+                    dx={15}
+                    dy={20}
+                    interval={0}
+                    minTickGap={-200}
+                    tickMargin={5}
+                    height={70}
+                    tick={{ fill: 'white' }} />
+                  <YAxis
+                    tick={<CustomYAxisTick />}
+                    domain={[0, 100]}
+                    tickFormatter={(value) => `${value}%`} />
+                  <Tooltip />
+                  <Legend />
+                  <Bar
+                    dataKey="value"
+                    name="value"
+                    legendType="none">
+                    {
+                      dietData.map((entry) => {
+                        const isSkinIssues = entry.name === 'skin issues';
+                        const barColor = isSkinIssues ? 'url(#skinIssuesGradient)' : 'url(#barGradientDiet2)';
+                        const uniqueKey = uuid();
 
-                    return (
-                      <Cell
-                        key={uniqueKey}
-                        fill={barColor}
-                        fillOpacity={1}
-                        stroke={isSkinIssues ? 'salmon' : '#A556D5'}
-                        strokeWidth={1} />
-                    );
-                  })
-                }
-              </Bar>
-            </BarChart>
-          </ResponsiveContainer>
+                        return (
+                          <Cell
+                            key={uniqueKey}
+                            fill={barColor}
+                            fillOpacity={1}
+                            stroke={isSkinIssues ? 'url(#skinIssuesGradient)' : '#A556D5'}
+                            strokeWidth={1} />
+                        );
+                      })
+                    }
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
 
-          <h2>Habits week {chosenWeek}</h2>
-          <ResponsiveContainer width="100%" height={340}>
-            <BarChart
-              barSize={38}
-              width={500}
-              height={300}
-              data={habitsData}
-              margin={{
-                top: 5,
-                right: 35,
-                left: 5,
-                bottom: 5
-              }}>
-              <CartesianGrid strokeDasharray="2 2" />
-              <XAxis
-                dataKey="name"
-                angle={45}
-                dx={15}
-                dy={20}
-                interval={0}
-                minTickGap={-200}
-                tickMargin={5}
-                height={70}
-                tick={{ fill: 'white' }} />
-              <YAxis
-                tick={<CustomYAxisTick />}
-                domain={[0, 100]}
-                tickFormatter={(value) => `${value}%`} />
-              <Tooltip />
-              <Legend />
-              <Bar
-                dataKey="value"
-                name="value"
-                legendType="none">
-                {
-                  habitsData.map((entry) => {
-                    const isSkinIssues = entry.name === 'skin issues';
-                    const barColor = isSkinIssues ? 'salmon' : 'url(#barGradientHabits2)';
-                    const uniqueKey = uuid();
+            <div className="diagram-wrapper">
+              <h2>Habits week {chosenWeek}</h2>
+              <ResponsiveContainer height={340} className="habits-bars">
+                <BarChart
+                  barSize={28}
+                  width={500}
+                  height={300}
+                  data={habitsData}
+                  margin={{
+                    top: 5,
+                    right: 35,
+                    left: -5,
+                    bottom: 20
+                  }}>
+                  <CartesianGrid strokeDasharray="2 2" />
+                  <XAxis
+                    dataKey="name"
+                    angle={45}
+                    dx={15}
+                    dy={20}
+                    interval={0}
+                    minTickGap={-200}
+                    tickMargin={5}
+                    height={70}
+                    tick={{ fill: 'white' }} />
+                  <YAxis
+                    tick={<CustomYAxisTick />}
+                    domain={[0, 100]}
+                    tickFormatter={(value) => `${value}%`} />
+                  <Tooltip />
+                  <Legend />
+                  <Bar
+                    dataKey="value"
+                    name="value"
+                    legendType="none">
+                    {
+                      habitsData.map((entry) => {
+                        const isSkinIssues = entry.name === 'skin issues';
+                        const barColor = isSkinIssues ? 'url(#skinIssuesGradient' : 'url(#barGradientHabits2)';
+                        const uniqueKey = uuid();
 
-                    return (
-                      <Cell
-                        key={uniqueKey}
-                        fill={barColor}
-                        fillOpacity={1}
-                        stroke={isSkinIssues ? 'salmon' : '#A556D5'}
-                        strokeWidth={1} />
-                    );
-                  })
-                }
-              </Bar>
-            </BarChart>
-          </ResponsiveContainer>
+                        return (
+                          <Cell
+                            key={uniqueKey}
+                            fill={barColor}
+                            fillOpacity={1}
+                            stroke={isSkinIssues ? 'url(#skinIssuesGradient' : '#A556D5'}
+                            strokeWidth={1} />
+                        );
+                      })
+                    }
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
         </div>
       ) : (
         <div>Loading...</div>

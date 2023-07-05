@@ -4,28 +4,11 @@ import 'react-calendar/dist/Calendar.css';
 import './compCSS/CalendarComponent.css';
 import styled from 'styled-components';
 
-const CalendarWrapper = styled.div`
-  background-color:#1f101f;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-end;
-  height: fit-content;
-`;
-const Styledh2 = styled.h2`
-  padding-bottom: 20%;
+const Styledh1 = styled.h1`
   font-size: 32px;
   letter-spacing: 0.5%;
   text-align: center;
   color: rgba(255, 244, 233, 0.85);
-`;
-
-const Styledp = styled.p`
-color: #FFF5E9;
-padding-left: 1rem;
-padding-right: 1rem;
-padding-top: 0.6rem;
-font-family: 'Athiti', sans-serif;
 `;
 
 const CalendarComponent = ({ chosenDate, setChosenDate }) => {
@@ -34,15 +17,22 @@ const CalendarComponent = ({ chosenDate, setChosenDate }) => {
   };
 
   return (
-    <CalendarWrapper>
-      <Styledh2>Weekly stats</Styledh2>
-      <Calendar onChange={handleDateChange} value={chosenDate} />
-      <Styledp>Choose a date to see your average statistics and
-        the products you used that week
-      </Styledp>
-    </CalendarWrapper>
+
+    <div className="calendar-wrapper">
+      <Styledh1>Weekly stats</Styledh1>
+      <div className="calendar-container">
+        <Calendar onChange={handleDateChange} value={chosenDate} />
+        <div className="stats-description">
+          <p>Click a date to see the average of the statistics you logged that week, and
+        all the products you used each day.
+        Click a product to see the total number of times you used it.
+        You can also see what data you logged today.
+          </p>
+        </div>
+      </div>
+    </div>
+
   )
 }
 
 export default CalendarComponent;
-

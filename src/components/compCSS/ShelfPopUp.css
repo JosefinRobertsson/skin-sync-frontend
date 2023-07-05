@@ -6,16 +6,19 @@
 
 .productText h4 {
     margin: 0;
+    color: rgba(255, 245, 232, 0.9);
+    text-shadow: 1px 1px 4px rgba(5, 19, 6, 0.3);
 }
 
 legend {
-    text-shadow: rgba(255, 255, 255, 0.95) 1px 1px 1px;
+    color: rgba(255, 245, 232, 0.9);
     text-align: start;
 }
 
 label {
     display: block;
     text-align: start;
+    color: rgba(255, 245, 232, 0.9);
 }
 
 .shelf-form {
@@ -28,6 +31,11 @@ label {
 
 .night-edit {
     color: rgba(255, 245, 232, 0.9);
+}
+
+.night-edit-form input,
+.night-edit-form select {
+    background: radial-gradient(circle at 15% 35%, rgba(255,220,203,1) 0%, rgb(238, 133, 85) 13%, rgb(113, 210, 110) 95%);
 }
 
 .night-edit-form legend,

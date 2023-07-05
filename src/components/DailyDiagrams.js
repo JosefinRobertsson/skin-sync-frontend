@@ -4,7 +4,7 @@ import React, { useEffect } from 'react';
 import axios from 'axios';
 import { v4 as uuid } from 'uuid';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Cell } from 'recharts';
-import './compCSS/StatisticsPage.css'
+import './compCSS/DailyDiagrams.css'
 
 const CustomYAxisTick = ({ x, y, payload }) => {
   const value = payload.value === 100 ? '100%' : `${payload.value}%`;
@@ -15,7 +15,7 @@ const CustomYAxisTick = ({ x, y, payload }) => {
   );
 };
 
-const StatisticsPage = ({ reportData, setReportData }) => {
+const DailyDiagrams = ({ reportData, setReportData }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -31,7 +31,6 @@ const StatisticsPage = ({ reportData, setReportData }) => {
         };
         const reportResponse = await axios.get('http://localhost:8080/dailyReport', config);
         // const reportResponse = await axios.get('https://skinsync-mgydyyeela-no.a.run.app/dailyReport', config);
-        console.log('fullDailyReport:', reportResponse.data);
         if (reportResponse.data.success) {
           setReportData(reportResponse.data.response);
         } else {
@@ -47,7 +46,6 @@ const StatisticsPage = ({ reportData, setReportData }) => {
   }, []);
 
   const latestDailyReport = reportData[reportData.length - 1] || {};
-  console.log('latestDailyReport:', latestDailyReport);
 
   const requiredKeys = ['greasyFood', 'dairy', 'alcohol', 'sugar', 'acne', 'water', 'exercised', 'sleep', 'stress'];
   const isDataAvailable = requiredKeys.every(
@@ -112,18 +110,27 @@ const StatisticsPage = ({ reportData, setReportData }) => {
         <svg>
           <defs>
             <linearGradient id="barGradientDiet" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#D57816" />
-              <stop offset="60%" stopColor="#A516D5" />
-              <stop offset="100%" stopColor="#722ED1" />
+              <stop offset="10%" stopColor="#fbcc12" />
+              <stop offset="50%" stopColor="#ea9350" />
+              <stop offset="90%" stopColor="#60207e" />
             </linearGradient>
           </defs>
         </svg>
         <svg>
           <defs>
             <linearGradient id="barGradientHabits" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#D57816" />
-              <stop offset="60%" stopColor="#A516D5" />
-              <stop offset="100%" stopColor="#eee" />
+              <stop offset="10%" stopColor="#faff67" />
+              <stop offset="60%" stopColor="#ea9350" />
+              <stop offset="90%" stopColor="#31be2c" />
+            </linearGradient>
+          </defs>
+        </svg>
+        <svg>
+          <defs>
+            <linearGradient id="skinIssuesGradient" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="10%" stopColor="#fbf9f3" />
+              <stop offset="50%" stopColor="#868583" />
+              <stop offset="90%" stopColor="#010b00" />
             </linearGradient>
           </defs>
         </svg>
@@ -134,7 +141,7 @@ const StatisticsPage = ({ reportData, setReportData }) => {
           <h1>Your latest log</h1>
           <div className="daily-bars-container">
             <div className="diagram-wrapper">
-              <h2>Diet</h2>
+              <h2>Diet today</h2>
               <ResponsiveContainer height={340} className="diet-bars">
                 <BarChart
                   barSize={28}
@@ -171,7 +178,7 @@ const StatisticsPage = ({ reportData, setReportData }) => {
                     {
                       dataChartOne.map((entry) => {
                         const isSkinIssues = entry.name === 'skin issues';
-                        const barColor = isSkinIssues ? 'salmon' : 'url(#barGradientDiet)';
+                        const barColor = isSkinIssues ? 'url(#skinIssuesGradient)' : 'url(#barGradientDiet)';
                         const uniqueKey = uuid();
 
                         return (
@@ -179,7 +186,7 @@ const StatisticsPage = ({ reportData, setReportData }) => {
                             key={uniqueKey}
                             fill={barColor}
                             fillOpacity={1}
-                            stroke={isSkinIssues ? 'salmon' : '#A556D5'}
+                            stroke={isSkinIssues ? 'url(#skinIssuesGradient)' : '#A556D5'}
                             strokeWidth={1} />
                         );
                       })
@@ -190,7 +197,7 @@ const StatisticsPage = ({ reportData, setReportData }) => {
             </div>
 
             <div className="diagram-wrapper">
-              <h2>Habits</h2>
+              <h2>Habits today</h2>
               <ResponsiveContainer height={340} className="habits-bars">
                 <BarChart
                   barSize={28}
@@ -227,7 +234,7 @@ const StatisticsPage = ({ reportData, setReportData }) => {
                     {
                       dataChartTwo.map((entry) => {
                         const isSkinIssues = entry.name === 'skin issues';
-                        const barColor = isSkinIssues ? 'salmon' : 'url(#barGradientHabits)';
+                        const barColor = isSkinIssues ? 'url(#skinIssuesGradient)' : 'url(#barGradientHabits)';
                         const uniqueKey = uuid();
 
                         return (
@@ -235,7 +242,7 @@ const StatisticsPage = ({ reportData, setReportData }) => {
                             key={uniqueKey}
                             fill={barColor}
                             fillOpacity={1}
-                            stroke={isSkinIssues ? 'salmon' : '#A556D5'}
+                            stroke={isSkinIssues ? 'url(#skinIssuesGradient)' : '#A556D5'}
                             strokeWidth={1} />
                         );
                       })
@@ -249,8 +256,9 @@ const StatisticsPage = ({ reportData, setReportData }) => {
       ) : (
         <div>Loading...</div>
       )}
+      <hr className="diagram-separator" />
     </div>
   );
 };
 
-export default StatisticsPage;
+export default DailyDiagrams;

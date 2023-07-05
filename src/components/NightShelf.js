@@ -198,7 +198,6 @@ const NightShelf = () => {
   }
   const handleProductSelection = (productId) => {
     const clickedProduct = nightProducts.find((prod) => prod._id === productId);
-    console.log(clickedProduct);
     setSelectedProduct(clickedProduct);
     handleCancelClick()
   };
@@ -239,13 +238,16 @@ const NightShelf = () => {
                 src={getImagePath(product.category)}
                 alt={product.category} />
               <div className="productsnameandbrand">
-                <span>{product.name}</span>
-                <span>{product.brand}</span>
+                <h5>{product.name}</h5>
+                <h5>{product.brand}</h5>
               </div>
             </div>
           </div>
         ))}
       </div>
+      <a href="https://www.flaticon.com/" target="_blank" className="icon-info" rel="noreferrer">
+        <span>All product icons from Flaticon</span>
+      </a>
       <p>{nightProductCount} products</p>
       <p>Click a product to edit</p>
       <ProductFormButton

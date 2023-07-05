@@ -46,7 +46,7 @@ const UserPage = ({ username }) => {
       <div className="link-container">
         <div><BaseLink to="/DailyReport">Log day</BaseLink><p>Answer questions about your diet and daily habits</p></div>
         <div><BaseLink to="/productShelf/logUsage">Log skincare</BaseLink><p>Check off all the products you used today</p></div>
-        <div><BaseLink to="/productShelf">Skincare Shelves</BaseLink><p>Manage the products you are currently using</p></div>
+        <div><BaseLink to="/productShelf">Product Shelves</BaseLink><p>Manage the products you are currently using</p></div>
         <div><BaseLink to="/StatisticsPage">Statistics</BaseLink><p>View all your saved statistics</p></div>
       </div>
     </div>
@@ -54,11 +54,3 @@ const UserPage = ({ username }) => {
 };
 
 export default UserPage;
-
-/*
-<div className="imagesandbuttons">
-              <img src={statisticsImage} alt="Statistics" className="button-image3" />
-              <StatisticsLink to="/statisticsPage" className="route-button">
-              Statistics
-              </StatisticsLink>
-              */

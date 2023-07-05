@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
-import { BaseButton, UserFormButton } from '../styles/StyledButtons';
+import { BaseButton, UserFormButton, HideFormButton } from '../styles/StyledButtons';
 import 'react-toggle/style.css'
 import './compCSS/LandingPage.css';
 
@@ -38,7 +38,6 @@ const LandingPage = ({ username, setUsername }) => {
       // eslint-disable-next-line no-use-before-define
       auth(event);
     } else {
-      console.log('invalid form');
       const usernameInput = form.elements.username;
       const passwordInput = form.elements.password;
       if (!usernameInput.checkValidity()) {
@@ -61,7 +60,6 @@ const LandingPage = ({ username, setUsername }) => {
         password
       })
       .then((response) => {
-        console.log(response);
         localStorage.setItem('accessToken', response.data.response.accessToken);
         if (isLogin) {
           navigate('/userPage'); // navigate to the userPage route
@@ -154,7 +152,7 @@ const LandingPage = ({ username, setUsername }) => {
                 {isLogin
                   ? <UserFormButton type="submit">Sign in</UserFormButton>
                   : <UserFormButton type="submit">Create user</UserFormButton>}
-                <UserFormButton type="button" onClick={() => setShowForm(!showForm)}>Hide form</UserFormButton>
+                <HideFormButton type="button" onClick={() => setShowForm(!showForm)}>Hide form</HideFormButton>
               </div>
             </fieldset>
           </form>

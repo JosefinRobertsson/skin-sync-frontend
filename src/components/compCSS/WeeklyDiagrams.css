@@ -1,8 +1,6 @@
 
 .weekly-bars-wrapper {
- height: fit-content;
-    border: 3px solid yellow;
-    background-image: url('../../images/pexels-felipe-helfstein-14705286.jpg');
-    background-size: cover;
-    background-repeat: no-repeat; 
+    height: fit-content;
+    background-color: #051306; 
+    padding-bottom: 5%;
 }

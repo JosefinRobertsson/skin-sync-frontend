@@ -17,13 +17,12 @@ legend.register-legend {
   color: #ea9350;
 }
 
-legend.login-legend {
-  text-shadow: rgba(255, 255, 255, 0.95) 1px 1px 1px;
-}
-
+legend.login-legend,
 #register-legend-id {
-  text-shadow: #051306 1px 1px 1px;
+  text-shadow: rgba(0, 0, 0, 0.95) 2px 1px 2px;
   font-family: 'Lalezar', cursive;
+  font-size: 1.3rem;
+  font-weight: bold;
 }
 
 

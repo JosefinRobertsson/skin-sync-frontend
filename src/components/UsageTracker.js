@@ -6,8 +6,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Toggle from 'react-toggle';
-import ReactSimplyCarousel from 'react-simply-carousel';
-import { ShelfLink } from '../styles/StyledLinks';
+import { v4 as uuidv4 } from 'uuid';
 import 'react-toggle/style.css'
 import './compCSS/UsageTracker.css';
 import bodylotionImage from '../images/body lotion.png';
@@ -59,8 +58,6 @@ const UsageTracker = () => {
   const [nightProducts, setNightProducts] = useState([]);
   // const [initialProducts, setInitialProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [activeSlideIndex, setActiveSlideIndex] = useState(0);
-  const [activeSlideIndexNight, setActiveSlideIndexNight] = useState(0);
   const [error, setError] = useState('');
   // const [lastVisited, setLastVisited] = useState(null);
   axios.defaults.baseURL = 'http://localhost:8080';
@@ -88,7 +85,6 @@ const UsageTracker = () => {
         }
         // make one array of all products
         const initialProducts = [...morningResponse.data.response, ...nightResponse.data.response];
-        console.log('initialProducts', initialProducts);
         // eslint-disable-next-line no-use-before-define
         (isNewDate(initialProducts))
         setIsLoading(false);
@@ -243,7 +239,7 @@ const UsageTracker = () => {
       console.error(error);
       setError(`Failed to toggle usage for all ${productType} products`);
     } finally {
-      console.log('routine updated');
+      setIsLoading(false);
     }
   };
 
@@ -272,7 +268,6 @@ const UsageTracker = () => {
       );
 
       if (response.data.success) {
-        console.log('response:', response.data.response);
         setMorningProducts(
           (prevMorningProducts) => prevMorningProducts.map((product) => (product._id === productId
             ? { ...product, usedToday: !usedToday }
@@ -298,186 +293,109 @@ const UsageTracker = () => {
     return <p>{error}</p>;
   }
 
+  const handleKeyPress = (event, product) => {
+    if (event.key === 'Enter') {
+      handleUsageChange(product);
+    }
+  };
+
   const morningProductsCount = morningProducts.length;
   const nightProductsCount = nightProducts.length;
 
   return (
     <div className="usageTrackerWrapper">
-      <h1 className="usagetitle">Skincare Log</h1>
-      <h2>Morning Routine</h2>
+      <h1>Skincare Log</h1>
+      <div className="routine-container">
+        <h2>Morning Routine</h2>
+        <div className="usage-desc">
+          <p>Click the products you used today to save them to your log.
+            You can check all at once with the toggle, and click a product again to uncheck it.
+          </p>
+        </div>
+        <div className="productShelf morning">
+          {morningProducts.map((product) => (
+            <div className="product-container" key={uuidv4()}>
+              <div
+                className={`routine-item ${product.usedToday ? 'active' : ''}`}
+                key={product._id}
+                onClick={() => handleUsageChange(product)}
+                onKeyDown={(event) => handleKeyPress(event, product)}
+                tabIndex={0}
+                role="checkbox"
+                aria-checked>
+                <img src={getImagePath(product.category)} alt={product.category} />
 
-      <ReactSimplyCarousel
-        activeSlideIndex={activeSlideIndex}
-        onRequestChange={setActiveSlideIndex}
-        itemsToShow={1}
-        itemsToScroll={1}
-        forwardBtnProps={{
-          // here you can also pass className, or any other button element attributes
-          style: {
-            alignSelf: 'center',
-            background: '#3F1C3A',
-            border: 'none',
-            borderRadius: '50%',
-            color: 'white',
-            cursor: 'pointer',
-            fontSize: '20px',
-            height: 30,
-            lineHeight: 1,
-            textAlign: 'center',
-            width: 30
-          },
-          children: <span>{'>'}</span>
-        }}
-        backwardBtnProps={{
-          // here you can also pass className, or any other button element attributes
-          style: {
-            alignSelf: 'center',
-            background: '#3F1C3A',
-            border: 'none',
-            borderRadius: '50%',
-            color: 'white',
-            cursor: 'pointer',
-            fontSize: '20px',
-            height: 30,
-            lineHeight: 1,
-            textAlign: 'center',
-            width: 30
-          },
-          children: <span>{'<'}</span>
-        }}
-        responsiveProps={[
-          {
-            itemsToShow: 1,
-            itemsToScroll: 1,
-            minWidth: 768
-          }
-        ]}
-        speed={400}
-        easing="linear">
-        {morningProducts.map((product) => (
-          <div className="productItem" key={product._id} style={{ width: 250, height: 240, background: '#FFF5E9' }}>
-            <img src={getImagePath(product.category)} alt={product.category} />
+                <div className="productsnameandbrand">
+                  <h5>{product.name}</h5>
+                  <h5>{product.brand}</h5>
+                </div>
 
-            <div className="productsnameandbrand">
-              <span>{product.name}</span>
-              <span>{product.brand}</span>
-            </div>
-            <div>
-              <label htmlFor={`toggle-${product._id}`}>
-                Used today:
-
-                <Toggle
-                  icons={false}
-                  className="my-toggle"
-                  id={`toggle-${product._id}`}
+                <input
+                  type="checkbox"
+                  id={`checkbox-${product._id}`}
                   checked={product.usedToday}
-                  onChange={() => handleUsageChange(product)} />
-              </label>
+                  onChange={() => { }} />
+                <label htmlFor={`checkbox-${product._id}`} />
+              </div>
             </div>
-          </div>
-        ))}
-      </ReactSimplyCarousel>
-      <div className="Selectall">
-        <h5> Select all {morningProductsCount}</h5>
-        <Toggle
-          icons={false}
-          className="my-toggle"
-          id="toggle-all-morning"
-          checked={morningProducts.every((product) => product.usedToday)}
-          onChange={(e) => {
-            const action = e.target.checked ? 'toggleOn' : 'toggleOff';
-            toggleAllUsage(action, 'morning', setMorningProducts);
-          }} />
+          ))}
+        </div>
+        <div className="Selectall">
+          <p> Select all {morningProductsCount}</p>
+          <Toggle
+            icons={false}
+            className="my-toggle"
+            id="toggle-all-morning"
+            checked={morningProducts.every((product) => product.usedToday)}
+            onChange={(e) => {
+              const action = e.target.checked ? 'toggleOn' : 'toggleOff';
+              toggleAllUsage(action, 'morning', setMorningProducts);
+            }} />
+        </div>
       </div>
+      <div className="routine-container">
 
-      <div className="editbutton">
-        <ShelfLink to="/productShelf">Go to shelf</ShelfLink>
-      </div>
+        <h2>Night Routine</h2>
+        <div className="productShelf night">
+          {nightProducts.map((product) => (
+            <div className="product-container" key={uuidv4()}>
+              <div
+                className={`routine-item night-routine ${product.usedToday ? 'active' : ''}`}
+                key={product._id}
+                onClick={() => handleUsageChange(product)}
+                onKeyDown={(event) => handleKeyPress(event, product)}
+                tabIndex={0}
+                role="checkbox"
+                aria-checked>
+                <img src={getImagePath(product.category)} alt={product.category} />
 
-      <h2>Night Routine</h2>
+                <div className="productsnameandbrand">
+                  <h5 className="night-routine-h5">{product.name}</h5>
+                  <h5 className="night-routine-h5">{product.brand}</h5>
+                </div>
 
-      <ReactSimplyCarousel
-        activeSlideIndex={activeSlideIndexNight}
-        onRequestChange={setActiveSlideIndexNight}
-        itemsToShow={1}
-        itemsToScroll={1}
-        forwardBtnProps={{
-          // here you can also pass className, or any other button element attributes
-          style: {
-            alignSelf: 'center',
-            background: '#3F1C3A',
-            border: 'none',
-            borderRadius: '50%',
-            color: 'white',
-            cursor: 'pointer',
-            fontSize: '20px',
-            height: 30,
-            lineHeight: 1,
-            textAlign: 'center',
-            width: 30
-          },
-          children: <span>{'>'}</span>
-        }}
-        backwardBtnProps={{
-          // here you can also pass className, or any other button element attributes
-          style: {
-            alignSelf: 'center',
-            background: '#3F1C3A',
-            border: 'none',
-            borderRadius: '50%',
-            color: 'white',
-            cursor: 'pointer',
-            fontSize: '20px',
-            height: 30,
-            lineHeight: 1,
-            textAlign: 'center',
-            width: 30
-          },
-          children: <span>{'<'}</span>
-        }}
-        responsiveProps={[
-          {
-            itemsToShow: 1,
-            itemsToScroll: 1,
-            minWidth: 768
-          }
-        ]}
-        speed={400}
-        easing="linear">
-        {nightProducts.map((product) => (
-          <div className="productItem night" key={product._id} style={{ width: 250, height: 240, background: '#FFF5E9' }}>
-            <img src={getImagePath(product.category)} alt={product.category} />
-            <div className="productsnameandbrand">
-              <h5>{product.name} : {product.brand}</h5>
-            </div>
-            <div>
-              <label htmlFor={`toggle-${product._id}`}>
-                Used today:
-                <Toggle
-                  icons={false}
-                  className="my-toggle"
-                  id={`toggle-${product._id}`}
+                <input
+                  type="checkbox"
+                  id={`checkbox-${product._id}`}
                   checked={product.usedToday}
-                  onChange={() => handleUsageChange(product)} />
-              </label>
+                  onChange={() => { }} />
+                <label htmlFor={`checkbox-${product._id}`} />
+              </div>
             </div>
-          </div>
-        ))}
-      </ReactSimplyCarousel>
-      <div className="Selectall">
-        <h5> Select all {nightProductsCount}</h5>
-        <Toggle
-          icons={false}
-          className="my-toggle"
-          id="toggle-all-night"
-          checked={nightProducts.every((product) => product.usedToday)}
-          onChange={(e) => {
-            const action = e.target.checked ? 'toggleOn' : 'toggleOff';
-            toggleAllUsage(action, 'night', setNightProducts);
-          }} />
-      </div>
-      <div className="editbutton">
-        <ShelfLink to="/productShelf">Go to shelf</ShelfLink>
+          ))}
+        </div>
+        <div className="Selectall">
+          <p> Select all {nightProductsCount}</p>
+          <Toggle
+            icons={false}
+            className="my-toggle"
+            id="toggle-all-night"
+            checked={nightProducts.every((product) => product.usedToday)}
+            onChange={(e) => {
+              const action = e.target.checked ? 'toggleOn' : 'toggleOff';
+              toggleAllUsage(action, 'night', setNightProducts);
+            }} />
+        </div>
       </div>
     </div>
   );

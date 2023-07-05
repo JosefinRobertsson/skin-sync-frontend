@@ -1,28 +1,43 @@
-
-
-
 .productsWrapper {
-  padding: 1rem 19px 90px 19px;
-  background-color: #1f101f;
+    padding: 1rem 19px 90px 19px;
 }
 
 h2 {
-    padding-bottom: 15%;
-     font-size: 32px;
-     letter-spacing: 0.5%;
-     text-align: center;
-     color: rgba(255, 244, 233, 0.85);
-     margin: 0;
+    font-size: 32px;
+    letter-spacing: 0.5%;
+    text-align: center;
+    color: rgba(255, 244, 233, 0.9);
+}
+
+hr.popup-divider {
+    margin: 10px 0;
+    height: 3px;
+}
+
+hr.night-popup {
+    background-image: linear-gradient(to right, rgba(226, 226, 226, 0), rgba(226, 226, 226, 1), rgba(226, 226, 226, 0));
+}
+
+.usagenumber {
+    font-weight: 900;
+    font-size: 1rem;
 }
 
 .daysAndNights {
-
+    display: flex;
+    flex-direction: column;
     min-height: fit-content;
     font-size: 1rem;
     font-weight: bold;
     color: rgba(255, 245, 233, 0.9);
-    background-color: #1f101f;
-    border-top: 1px solid #FFF5E9;
+
+}
+
+.weekday-divider {
+    width: 100%;
+    height: 2px;
+    margin: 2rem 0 1rem 0;
+    background-image: linear-gradient(to right, rgba(226, 226, 226, 0), rgba(226, 226, 226, 1), rgba(226, 226, 226, 0));
 }
 
 .allMornings,
@@ -32,6 +47,15 @@ h2 {
     gap: 0.3rem;
     margin-top: 0.5rem;
     margin-bottom: 1rem;
+    padding: 0.6rem 4px;
+    background: linear-gradient(to right, rgba(234, 147, 80, 0), #ea9350, rgba(234, 147, 80, 0));
+    border: rgba(255, 255, 255, 0.85) 1px solid;
+    border-radius: 5px;
+    box-shadow: 1px 1px 8px 4px rgba(5, 19, 6, 0.3);
+}
+
+.allNights {
+    background: linear-gradient(to right, rgba(234, 147, 80, 0), rgb(53, 36, 50), rgba(234, 147, 80, 0));
 }
 
 .allNights {
@@ -42,21 +66,27 @@ h2 {
 .nightProductContainer {
     position: relative;
     display: flex;
-    height:80px;
-    flex: 0 1 90px;
-    flex-direction: column;
+    height: fit-content;
+    width: min-content;
+    max-height: 95px;
+    max-width: 170px;
+    flex-grow: 1;
+    flex-direction: row;
     text-align: center;
+    justify-content: center;
+    align-items: center;
     font-size: 1em;
-    line-height: 90%;
-    padding-top: 5px;
-    border-radius: 0.8rem;
+    line-height: 70%;
+    padding: 2px;
+    border-radius: 5px;
     overflow-y: auto;
     scrollbar-width: none;
     -ms-overflow-style: none;
-  background-image: linear-gradient(to bottom, rgba(221, 207, 207, 0), rgba(0, 0, 0, 0.3));
-  background-size: 100% 20px;
-  background-repeat: no-repeat;
-  background-position: bottom; 
+    background-image: linear-gradient(to bottom, rgba(221, 207, 207, 0), rgba(0, 0, 0, 0.534));
+    background-size: 100% 20px;
+    background-repeat: no-repeat;
+    background-position: bottom;
+    box-shadow: 1px 1px 8px 4px rgba(5, 19, 6, 0.3);
 }
 
 .morningProductContainer::-webkit-scrollbar,
@@ -65,16 +95,17 @@ h2 {
 }
 
 .morningProductContainer {
-    background-color: #FCD2B3;
-    color:  #1f101f;
+    background: whitesmoke;
+    color: #1f101f;
     border: 1px solid #1d0d48;
     scrollbar-width: none;
-    -ms-overflow-style: none; 
+    -ms-overflow-style: none;
 }
 
 .nightProductContainer {
-    border: 1px solid rgb(227, 216, 227);
-    background-color: #1d0d48;
+    background: rgba(0,0,0,1);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+
 }
 
 .morningProductContainer img,
@@ -83,19 +114,53 @@ h2 {
     object-fit: contain;
 }
 
-span {
+.nightProductContainer img {
+    filter: invert(100%);
+}
+
+h5 {
     padding-top: 5px;
-    font-family: 'Athiti', sans-serif;
+    font-size: .8rem;
+    margin: 0;
+    padding: 0 5px;
+}
+#name-date-stats {
+color: rgba(255, 250, 250, 0.85);
+margin: 0;
 }
 
-.morningProductContainer:hover {
-    background-color: #FFF5E9;
+.morningProductContainer:hover,
+.nightProductContainer:hover,
+.morningProductContainer:focus,
+.nightProductContainer:focus
+  {
+    background-color: #fbb967;
+    color: #1f101f;
+    transition: all 0.2s ease-in-out;
     cursor: pointer;
-    border: none;
 }
 
-.nightProductContainer:hover {
-    background-color: #5d43a6;
-    cursor: pointer;
-    border: none;
+.nightProductContainer:hover img {
+    filter: invert(0%);
+}
+
+
+@media screen and (min-width: 768px) {
+    .daysAndNights {
+        display: flex;
+        flex-direction: row;
+}
+
+.allMornings,
+.allNights {
+    flex-grow: 1;
+    min-width: 25%;
+}
+}
+
+@media screen and (min-width: 1024px) {
+.productsWrapper {
+    width: 84%;
+    margin: 0 auto;
+}
 }

@@ -16,22 +16,39 @@ export const BaseButton = styled.button`
   border-radius: 1rem;
   padding: 0.5rem 1rem;
   position: relative;
-  overflow: hidden;
   transition: all 0.3s ease;
   box-shadow: 1px 1px 8px 4px rgba(5, 19, 6, 0.3);
   &:hover {
-    background-color: rgba(232, 140, 93, 0.85);
+    background: radial-gradient(circle at 15% 35%, rgba(255,220,203,1) 0%, rgb(238, 133, 85) 13%, rgb(113, 210, 110) 95%);
     border: #051306 1px solid;
   }
   &:focus {
-    border: 2px solid violet;
-    background-color: rgba(232, 140, 93, 0.85);
+    background: radial-gradient(circle at 15% 35%, rgba(255,220,203,1) 0%, rgb(238, 133, 85) 13%, rgb(113, 210, 110) 95%);
+    border: #051306 1px solid;
+  }
+  
+  &:active {
+    background: whitesmoke;
+    border: none;
   }
 `;
 
 export const UserFormButton = styled(BaseButton)`
  padding: 0.2rem 0.6rem;
  margin-bottom: 15%;
+ color:  #ea9350;
+ &:hover {
+  color: #051306;
+ }
+`;
+
+export const HideFormButton = styled(BaseButton)`
+ padding: 0.2rem 0.6rem;
+ margin-bottom: 15%;
+ background-color: rgba(5, 19, 6, 0.7);
+ &:hover {
+  color: #051306;
+ }
 `;
 
 export const ReportButton = styled(BaseButton)`
@@ -40,15 +57,29 @@ export const ReportButton = styled(BaseButton)`
 export const DeleteProductButton = styled(BaseButton)`
   ${(props) => props.clicked
     && `
-    background: #1d0d48;; 
+    background: #1d0d48; 
   `}
+  font-size: 1rem;
+  padding: 0.3rem 0.5rem;
+  margin-bottom:10px;
 `;
 
 export const SaveButton = styled(BaseButton)`
+font-size: 1rem;
+  padding: 0.3rem 0.5rem;
+  margin-bottom:10px;
 `;
 
 export const BackButton = styled(BaseButton)`
+font-size: 1rem;
+  padding: 0.3rem 0.8rem;
 `;
 
 export const ProductFormButton = styled(BaseButton)`
+`;
+
+export const StatisticsBackButton = styled(BaseButton)`
+font-size: 1rem;
+  padding: 0.3rem 0.8rem;
+margin: 10px 0 6px 0;
 `;

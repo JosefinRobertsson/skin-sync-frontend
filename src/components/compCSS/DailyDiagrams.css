@@ -1,10 +1,6 @@
 .daily-bars-wrapper {
-    background-color: #1f101f;
     height: fit-content;
-    background-image: url('../../images/pexels-felipe-helfstein-14705286.jpg');
-    background-size: cover;
-    background-repeat: no-repeat; 
-    padding-bottom: 5%;
+    background-color: #051306; 
 }
 
 h1 {
@@ -15,10 +11,17 @@ h1 {
     padding-bottom: 5%; 
     font-style: italic;
     margin: 0;
-    
 }
 
-.daily-bars-wrapper h2 {
+.diagram-separator {
+    width: 100%;
+    margin-bottom: 3rem;
+    height: 2px;
+    background-image: linear-gradient(to right, rgba(226, 226, 226, 0), rgba(226, 226, 226, 1), rgba(226, 226, 226, 0));
+  }
+
+.daily-bars-wrapper h2,
+.weekly-bars-wrapper h2 {
      font-size: 22px;
      font-family: 'Poppins', sans-serif;
      text-align: center;
@@ -28,7 +31,8 @@ h1 {
      padding: 0;
 }
 
-.daily-bars-container {
+.daily-bars-container,
+.weekly-bars-container {
     /*border: 3px solid white; */
     height:fit-content;
     max-width: 1100px;
@@ -38,8 +42,8 @@ h1 {
     align-items: center;
     justify-content: center;
     gap: 1rem;
-    margin-bottom: 5%;
-}
+    margin: 0 auto;
+} 
 
 .diagram-wrapper {
    /* border: 1px solid yellow; */
@@ -53,7 +57,7 @@ h1 {
     align-items: center;
     padding: 0 10px 40px 10px;
     margin: 5%;
-    background-color: rgba(255, 255, 255, 0.1);
+    background: linear-gradient(to right, rgba(226, 226, 226, 0), rgba(226, 226, 226, 0.4), rgba(226, 226, 226, 0));
     box-shadow: 1px 1px 8px 4px rgba(5, 19, 6, 0.3);
 }
 .diet-bars,

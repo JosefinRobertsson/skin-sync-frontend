@@ -7,7 +7,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './compCSS/DailyReport.css';
 import { Slide } from 'react-awesome-reveal';
-import { UserFormButton } from '../styles/StyledButtons';
+import { SaveButton } from '../styles/StyledButtons';
 import 'react-toggle/style.css'
 
 const DailyReport = () => {
@@ -61,7 +61,6 @@ const DailyReport = () => {
       .then((response) => response.json())
       .then((data) => {
         if (data.success) {
-          console.log('Daily report submitted successfully');
           setExercised(0);
           setPeriod(false);
           setStress(0);
@@ -94,21 +93,18 @@ const DailyReport = () => {
       <form id="form-report" onSubmit={handleSubmit}>
         <div>
           <label htmlFor="waterRange" className="label-report">Water</label>
-          <div className="range-container">
-            <input
-              type="range"
-              id="waterRange"
-              min={0}
-              max={100}
-              step={1}
-              value={waterAmount}
-              onChange={(event) => {
-                console.log('water slider value:', event.target.value);
-                setWaterAmount(event.target.value);
-              }} />
-            <span>{getLabel(waterAmount)}</span>
+          <input
+            type="range"
+            id="waterRange"
+            min={0}
+            max={100}
+            step={1}
+            value={waterAmount}
+            onChange={(event) => {
+              setWaterAmount(event.target.value);
+            }} />
+          <span>{getLabel(waterAmount)}</span>
 
-          </div>
         </div>
 
         <div>
@@ -121,7 +117,6 @@ const DailyReport = () => {
             step={1}
             value={sleepHours}
             onChange={(event) => {
-              console.log('sleep slider value:', event.target.value);
               setSleepHours(event.target.value)
             }} />
           <span>{getLabel(sleepHours, 'sleepRange')}</span>
@@ -137,7 +132,6 @@ const DailyReport = () => {
             step={1}
             value={stress}
             onChange={(event) => {
-              console.log('stress slider value:', event.target.value);
               setStress(event.target.value)
             }} />
           <span>{getLabel(stress, 'stressRange')}</span>
@@ -153,7 +147,6 @@ const DailyReport = () => {
             step={1}
             value={acne}
             onChange={(event) => {
-              console.log('acne slider value:', event.target.value);
               setAcne(event.target.value)
             }} />
           <span>{getLabel(acne, 'acneRange')}</span>
@@ -169,7 +162,6 @@ const DailyReport = () => {
             step={1}
             value={exercised}
             onChange={(event) => {
-              console.log('exercise slider value:', event.target.value);
               setExercised(event.target.value)
             }} />
           <span>{getLabel(exercised, 'exercisedRange')}</span>
@@ -185,7 +177,6 @@ const DailyReport = () => {
             step={1}
             value={sugar}
             onChange={(event) => {
-              console.log('sugar slider value:', event.target.value);
               setSugar(event.target.value)
             }} />
           <span>{getLabel(sugar, 'sugarRange')}</span>
@@ -200,7 +191,6 @@ const DailyReport = () => {
             step={1}
             value={alcohol}
             onChange={(event) => {
-              console.log('alcohol slider value:', event.target.value);
               setAlcohol(event.target.value)
             }} />
           <span>{getLabel(alcohol, 'alcoholRange')}</span>
@@ -216,7 +206,6 @@ const DailyReport = () => {
             step={1}
             value={dairy}
             onChange={(event) => {
-              console.log('dairy slider value:', event.target.value);
               setDairy(event.target.value)
             }} />
           <span>{getLabel(dairy, 'dairyRange')}</span>
@@ -232,13 +221,14 @@ const DailyReport = () => {
             step={1}
             value={greasyFood}
             onChange={(event) => {
-              console.log('fastfood slider value:', event.target.value);
               setGreasyFood(event.target.value)
             }} />
           <span>{getLabel(greasyFood, 'greasyFoodRange')}</span>
         </div>
-
-        <UserFormButton className="RegisterButton" type="submit">Save day</UserFormButton>
+        <p>You can change your answers later,
+        it won&apos;t affect your statistics
+        </p>
+        <SaveButton className="RegisterButton" type="submit">Save day</SaveButton>
       </form>
     </div>
   );

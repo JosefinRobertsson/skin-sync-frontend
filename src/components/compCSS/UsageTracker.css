@@ -1,128 +1,146 @@
 
-
-
-
-.productItem img {
-    justify-self: center;
-    height: 80px;
-}
-
 .usageTrackerWrapper {
-    min-height: 100vh;
-    background-image: url('../../images/backgroundUsage.png');
-    background-size: cover; 
-    background-repeat: no-repeat; 
-    background-position: center;
-    padding-bottom: 160px;
-}
-
-.usageTrackerWrapper h2 {
-    margin: 0 auto; 
+    background-image: url('../../images/pexels-felipe-helfstein-14705286.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-bottom: 80px;
-    padding-top: 80px;
-    font-weight: 500;
-    color: #FFF5E9;
+    min-height: fit-content;
 }
 
-.usagetitle{
-    margin: 0 auto; 
+.routine-container {
     display: flex;
     flex-direction: column;
+    width: 90%;
     align-items: center;
-    padding-top: 270px;
-    padding-bottom: 100px;
-    color: #FFF5E9;
-    font-size: 32px;
+    margin-bottom: 3rem;
+}
+
+.routine-container:last-of-type {
+    margin-bottom: 6rem;
 }
 
 .productsnameandbrand span {
     font-weight: 600;
 }
 
-.editbutton {
-    font-size: 18px;
-    padding: 10px;
-    margin-top: 10px;
-    background-color: #997FC5;
-    border: none;
-    border-radius: 43px;
+input[type="checkbox"] {
+    opacity: 0;
+    height: 1px;
+    width: 1px;
+}
+
+input[type="checkbox"]:checked+label {
+    background: radial-gradient(circle at 15% 35%, rgba(255, 220, 203, 1) 0%, rgb(238, 133, 85) 13%, rgb(113, 210, 110) 95%);
+}
+
+.routine-item {
+    flex-basis: 100%;
+    height: 100%;
+    overflow-y: auto;
+    scrollbar-width: none;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    transition: all 3s ease;
+    border-radius: 70% 50% 50% 50% / 50% 80% 30% 40%;
+    border: 1px solid black;
     cursor: pointer;
-    display: flex;
-    justify-content: center; 
-    align-items: center;
-    margin: 0 auto;
-    flex-direction: column;
-    text-align: center;
-    width: 70%;
-    text-decoration: none;
-    font-family: 'Lalezar', cursive;
-    letter-spacing: 1px;
-    font-weight: 400;
-    box-shadow:2px 3px 6px rgba(0, 0, 0, 0.37);
-    }
-
-    .editbutton:hover {
-        background-color: rgba(230, 179, 176, 0.9);
-    }
-
-    a {
-        text-decoration: none;
-        color: white;
-        font-weight: 500;
-    }
-
-    .productItem {
-    background: #FFF5E9;
-    border-radius: 30px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center; 
-    align-items: center;
-    margin: 0 auto;
-    padding-top: 10px;
+    background: radial-gradient(circle at 15% 35%, rgba(255,220,203,1) 0%, rgb(244, 169, 103) 13%, rgb(243, 121, 60) 95%);
+    box-shadow: inset 1px 1px 8px 4px rgba(5, 19, 6, 0.3);
 }
 
-.productItem .night {
-    background: #1d0d48;
+.routine-item:hover {
+    box-shadow: 0px 0px 10px 8px rgba(5, 19, 6, 0.3);
+    background: radial-gradient(circle at 15% 35%, rgba(255, 220, 203, 1) 0%, rgb(238, 133, 85) 13%, rgb(113, 210, 110) 95%);
+
 }
 
-.Selectall h5{
-    font-family: 'Athiti', sans-serif;
-    font-weight: 500;
-    color: #FFF5E9;
-    font-size: 16px;
-    padding-right: 20px;
+.routine-item.active {
+    background: radial-gradient(circle at 15% 35%, rgba(255, 220, 203, 1) 0%, rgb(238, 133, 85) 13%, rgb(113, 210, 110) 95%);
+    transform: rotate(15deg);
+}
+
+.night-routine {
+    background: radial-gradient(circle at 15% 35%, rgba(255, 220, 203, 1) 0%, rgb(53, 41, 36) 13%, rgba(0, 0, 0, 1) 95%);
+}
+
+.night-routine img,
+.night-routine span {
+    filter: invert(1);
+}
+
+.usage-desc {
+    color: #051306;
+    width: 60%;
+    background-color: rgba(255, 255, 255, 0.75);
+    border: rgba(255, 255, 255, 0.85) 1px solid;
+    border-radius: 5px;
+    box-shadow: 1px 1px 8px 4px rgba(5, 19, 6, 0.3);
+    margin-bottom: 1.6rem;
+    padding: 0 1rem;
+}
+
+.Selectall p {
+    color: rgba(255, 244, 233, 0.85);
+    font-size: 1rem;
     font-weight: 600;
+    padding-right: 20px;
+    margin: 0;
 }
 
-.Selectall{
+.usage-desc p {
+    color: #051306;
+}
+
+.Selectall {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-   
+    border: 1px solid white;
+    width: fit-content;
+    height: fit-content;
+    margin: 0 auto;
+    margin: 1rem;
+    padding: 1rem;
+    background-color: rgba(5, 19, 6, 0.7);
+    border: rgba(255, 255, 255, 0.85) 1px solid;
+    border-radius: 5px;
+    box-shadow: 1px 1px 8px 4px rgba(5, 19, 6, 0.3);
 }
 
- .my-toggle .react-toggle-track {
-    background-color: #FCD2B3; /* Default color for the track */
-    
-  }
-  
-  .my-toggle .react-toggle-thumb {
-    background-color: #DB5A4F !important; 
-  }
-  
-  .my-toggle.react-toggle:hover:not(.react-toggle--disabled) .react-toggle-track {
+.my-toggle .react-toggle-track {
+    background: linear-gradient(259deg, rgba(113, 210, 110, 1) 0%, rgba(252, 176, 69, 1) 100%);
+}
+
+.my-toggle .react-toggle-thumb {
+    background: radial-gradient(circle at 15% 35%, rgba(255, 220, 203, 1) 0%, rgb(77, 51, 39) 13%, rgba(0, 0, 0, 1) 95%);
+}
+
+.my-toggle.react-toggle--checked .react-toggle-track {
+    background: linear-gradient(259deg, rgba(131, 58, 180, 1) 0%, rgba(253, 29, 29, 1) 0%, rgba(252, 176, 69, 1) 100%);
+}
+
+.my-toggle.react-toggle--checked .react-toggle-thumb {
+    background: radial-gradient(circle at 15% 35%, rgba(255, 220, 203, 1) 0%, rgb(238, 133, 85) 13%, rgb(113, 210, 110) 95%);
+    transform: scale(1.4);
+    border: 1px solid rgba(245, 245, 245, 0.64);
+    box-shadow: 0 0 4px 4px #d1c3c3e4;
+    /* Color for the thumb when toggle is checked */
+}
+
+.my-toggle.react-toggle:hover:not(.react-toggle--disabled) .react-toggle-track {
     background-color: #FCD2B3;
-  }
-  
-  
-  .my-toggle.react-toggle--checked:hover:not(.react-toggle--disabled) .react-toggle-track {
+}
+
+.my-toggle.react-toggle--checked:hover:not(.react-toggle--disabled) .react-toggle-track {
     background-color: #FCD2B3;
-  }
+}
+
 
 .react-toggle .my-toggle {
     display: flex;
@@ -131,11 +149,3 @@
     justify-content: center;
     position: absolute;
 }
-.productsnameandbrand h5 {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-  

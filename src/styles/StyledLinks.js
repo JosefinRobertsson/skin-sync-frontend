@@ -6,6 +6,7 @@ cursor: pointer;
 color: #ea9350;
 background-color: #051306;
 text-align: center;
+text-decoration: none;
   width: fit-content;
   padding: 2px 10px 2px 10px;
   border: 1px solid #F2F2F2;
@@ -18,7 +19,7 @@ text-align: center;
   transition: all 0.3s ease;
   &:hover,
   &:focus {
-    background-color: #F2F2F2;
+    background: radial-gradient(circle at 15% 35%, rgba(255,220,203,1) 0%, rgb(238, 133, 85) 13%, rgb(113, 210, 110) 95%);
     color: #051306;
   }
 `;

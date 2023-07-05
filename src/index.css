@@ -33,14 +33,18 @@ legend, label {
   letter-spacing: 1px;
 }
 
+h2 {
+  text-shadow: 2px 2px 4px rgba(5, 19, 6, 0.6);
+}
+
 .allWrapper {
   width: 100vw;
   min-height: 100vh;
+  border: 1px solid rgba(255, 244, 233, 0.85);
   overflow-y: auto;
   overflow-x: hidden;
   scrollbar-width: none;
   -ms-overflow-style: none;
-  border: 1px solid #ea9350;
 }
 
 code {
@@ -65,7 +69,7 @@ button {
 
 @media (min-width: 768px) {
   .allWrapper {
-    width: 80vw;
+    width: 90vw;
   }
 }
 
@@ -74,6 +78,5 @@ button {
     width: 60vw;
     height: 80vh;
     border-radius: 2rem;
-    border: 1px solid rgba(255, 244, 233, 0.85);
   }
 }
