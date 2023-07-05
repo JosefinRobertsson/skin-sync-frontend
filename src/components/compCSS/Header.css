@@ -89,6 +89,7 @@ nav {
     margin-left: 20px;
     box-shadow:none;
     position: relative;
+    border-bottom-right-radius: 0;
 }
 li {
   display: inline-block;

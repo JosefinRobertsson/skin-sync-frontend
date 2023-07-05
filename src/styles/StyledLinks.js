@@ -20,7 +20,7 @@ text-decoration: none;
   &:hover,
   &:focus {
     background: radial-gradient(circle at 15% 35%, rgba(255,220,203,1) 0%, rgb(238, 133, 85) 13%, rgb(113, 210, 110) 95%);
-    color: #051306;
+    color: rgba(255, 244, 233, 0.9);
   }
 `;
 

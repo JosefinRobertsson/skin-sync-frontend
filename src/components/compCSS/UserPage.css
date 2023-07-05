@@ -45,9 +45,10 @@ background: radial-gradient(circle, rgb(13, 50, 16) 0%, rgb(11, 41, 13) 75%, rgb
   text-align: center;
   justify-self: center;
   color:#051306;
+  color: whitesmoke;
   border: 1px solid #051306;
   border-radius: 5px;
-  background-color: #ea9350d7;
+  background: linear-gradient(to right, rgba(234, 147, 80, 0.1), #ea9350, rgba(234, 147, 80, 0.1));
   box-shadow: 1px 1px 8px 4px rgba(5, 19, 6, 0.3);
 }
 

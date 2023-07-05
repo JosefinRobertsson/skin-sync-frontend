@@ -79,7 +79,7 @@ const DailyReport = () => {
         console.error('An error occurred:', error);
       })
       .finally(() => {
-        navigate('/productShelf/logUsage');
+        navigate('/productShelf/userpage');
       });
   };
 
@@ -225,7 +225,7 @@ const DailyReport = () => {
             }} />
           <span>{getLabel(greasyFood, 'greasyFoodRange')}</span>
         </div>
-        <p>You can change your answers later,
+        <p>You can change your answers during the day,
         it won&apos;t affect your statistics
         </p>
         <SaveButton className="RegisterButton" type="submit">Save day</SaveButton>

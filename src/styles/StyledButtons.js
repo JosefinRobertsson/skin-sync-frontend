@@ -11,7 +11,7 @@ export const BaseButton = styled.button`
   letter-spacing: 1px;
   font-size: 1.2rem;
   font-weight: 400;
-  color: rgba(255, 244, 233, 0.85);
+  color: rgba(255, 244, 233, 0.9);
   border: rgba(255, 244, 233, 0.85) 1px solid;
   border-radius: 1rem;
   padding: 0.5rem 1rem;

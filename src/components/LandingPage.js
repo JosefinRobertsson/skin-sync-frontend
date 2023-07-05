@@ -1,3 +1,5 @@
+/* eslint-disable react/jsx-closing-tag-location */
+/* eslint-disable indent */
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -98,6 +100,13 @@ const LandingPage = ({ username, setUsername }) => {
     }
   };
 
+  if (loading) {
+    return <p>Loading... SkinSync is hosted
+      on a free web service provider.
+      Please allow it some time to bringitself to life...
+      </p>;
+  }
+
   return (
     <>
       {loading && <div>Loading...</div>}
@@ -161,7 +170,8 @@ const LandingPage = ({ username, setUsername }) => {
               <p>
                 SkinSync is here to help you understand the effectiveness of your skincare products.
                 By keeping track of all the droplets in daily life that pool up to affect your skin,
-                you can better assess wether or not a skincare product is right for you.
+                you can take them into account to
+                better assess wether or not a skincare product is right for you.
                 Click the button to get started!
               </p>
             </div>

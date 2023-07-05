@@ -74,13 +74,28 @@ input[type="checkbox"]:checked+label {
 }
 
 .usage-desc {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.6rem 0 0.6rem 0;
+    background-color: rgba(255, 255, 255, 0.45);
+    height: fit-content;
+    width: fit-content;
+    max-width: 500px;
+    border: rgba(255, 255, 255, 0.85) 1px solid;
+    border-radius: 5px;
+    margin: 0 1rem 1.5rem 1rem;
+    padding: 0.6rem 0 0.6rem 0;
+    box-shadow: 1px 1px 8px 4px rgba(5, 19, 6, 0.3);
+}
+
+.usage-desc p {
     color: #051306;
-    width: 60%;
+    width: 90%;
     background-color: rgba(255, 255, 255, 0.75);
     border: rgba(255, 255, 255, 0.85) 1px solid;
     border-radius: 5px;
     box-shadow: 1px 1px 8px 4px rgba(5, 19, 6, 0.3);
-    margin-bottom: 1.6rem;
     padding: 0 1rem;
 }
 
