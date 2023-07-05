@@ -5,7 +5,6 @@ import {
 import DailyReport from './components/DailyReport';
 import MorningShelf from './components/MorningShelf';
 import UserPage from './components/UserPage';
-import StatisticsPage from './components/StatisticsPage';
 import Logout from './components/Logout';
 import Header from './components/Header';
 import UsageTracker from './components/UsageTracker';
@@ -14,6 +13,7 @@ import LandingPage from './components/LandingPage';
 import CalendarComponent from './components/CalendarComponent';
 import WeeklyDiagrams from './components/WeeklyDiagrams';
 import ProductStatistics from './components/ProductStatistics';
+import DailyDiagrams from './components/DailyDiagrams';
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -71,8 +71,11 @@ export const App = () => {
               path="/statisticsPage"
               element={
                 <>
-                  <StatisticsPage reportData={reportData} setReportData={setReportData} />
                   <CalendarComponent chosenDate={chosenDate} setChosenDate={setChosenDate} />
+                  <DailyDiagrams
+                    reportData={reportData}
+                    setReportData={setReportData}
+                    chosenDate={chosenDate} />
                   <WeeklyDiagrams chosenDate={chosenDate} reportData={reportData} />
                   <ProductStatistics chosenDate={chosenDate} />
                 </>
