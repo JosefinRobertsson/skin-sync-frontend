@@ -6,8 +6,9 @@
 import React, { useState, useEffect } from 'react';
 import confetti from 'canvas-confetti';
 import { v4 as uuidv4 } from 'uuid';
-import { ProductFormButton, SaveButton, BackButton } from '../styles/StyledButtons';
+import { ProductFormButton, SaveButton, BackButton, ArchiveButton } from '../styles/StyledButtons';
 import NightPopUp from './NightPopUp.js';
+import Archive from './Archive.js';
 import './compCSS/Shelves.css';
 import bodylotionImage from '../images/body lotion.png';
 import cleanserImage from '../images/cleanser.png';
@@ -36,7 +37,12 @@ const handleConfetti = () => {
   });
 };
 
-const NightShelf = () => {
+const NightShelf = ({
+  getMorningProducts,
+  fetchSkincareProducts,
+  archivedProducts,
+  loading
+}) => {
   const [nightName, setNightName] = useState('');
   const [nightBrand, setNightBrand] = useState('');
   const [nightProducts, setNightProducts] = useState([]);
@@ -44,6 +50,7 @@ const NightShelf = () => {
   const [nightCategory, setNightCategory] = useState('');
   const [showForm, setShowForm] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [showArchive, setShowArchive] = useState(false);
   const [errorMsg, setErrorMsg] = useState(null);
 
   // Gets the categories for the dropdown menu
@@ -210,6 +217,7 @@ const NightShelf = () => {
   // get updated products after popup is closed
   const handlePopUpClose = () => {
     getNightProducts();
+    fetchSkincareProducts();
   };
 
   const handleAddProductClick = () => {
@@ -217,33 +225,35 @@ const NightShelf = () => {
     setErrorMsg(null);
   }
 
-  const nightProductCount = nightProducts.length;
+  const nightProductCount = nightProducts.filter((product) => !product.archived).length;
 
   return (
     <div className="shelvesWrapper">
       <hr />
       <h2>Night Shelf</h2>
       <div className="productShelf night">
-        {nightProducts.map((product) => (
-          <div className="product-container" key={uuidv4()}>
-            <div
-              className="product-item nightProduct"
-              key={product._id}
-              onClick={() => handleProductSelection(product._id)}
-              onKeyDown={(event) => handleKeyPress(event, product._id)}
-              tabIndex={0}
-              role="button">
-              <img
-                className="product-image"
-                src={getImagePath(product.category)}
-                alt={product.category} />
-              <div className="productsnameandbrand">
-                <h5>{product.name}</h5>
-                <h5>{product.brand}</h5>
+        {nightProducts
+          .filter((product) => !product.archived)
+          .map((product) => (
+            <div className="product-container" key={uuidv4()}>
+              <div
+                className="product-item nightProduct"
+                key={product._id}
+                onClick={() => handleProductSelection(product._id)}
+                onKeyDown={(event) => handleKeyPress(event, product._id)}
+                tabIndex={0}
+                role="button">
+                <img
+                  className="product-image"
+                  src={getImagePath(product.category)}
+                  alt={product.category} />
+                <div className="productsnameandbrand">
+                  <h5>{product.name}</h5>
+                  <h5>{product.brand}</h5>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
       </div>
       <a href="https://www.flaticon.com/" target="_blank" className="icon-info" rel="noreferrer">
         <span>All product icons from Flaticon</span>
@@ -309,6 +319,9 @@ const NightShelf = () => {
           {errorMsg && <p className="error">{errorMsg}</p>}
         </fieldset>
       </form>
+      <ArchiveButton onClick={() => setShowArchive(!showArchive)}>
+        {showArchive ? 'Hide archive' : 'Show archive'}
+      </ArchiveButton>
       {selectedProduct && (
         <NightPopUp
           product={selectedProduct}
@@ -317,6 +330,14 @@ const NightShelf = () => {
           categories={categories}
           nightProducts={nightProducts}
           onClose={handlePopUpClose} />
+      )}
+      {showArchive && (
+        <Archive
+          getNightProducts={getNightProducts}
+          getMorningProducts={getMorningProducts}
+          fetchSkincareProducts={fetchSkincareProducts}
+          archivedProducts={archivedProducts}
+          loading={loading} />
       )}
     </div>
   );

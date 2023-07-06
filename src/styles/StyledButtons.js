@@ -68,6 +68,7 @@ export const SaveButton = styled(BaseButton)`
 font-size: 1rem;
   padding: 0.3rem 0.5rem;
   margin-bottom:10px;
+  margin-top: 1rem;
 `;
 
 export const BackButton = styled(BaseButton)`
@@ -82,4 +83,8 @@ export const StatisticsBackButton = styled(BaseButton)`
 font-size: 1rem;
   padding: 0.3rem 0.8rem;
 margin: 10px 0 6px 0;
+`;
+
+export const ArchiveButton = styled(BaseButton)`
+margin-top: 30px;
 `;

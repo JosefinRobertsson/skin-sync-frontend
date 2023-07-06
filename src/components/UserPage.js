@@ -6,8 +6,16 @@ import { BaseLink } from '../styles/StyledLinks';
 // import { DailyLink, ShelfLink, StatisticsLink } from '../styles/StyledLinks';
 import './compCSS/UserPage.css';
 
-const UserPage = ({ username }) => {
+const UserPage = () => {
   const [uvIndex, setUvIndex] = useState(null);
+  const [username, setUsername] = useState('');
+
+  useEffect(() => {
+    const storedUsername = localStorage.getItem('username');
+    if (storedUsername) {
+      setUsername(storedUsername);
+    }
+  }, []);
 
   useEffect(() => {
     const fetchUVIndex = async () => {

@@ -313,32 +313,34 @@ const UsageTracker = () => {
           </p>
         </div>
         <div className="productShelf morning">
-          {morningProducts.map((product) => (
-            <div className="product-container" key={uuidv4()}>
-              <div
-                className={`routine-item ${product.usedToday ? 'active' : ''}`}
-                key={product._id}
-                onClick={() => handleUsageChange(product)}
-                onKeyDown={(event) => handleKeyPress(event, product)}
-                tabIndex={0}
-                role="checkbox"
-                aria-checked>
-                <img src={getImagePath(product.category)} alt={product.category} />
+          {morningProducts
+            .filter((product) => !product.archived)
+            .map((product) => (
+              <div className="product-container" key={uuidv4()}>
+                <div
+                  className={`routine-item ${product.usedToday ? 'active' : ''}`}
+                  key={product._id}
+                  onClick={() => handleUsageChange(product)}
+                  onKeyDown={(event) => handleKeyPress(event, product)}
+                  tabIndex={0}
+                  role="checkbox"
+                  aria-checked>
+                  <img src={getImagePath(product.category)} alt={product.category} />
 
-                <div className="productsnameandbrand">
-                  <h5>{product.name}</h5>
-                  <h5>{product.brand}</h5>
+                  <div className="productsnameandbrand">
+                    <h5>{product.name}</h5>
+                    <h5>{product.brand}</h5>
+                  </div>
+
+                  <input
+                    type="checkbox"
+                    id={`checkbox-${product._id}`}
+                    checked={product.usedToday}
+                    onChange={() => { }} />
+                  <label htmlFor={`checkbox-${product._id}`} />
                 </div>
-
-                <input
-                  type="checkbox"
-                  id={`checkbox-${product._id}`}
-                  checked={product.usedToday}
-                  onChange={() => { }} />
-                <label htmlFor={`checkbox-${product._id}`} />
               </div>
-            </div>
-          ))}
+            ))}
         </div>
         <div className="Selectall">
           <p> Select all {morningProductsCount}</p>
@@ -357,32 +359,34 @@ const UsageTracker = () => {
 
         <h2>Night Routine</h2>
         <div className="productShelf night">
-          {nightProducts.map((product) => (
-            <div className="product-container" key={uuidv4()}>
-              <div
-                className={`routine-item night-routine ${product.usedToday ? 'active' : ''}`}
-                key={product._id}
-                onClick={() => handleUsageChange(product)}
-                onKeyDown={(event) => handleKeyPress(event, product)}
-                tabIndex={0}
-                role="checkbox"
-                aria-checked>
-                <img src={getImagePath(product.category)} alt={product.category} />
+          {nightProducts
+            .filter((product) => !product.archived)
+            .map((product) => (
+              <div className="product-container" key={uuidv4()}>
+                <div
+                  className={`routine-item night-routine ${product.usedToday ? 'active' : ''}`}
+                  key={product._id}
+                  onClick={() => handleUsageChange(product)}
+                  onKeyDown={(event) => handleKeyPress(event, product)}
+                  tabIndex={0}
+                  role="checkbox"
+                  aria-checked>
+                  <img src={getImagePath(product.category)} alt={product.category} />
 
-                <div className="productsnameandbrand">
-                  <h5 className="night-routine-h5">{product.name}</h5>
-                  <h5 className="night-routine-h5">{product.brand}</h5>
+                  <div className="productsnameandbrand">
+                    <h5 className="night-routine-h5">{product.name}</h5>
+                    <h5 className="night-routine-h5">{product.brand}</h5>
+                  </div>
+
+                  <input
+                    type="checkbox"
+                    id={`checkbox-${product._id}`}
+                    checked={product.usedToday}
+                    onChange={() => { }} />
+                  <label htmlFor={`checkbox-${product._id}`} />
                 </div>
-
-                <input
-                  type="checkbox"
-                  id={`checkbox-${product._id}`}
-                  checked={product.usedToday}
-                  onChange={() => { }} />
-                <label htmlFor={`checkbox-${product._id}`} />
               </div>
-            </div>
-          ))}
+            ))}
         </div>
         <div className="Selectall">
           <p> Select all {nightProductsCount}</p>

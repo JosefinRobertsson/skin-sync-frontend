@@ -21,6 +21,28 @@ label {
     color: rgba(255, 245, 232, 0.9);
 }
 
+#archive-label,
+#archive-label-night {
+    background: none;
+    font-size: 110%;
+    cursor: pointer;
+    text-align: unset;
+    border: 1px solid white;
+    border-radius: 6px;
+}
+
+#archive-label:hover,
+#archive-label:focus,
+#archive-label-night:hover,
+#archive-label-night:focus {
+    background: radial-gradient(circle at 15% 35%, rgba(255,220,203,1) 0%, rgb(238, 133, 85) 13%, rgb(113, 210, 110) 95%);
+}
+
+.archived {
+    color: red;
+    text-shadow: none;
+}
+
 .shelf-form {
     margin-top: 2rem;
 }
@@ -38,9 +60,4 @@ label {
     background: radial-gradient(circle at 15% 35%, rgba(255,220,203,1) 0%, rgb(238, 133, 85) 13%, rgb(113, 210, 110) 95%);
 }
 
-.night-edit-form legend,
-.night-edit-form label,
-.night-edit-form h4 {
-    color: rgba(255, 245, 232, 0.9);
-    text-shadow: none;
-}
+

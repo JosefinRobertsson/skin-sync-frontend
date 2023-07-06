@@ -36,10 +36,9 @@ const handleConfetti = () => {
   });
 };
 
-const MorningShelf = () => {
+const MorningShelf = ({ morningProducts, getMorningProducts, fetchSkincareProducts }) => {
   const [morningName, setMorningName] = useState('');
   const [morningBrand, setMorningBrand] = useState('');
-  const [morningProducts, setMorningProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [morningCategory, setMorningCategory] = useState('');
   const [showForm, setShowForm] = useState(false);
@@ -68,7 +67,7 @@ const MorningShelf = () => {
     };
     fetchCategories();
   }, []);
-
+  /*
   const getMorningProducts = () => {
     const accessToken = localStorage.getItem('accessToken');
     fetch('http://localhost:8080/productShelf/morning', {
@@ -89,13 +88,11 @@ const MorningShelf = () => {
       .catch((error) => {
         console.error('An error occurred:', error);
       });
-  };
+  }; */
 
   useEffect(() => {
     getMorningProducts();
   }, []);
-
-  // MORNING
 
   const handleSubmitMorningRoutine = (event) => {
     event.preventDefault();
@@ -212,6 +209,7 @@ const MorningShelf = () => {
   // get updated products after popup is closed
   const handlePopUpClose = () => {
     getMorningProducts();
+    fetchSkincareProducts();
   };
 
   const handleAddProductClick = () => {
@@ -219,33 +217,35 @@ const MorningShelf = () => {
     setErrorMsg(null);
   }
 
-  const morningProductCount = morningProducts.length;
+  const morningProductCount = morningProducts.filter((product) => !product.archived).length;
 
   return (
     <div className="shelvesWrapper">
       <h1>Product Shelves</h1>
       <h2>Morning Shelf</h2>
       <div className="productShelf morning">
-        {morningProducts.map((product) => (
-          <div className="product-container" key={uuidv4()}>
-            <div
-              className="product-item"
-              key={product._id}
-              onClick={() => handleProductSelection(product._id)}
-              onKeyDown={(event) => handleKeyPress(event, product._id)}
-              tabIndex={0}
-              role="button">
-              <img
-                className="product-image"
-                src={getImagePath(product.category)}
-                alt={product.category} />
-              <div className="productsnameandbrand">
-                <h5>{product.name}</h5>
-                <h5>{product.brand}</h5>
+        {morningProducts
+          .filter((product) => !product.archived)
+          .map((product) => (
+            <div className="product-container" key={uuidv4()}>
+              <div
+                className="product-item"
+                key={product._id}
+                onClick={() => handleProductSelection(product._id)}
+                onKeyDown={(event) => handleKeyPress(event, product._id)}
+                tabIndex={0}
+                role="button">
+                <img
+                  className="product-image"
+                  src={getImagePath(product.category)}
+                  alt={product.category} />
+                <div className="productsnameandbrand">
+                  <h5>{product.name}</h5>
+                  <h5>{product.brand}</h5>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
       </div>
       <a href="https://www.flaticon.com/" target="_blank" className="icon-info" rel="noreferrer">
         <span>All product icons from Flaticon</span>

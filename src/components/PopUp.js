@@ -46,6 +46,9 @@ const ProductWindow = styled.div`
     line-height: 90%;
     padding-top: 5px;
   }
+  p {
+    margin-bottom: 1rem;
+  }
 `;
 
 const ImgContainer = styled.div`
@@ -69,7 +72,7 @@ export const PopUp = ({ data, setSelectedProduct, getImagePath, setShowPopUp }) 
         <h3>{data.productName}</h3>
         {data.productBrand.length > 0 && (<h4>{data.productBrand}</h4>)}
         <hr className="popup-divider night-popup" />
-        <p>You have used this product <span className="usagenumber">{data.usageCount}</span> times in total</p>
+        <p>Times used in total: <span className="usagenumber">{data.usageCount}</span></p>
         <StatisticsBackButton onClick={handleBackButtonClick}>Back</StatisticsBackButton>
       </ProductWindow>
     </Wrapper>

@@ -1,9 +1,7 @@
 /* eslint-disable no-underscore-dangle */
-/* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { BaseButton, DeleteProductButton, SaveButton, BackButton } from '../styles/StyledButtons';
-import './compCSS/ShelfPopUp.css';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -31,27 +29,22 @@ const ProductWindow = styled.div`
   justify-content: center;
   align-items: center;
   text-align: center;
-  background: radial-gradient(circle at 15% 35%, rgba(255,220,203,1) 0%, rgb(238, 133, 85) 13%, rgb(113, 210, 110) 95%);
-  z-index: 90;
+  background-color: rgba(5,19,6,0.6);
   `;
 
 const ImgContainer = styled.div`
 img {
-height: 100px;
-filter: invert(1);
+    height: 100px;
+filter: invert(0.95);
 }
 `;
 
-const MorningPopUp = ({
+const ArchivePopUp = ({
   product,
-  setSelectedProduct, getImagePath, categories, onClose
+  setSelectedProduct, getImagePath, onClose
 }) => {
-  const [morningName, setMorningName] = useState(product.name);
-  const [morningBrand, setMorningBrand] = useState(product.brand);
-  const [morningCategory, setMorningCategory] = useState(product.category);
-  const [clickCount, setClickCount] = useState(0);
   const [archived, setArchived] = useState(product.archived);
-
+  const [clickCount, setClickCount] = useState(0);
   const buttonRef = useRef(null);
 
   const handleBackButtonClick = () => {
@@ -81,11 +74,7 @@ const MorningPopUp = ({
         Authorization: accessToken
       },
       body: JSON.stringify({
-        name: morningName.charAt(0).toUpperCase() + morningName.slice(1).toLowerCase(),
-        brand: morningBrand.charAt(0).toUpperCase() + morningBrand.slice(1).toLowerCase(),
-        category: morningCategory,
-        archived,
-        archivedAt: new Date()
+        archived
       })
     };
 
@@ -93,11 +82,10 @@ const MorningPopUp = ({
       .then((response) => response.json())
       .then((data) => {
         if (data.success) {
-          setMorningName('');
-          setMorningBrand('');
-          setMorningCategory('');
+          console.log('removed from archive');
+          onClose();
         } else {
-          console.error('Failed to submit product update');
+          console.error('Failed to remove from archive');
         }
       })
       .catch((error) => {
@@ -123,9 +111,7 @@ const MorningPopUp = ({
         .then((res) => res.json())
         .then((data) => {
           if (data.success) {
-            setMorningName('');
-            setMorningBrand('');
-            setMorningCategory('');
+            console.log('Product deleted');
             setClickCount(0);
             setSelectedProduct(null);
             onClose();
@@ -136,93 +122,30 @@ const MorningPopUp = ({
     }
   };
 
-  const handleInputChange = (event) => {
-    const { id, value } = event.target;
-    const words = value.split(' ');
-
-    const truncatedWords = words.map((word) => {
-      if (word.length > 15) {
-        return word.substring(0, 15);
-      }
-      return word;
-    });
-
-    const truncatedValue = truncatedWords.join(' ');
-    if (truncatedValue.length <= 30) {
-      if (id === 'morningName') {
-        setMorningName(truncatedValue);
-      } else if (id === 'morningBrand') {
-        setMorningBrand(truncatedValue);
-      }
-    }
-  };
-
   return (
     <Wrapper>
       <ProductWindow>
         <ImgContainer>
           <img src={getImagePath(product.category)} alt="product icon" />
         </ImgContainer>
-        <div className="productText">
+        <div className="productText night-edit">
           <h3>{product.name}</h3>
           {product.brand.length > 0 && (<h4>{product.brand}</h4>)}
         </div>
-        <form className="shelf-form popup-form" onSubmit={handleProductSave}>
+        <form className="shelf-form popup-form night-edit-form" onSubmit={handleProductSave}>
           <fieldset>
-            <legend>Edit product</legend>
-            <div>
-              <label htmlFor="morningName">
-                  Name:
-              </label>
-              <input
-                type="text"
-                placeholder="product name"
-                id="morningName"
-                value={morningName}
-                onChange={handleInputChange}
-                required />
-            </div>
-            <div>
-              <label className="labelusage" htmlFor="morningBrand">
-                  Brand:
-              </label>
-              <input
-                type="text"
-                placeholder="brand name"
-                id="morningBrand"
-                value={morningBrand}
-                onChange={handleInputChange} />
-            </div>
-            <div>
-              <label className="labelusage" htmlFor="morningCategory">
-                  Category:
-              </label>
-              <select
-                className="select"
-                id="morningCategory"
-                value={morningCategory}
-                onChange={(e) => setMorningCategory(e.target.value)}
-                required>
-                <option value="">Select a category</option>
-                {categories.map((category) => (
-                  <option key={category} value={category}>
-                    {category}
-                  </option>
-                ))}
-              </select>
-              <input
-                type="checkbox"
-                id={`archived-${product._id}`}
-                checked={archived}
-                onChange={() => setArchived(!archived)} />
-              <label
-                id="archive-label"
-                htmlFor={`archived-${product._id}`}
-                className={archived ? 'archived' : ''}>
-                {!archived ? 'Archive product? Yes' : 'Product archived. Undo'}
-              </label>
-
-            </div>
+            <legend>Remove from archive</legend>
+            <input
+              type="checkbox"
+              id={`archived-${product._id}`}
+              checked={archived}
+              onChange={() => setArchived(!archived)} />
+            <label
+              id="archive-label-night"
+              htmlFor={`archived-${product._id}`}
+              className={archived ? 'archived' : ''}>
+              {!archived ? 'Archive product? Yes' : 'Product archived. Undo'}
+            </label>
             <div className="popUpButtonContainer">
               <SaveButton
                 className="productbutton"
@@ -247,7 +170,7 @@ const MorningPopUp = ({
         <BaseButton onClick={handleBackButtonClick}>Back</BaseButton>
       </ProductWindow>
     </Wrapper>
-  );
-};
+  )
+}
 
-export default MorningPopUp;
+export default ArchivePopUp;

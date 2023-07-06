@@ -48,6 +48,7 @@ const NightPopUp = ({
   const [nightName, setNightName] = useState(product.name);
   const [nightBrand, setNightBrand] = useState(product.brand);
   const [nightCategory, setNightCategory] = useState(product.category);
+  const [archived, setArchived] = useState(product.archived);
   const [clickCount, setClickCount] = useState(0);
   const buttonRef = useRef(null);
 
@@ -80,7 +81,9 @@ const NightPopUp = ({
       body: JSON.stringify({
         name: nightName.charAt(0).toUpperCase() + nightName.slice(1).toLowerCase(),
         brand: nightBrand.charAt(0).toUpperCase() + nightBrand.slice(1).toLowerCase(),
-        category: nightCategory
+        category: nightCategory,
+        archived,
+        archivedAt: new Date()
       })
     };
 
@@ -92,7 +95,7 @@ const NightPopUp = ({
           setNightBrand('');
           setNightCategory('');
         } else {
-          console.error('Failed to submit Skincare Product');
+          console.error('Failed to submit product update');
         }
       })
       .catch((error) => {
@@ -205,6 +208,17 @@ const NightPopUp = ({
                   </option>
                 ))}
               </select>
+              <input
+                type="checkbox"
+                id={`archived-${product._id}`}
+                checked={archived}
+                onChange={() => setArchived(!archived)} />
+              <label
+                id="archive-label-night"
+                htmlFor={`archived-${product._id}`}
+                className={archived ? 'archived' : ''}>
+                {!archived ? 'Archive product? Yes' : 'Product archived. Undo'}
+              </label>
             </div>
             <div className="popUpButtonContainer">
               <SaveButton

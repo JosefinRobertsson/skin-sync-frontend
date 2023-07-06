@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {
   BrowserRouter, Routes, Route, useLocation
 } from 'react-router-dom';
+import axios from 'axios';
 import DailyReport from './components/DailyReport';
 import MorningShelf from './components/MorningShelf';
 import UserPage from './components/UserPage';
@@ -28,7 +29,13 @@ const ScrollToTop = () => {
 export const App = () => {
   const [chosenDate, setChosenDate] = useState(new Date());
   const [username, setUsername] = useState('');
+  const [morningProducts, setMorningProducts] = useState([]);
   const [reportData, setReportData] = useState([]);
+  const [archivedProducts, setArchivedProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  // axios.defaults.baseURL = ' https://skinsync-mgydyyeela-no.a.run.app';
+  axios.defaults.baseURL = 'http://localhost:8080'
 
   useEffect(() => {
     const handlePageShow = (event) => {
@@ -42,6 +49,62 @@ export const App = () => {
       window.removeEventListener('pageshow', handlePageShow);
     };
   }, []);
+
+  // Update morning shelf from Archive
+  const getMorningProducts = () => {
+    const accessToken = localStorage.getItem('accessToken');
+    fetch('http://localhost:8080/productShelf/morning', {
+      headers: {
+        Authorization: accessToken
+      }
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`Error: ${res.status}`);
+        }
+        return res.json();
+      })
+      .then((data) => {
+        setMorningProducts(data.response);
+      })
+      .catch((error) => {
+        console.error('An error occurred:', error);
+      });
+  };
+
+  // Update Archive from other components
+  const fetchSkincareProducts = async () => {
+    console.log('fetching skincare products');
+    setLoading(true);
+    let morningResponse;
+    let nightResponse;
+
+    try {
+      const accessToken = localStorage.getItem('accessToken');
+      if (!accessToken) {
+        console.error('No access token found');
+        setLoading(false);
+        return;
+      }
+      const config = {
+        headers: {
+          Authorization: accessToken
+        }
+      };
+
+      morningResponse = await axios.get('/productShelf/morning', config);
+      nightResponse = await axios.get('/productShelf/night', config);
+      if (!morningResponse.data.success || !nightResponse.data.success) {
+        throw new Error('Failed to fetch skincare products');
+      }
+    } catch (error) {
+      console.error('An error occurred:', error);
+    }
+    const mergedProducts = [...morningResponse.data.response, ...nightResponse.data.response];
+
+    setArchivedProducts(mergedProducts);
+    setLoading(false);
+  };
 
   return (
     <div className="allWrapper">
@@ -58,8 +121,16 @@ export const App = () => {
               path="/productShelf"
               element={
                 <>
-                  <MorningShelf />
-                  <NightShelf />
+                  <MorningShelf
+                    morningProducts={morningProducts}
+                    getMorningProducts={getMorningProducts}
+                    fetchSkincareProducts={fetchSkincareProducts} />
+                  <NightShelf
+                    getMorningProducts={getMorningProducts}
+                    archivedProducts={archivedProducts}
+                    setArchivedProducts={setArchivedProducts}
+                    fetchSkincareProducts={fetchSkincareProducts}
+                    loading={loading} />
                 </>
               } />
             <Route
