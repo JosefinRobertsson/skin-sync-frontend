@@ -79,7 +79,7 @@ const DailyReport = () => {
         console.error('An error occurred:', error);
       })
       .finally(() => {
-        navigate('/productShelf/userpage');
+        navigate('/userpage');
       });
   };
 

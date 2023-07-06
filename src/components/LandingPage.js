@@ -39,6 +39,7 @@ const LandingPage = ({ username, setUsername }) => {
     if (form.checkValidity()) {
       // eslint-disable-next-line no-use-before-define
       auth(event);
+      localStorage.setItem('username', username);
     } else {
       const usernameInput = form.elements.username;
       const passwordInput = form.elements.password;
