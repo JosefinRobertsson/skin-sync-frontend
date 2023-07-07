@@ -121,12 +121,15 @@ const ProductStatistics = ({ chosenDate }) => {
             weekNumber,
             dayOfWeek,
             productId: product._id,
+            productDate: product.date,
             productName: product.name,
             productBrand: product.brand,
             productCategory: product.category,
             productRoutine: product.routine,
             productUsage: usageDate,
-            usageCount: product.usageHistory.length
+            usageCount: product.usageHistory.length,
+            archived: product.archived,
+            favorite: product.favorite
           };
 
           if (product.routine === 'morning') {
@@ -173,7 +176,7 @@ const ProductStatistics = ({ chosenDate }) => {
     <div className="productsWrapper">
       <h2>Skincare used week {chosenWeek}</h2>
       {week.map((weekday) => (
-        <>
+        <React.Fragment key={uuidv4()}>
           <hr className="weekday-divider" />
           <h4 id="name-date-stats" key={uuidv4()}>{weekday.name} {weekday.formattedDate}</h4>
           <div className={`${weekday.name} daysAndNights`} key={weekday.number}>
@@ -182,8 +185,8 @@ const ProductStatistics = ({ chosenDate }) => {
                 .filter((data) => moment(data.productUsage).isSame(weekday.date, 'day'))
                 .map((data) => (
                   <div
-                    className="morningProductContainer"
-                    key={`${data.productId}`}
+                    className={`morningProductContainer ${data.archived ? 'archived-product' : ''} ${data.favorite ? 'favorite' : ''}`}
+                    key={`${data.productId}-${data.productDate}`}
                     onClick={() => handleProductSelection(data)}
                     onKeyDown={(event) => handleKeyPress(event, data)}
                     tabIndex={0}
@@ -198,8 +201,8 @@ const ProductStatistics = ({ chosenDate }) => {
                 .filter((data) => moment(data.productUsage).isSame(weekday.date, 'day'))
                 .map((data) => (
                   <div
-                    className="nightProductContainer"
-                    key={`${data.productId}`}
+                    className={`nightProductContainer ${data.archived ? 'archived-product' : ''} ${data.favorite ? 'favorite' : ''}`}
+                    key={`${data.productId}-${data.productDate}`}
                     onClick={() => handleProductSelection(data)}
                     onKeyDown={(event) => handleKeyPress(event, data)}
                     tabIndex={0}
@@ -210,7 +213,7 @@ const ProductStatistics = ({ chosenDate }) => {
                 ))}
             </div>
           </div>
-        </>
+        </React.Fragment>
       ))}
       {selectedProduct && (
         <PopUp

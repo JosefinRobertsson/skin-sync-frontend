@@ -1,13 +1,25 @@
 
 .usageTrackerWrapper {
-    background-image: url('../../images/pexels-felipe-helfstein-14705286.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
     display: flex;
     flex-direction: column;
     align-items: center;
     min-height: fit-content;
+    position: relative;
 }
+
+.usageTrackerWrapper::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('../../images/pexels-felipe-helfstein-14705286.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    filter: brightness(0.7);
+    z-index: -1;
+  }
 
 .routine-container {
     display: flex;

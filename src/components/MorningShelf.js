@@ -219,6 +219,8 @@ const MorningShelf = ({ morningProducts, getMorningProducts, fetchSkincareProduc
 
   const morningProductCount = morningProducts.filter((product) => !product.archived).length;
 
+  console.log('morningProducts', morningProducts);
+
   return (
     <div className="shelvesWrapper">
       <h1>Product Shelves</h1>
@@ -227,7 +229,7 @@ const MorningShelf = ({ morningProducts, getMorningProducts, fetchSkincareProduc
         {morningProducts
           .filter((product) => !product.archived)
           .map((product) => (
-            <div className="product-container" key={uuidv4()}>
+            <div className={`product-container ${product.favorite ? 'favorite' : ''}`} key={uuidv4()}>
               <div
                 className="product-item"
                 key={product._id}

@@ -82,10 +82,6 @@ hr.night-popup {
     overflow-y: auto;
     scrollbar-width: none;
     -ms-overflow-style: none;
-    background-image: linear-gradient(to bottom, rgba(221, 207, 207, 0), rgba(0, 0, 0, 0.534));
-    background-size: 100% 20px;
-    background-repeat: no-repeat;
-    background-position: bottom;
     box-shadow: 1px 1px 8px 4px rgba(5, 19, 6, 0.3);
 }
 
@@ -94,8 +90,21 @@ hr.night-popup {
     display: none;
 }
 
+.morningProductContainer.favorite::before,
+.nightProductContainer.favorite::before {
+    content: '';
+    top: 0;
+    left: 0;
+    height: 20px;
+    aspect-ratio: 1/1;
+    background-image: url('../../images/star-full.png');
+    background-size: 100% 100%;
+    position: absolute;
+    z-index: 1;
+  }
+
 .morningProductContainer {
-    background: whitesmoke;
+    background: rgba(245, 245, 245, 0.824);
     color: #1f101f;
     border: 1px solid #1d0d48;
     scrollbar-width: none;
@@ -142,6 +151,11 @@ margin: 0;
 
 .nightProductContainer:hover img {
     filter: invert(0%);
+}
+
+.archived-product {
+    color: red;
+    border: red 2px solid;
 }
 
 

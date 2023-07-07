@@ -235,7 +235,7 @@ const NightShelf = ({
         {nightProducts
           .filter((product) => !product.archived)
           .map((product) => (
-            <div className="product-container" key={uuidv4()}>
+            <div className={`product-container ${product.favorite ? 'favorite' : ''}`} key={uuidv4()}>
               <div
                 className="product-item nightProduct"
                 key={product._id}
@@ -319,7 +319,12 @@ const NightShelf = ({
           {errorMsg && <p className="error">{errorMsg}</p>}
         </fieldset>
       </form>
-      <ArchiveButton onClick={() => setShowArchive(!showArchive)}>
+      <ArchiveButton onClick={() => {
+        setShowArchive(!showArchive);
+        if (!showArchive) {
+          fetchSkincareProducts();
+        }
+      }}>
         {showArchive ? 'Hide archive' : 'Show archive'}
       </ArchiveButton>
       {selectedProduct && (

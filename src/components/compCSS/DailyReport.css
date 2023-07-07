@@ -23,6 +23,7 @@
     border-radius: 50%;
     width: 340px;
     aspect-ratio: 1/1;
+    filter: brightness(0.8);
 }
 
 .ball3 {

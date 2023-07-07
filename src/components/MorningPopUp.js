@@ -2,7 +2,9 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import { BaseButton, DeleteProductButton, SaveButton, BackButton } from '../styles/StyledButtons';
+import { BaseButton, DeleteProductButton, SaveButton } from '../styles/StyledButtons';
+import StarIconEmpty from '../images/star-empty.png';
+import StarIconFilled from '../images/star-full.png';
 import './compCSS/ShelfPopUp.css';
 
 const Wrapper = styled.div`
@@ -51,6 +53,7 @@ const MorningPopUp = ({
   const [morningCategory, setMorningCategory] = useState(product.category);
   const [clickCount, setClickCount] = useState(0);
   const [archived, setArchived] = useState(product.archived);
+  const [favorite, setFavorite] = useState(product.favorite);
 
   const buttonRef = useRef(null);
 
@@ -85,7 +88,8 @@ const MorningPopUp = ({
         brand: morningBrand.charAt(0).toUpperCase() + morningBrand.slice(1).toLowerCase(),
         category: morningCategory,
         archived,
-        archivedAt: new Date()
+        archivedAt: new Date(),
+        favorite
       })
     };
 
@@ -221,26 +225,39 @@ const MorningPopUp = ({
                 className={archived ? 'archived' : ''}>
                 {!archived ? 'Archive product? Yes' : 'Product archived. Undo'}
               </label>
-
             </div>
             <div className="popUpButtonContainer">
-              <SaveButton
-                className="productbutton"
-                type="submit">
-                Save change
-              </SaveButton>
-              <DeleteProductButton
-                type="button"
-                onClick={() => handleDeleteProduct(product._id)}
-                clicked={clickCount > 0}
-                ref={buttonRef}>
-                {clickCount === 0 ? 'Delete' : 'Delete product?'}
-              </DeleteProductButton>
-              <BackButton
-                type="button"
-                onClick={handleBackButtonClick}>
-                Cancel
-              </BackButton>
+              <div>
+                <input
+                  type="checkbox"
+                  id={`favorite-${product._id}`}
+                  checked={favorite}
+                  onChange={() => setFavorite(!favorite)} />
+                <label
+                  id="favorite-label"
+                  htmlFor={`favorite-${product._id}`}
+                  className={favorite ? 'favorite-star' : 'neutral-star'}>
+                  {favorite ? (
+                    <img id="StarIconFull" src={StarIconFilled} height="30px" alt="star checked" />
+                  ) : (
+                    <img id="StarIcon" src={StarIconEmpty} height="30px" alt="star unchecked" />
+                  )}
+                </label>
+                <SaveButton
+                  className="productbutton"
+                  type="submit">
+                Save changes
+                </SaveButton>
+              </div>
+              <div>
+                <DeleteProductButton
+                  type="button"
+                  onClick={() => handleDeleteProduct(product._id)}
+                  clicked={clickCount > 0}
+                  ref={buttonRef}>
+                  {clickCount === 0 ? 'Delete' : 'Sure?'}
+                </DeleteProductButton>
+              </div>
             </div>
           </fieldset>
         </form>

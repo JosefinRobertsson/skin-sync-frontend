@@ -16,6 +16,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  z-index: 5;
 `;
 
 const ProductWindow = styled.div`
@@ -73,6 +74,7 @@ export const PopUp = ({ data, setSelectedProduct, getImagePath, setShowPopUp }) 
         {data.productBrand.length > 0 && (<h4>{data.productBrand}</h4>)}
         <hr className="popup-divider night-popup" />
         <p>Times used in total: <span className="usagenumber">{data.usageCount}</span></p>
+        {data.archived && <span className="usagenumber">Archived</span>}
         <StatisticsBackButton onClick={handleBackButtonClick}>Back</StatisticsBackButton>
       </ProductWindow>
     </Wrapper>

@@ -93,6 +93,10 @@ const WeeklyDiagrams = ({ chosenDate, reportData }) => {
 
       const weeklyHabitsArray = [
         {
+          name: 'water',
+          value: habitsAverage.waterAmount
+        },
+        {
           name: 'exercise',
           value: habitsAverage.exercised
         },
@@ -103,10 +107,6 @@ const WeeklyDiagrams = ({ chosenDate, reportData }) => {
         {
           name: 'stress',
           value: habitsAverage.stress
-        },
-        {
-          name: 'water',
-          value: habitsAverage.waterAmount
         },
         {
           name: 'skin issues',

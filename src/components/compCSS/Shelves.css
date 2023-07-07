@@ -63,6 +63,17 @@ a {
 .product-container {
   width: 31%;
   aspect-ratio: 1/1.3;
+  position: relative;
+} 
+
+.product-container.favorite::before {
+  content: '';
+  height: 20%;
+  left: 10%;
+  aspect-ratio: 1/1;
+  background-image: url('../../images/star-full.png');
+  background-size: 100% 100%;
+  position: absolute;
 }
 
 .product-item {
@@ -88,6 +99,7 @@ a {
   box-shadow: 1px 1px 8px 4px rgba(5, 19, 6, 0.5);
   background: radial-gradient(circle at 15% 35%, rgba(255,220,203,1) 0%, rgb(238, 133, 85) 13%, rgb(113, 210, 110) 95%);
   transform: scale(1.03);
+  position: relative;
 }
 
 .product-item:focus {

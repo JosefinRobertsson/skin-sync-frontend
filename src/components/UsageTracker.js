@@ -316,7 +316,7 @@ const UsageTracker = () => {
           {morningProducts
             .filter((product) => !product.archived)
             .map((product) => (
-              <div className="product-container" key={uuidv4()}>
+              <div className={`product-container ${product.favorite ? 'favorite' : ''}`} key={uuidv4()}>
                 <div
                   className={`routine-item ${product.usedToday ? 'active' : ''}`}
                   key={product._id}
@@ -348,7 +348,9 @@ const UsageTracker = () => {
             icons={false}
             className="my-toggle"
             id="toggle-all-morning"
-            checked={morningProducts.every((product) => product.usedToday)}
+            checked={morningProducts.filter((product) => !product.archived).every(
+              (product) => product.usedToday
+            )}
             onChange={(e) => {
               const action = e.target.checked ? 'toggleOn' : 'toggleOff';
               toggleAllUsage(action, 'morning', setMorningProducts);
@@ -362,7 +364,7 @@ const UsageTracker = () => {
           {nightProducts
             .filter((product) => !product.archived)
             .map((product) => (
-              <div className="product-container" key={uuidv4()}>
+              <div className={`product-container ${product.favorite ? 'favorite' : ''}`} key={uuidv4()}>
                 <div
                   className={`routine-item night-routine ${product.usedToday ? 'active' : ''}`}
                   key={product._id}
@@ -394,7 +396,9 @@ const UsageTracker = () => {
             icons={false}
             className="my-toggle"
             id="toggle-all-night"
-            checked={nightProducts.every((product) => product.usedToday)}
+            checked={nightProducts.filter((product) => !product.archived).every(
+              (product) => product.usedToday
+            )}
             onChange={(e) => {
               const action = e.target.checked ? 'toggleOn' : 'toggleOff';
               toggleAllUsage(action, 'night', setNightProducts);

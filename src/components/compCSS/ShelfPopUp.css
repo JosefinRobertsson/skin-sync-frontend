@@ -1,7 +1,17 @@
 .popUpButtonContainer {
+border: 1px solid rgba(255, 245, 232, 0.9);
+border-radius: 6px;
+margin-top: 10px;
+}
+
+.popUpButtonContainer > div,
+.popUpButtonContainer div:last-child {
     display: flex;
-    flex-direction: column;
+    justify-content: space-evenly;
+    justify-items: center;
     align-items: center;
+    margin: 5px 0;
+    height: 40px;
 }
 
 .productText h4 {
@@ -42,6 +52,23 @@ label {
     color: red;
     text-shadow: none;
 }
+
+#favorite-label {
+    border-radius: 50%;
+    width: 40px;
+    aspect-ratio: 1/1;
+    border: 2px solid white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 3s ease-in-out;
+}
+
+#favorite-label:hover {
+    transform: rotate(360deg);
+    background: radial-gradient(circle, #FFA500, #FFFF00);
+  }
 
 .shelf-form {
     margin-top: 2rem;

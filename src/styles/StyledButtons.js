@@ -61,14 +61,12 @@ export const DeleteProductButton = styled(BaseButton)`
   `}
   font-size: 1rem;
   padding: 0.3rem 0.5rem;
-  margin-bottom:10px;
 `;
 
 export const SaveButton = styled(BaseButton)`
 font-size: 1rem;
+height: 100%;
   padding: 0.3rem 0.5rem;
-  margin-bottom:10px;
-  margin-top: 1rem;
 `;
 
 export const BackButton = styled(BaseButton)`
@@ -87,4 +85,23 @@ margin: 10px 0 6px 0;
 
 export const ArchiveButton = styled(BaseButton)`
 margin-top: 30px;
+`;
+
+export const FavoriteButton = styled(BaseButton)`
+height: 40px;
+aspect-ratio: 1/1;
+border-radius: 50%;
+display: flex;
+justify-content: center;
+align-items: center;
+background: radial-gradient(circle at 15% 35%, rgba(255,220,203,1) 0%, rgb(238, 133, 85) 13%, rgb(113, 210, 110) 95%);
+/*
+::before {
+    content: url('../../images/star.png');
+    vertical-align: middle;
+    margin-right: 5px;
+    height: 30px;
+    aspect-ratio: 1/1;
+    z-index: 1;
+  }*/
 `;

@@ -90,7 +90,7 @@ const Archive = ({
           .filter((product) => product.archived === true)
           .sort((a, b) => new Date(b.archivedAt) - new Date(a.archivedAt))
           .map((product) => (
-            <div className="product-container" key={uuidv4()}>
+            <div className={`product-container ${product.favorite ? 'favorite' : ''}`} key={uuidv4()}>
               <div
                 className={`product-item ${product.routine === 'morning' ? 'product-item' : 'nightProduct'}`}
                 key={product._id}
