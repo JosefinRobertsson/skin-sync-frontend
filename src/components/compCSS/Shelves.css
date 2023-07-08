@@ -74,6 +74,7 @@ a {
   background-image: url('../../images/star-full.png');
   background-size: 100% 100%;
   position: absolute;
+  z-index: 20;
 }
 
 .product-item {
@@ -175,6 +176,7 @@ background: radial-gradient(circle at 15% 35%, rgba(255,220,203,1) 0%, rgb(238, 
 }
 
 .shelf-form {
+  margin-top: 2rem;
   margin-bottom: 1.5rem;
   background-color: rgba(5,19,6, 0.3);
   padding: 1rem;
@@ -222,14 +224,19 @@ p {
     max-height: 460px;
     padding: 10px 5px;
   }
+}
 
+@media (min-width: 768px) {
+  hr {
+    height: 3px;
+  }
 }
 @media (min-width: 1024px) {
   .product-container {
     width: 15%;
   }
   .productShelf {
-    justify-content: space-around;
+
     width: 80%;
     min-height: 110px;
     max-height: 500px;

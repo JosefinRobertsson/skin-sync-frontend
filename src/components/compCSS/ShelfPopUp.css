@@ -45,7 +45,7 @@ label {
 #archive-label:focus,
 #archive-label-night:hover,
 #archive-label-night:focus {
-    background: radial-gradient(circle at 15% 35%, rgba(255,220,203,1) 0%, rgb(238, 133, 85) 13%, rgb(113, 210, 110) 95%);
+    background: radial-gradient(circle at 15% 35%, rgba(255,220,203,1) 0%, rgb(238, 133, 85) 13%, rgb(113, 210, 110) 95%); 
 }
 
 .archived {
@@ -53,7 +53,9 @@ label {
     text-shadow: none;
 }
 
-#favorite-label {
+
+#favorite-label,
+#favorite-label-night {
     border-radius: 50%;
     width: 40px;
     aspect-ratio: 1/1;
@@ -65,18 +67,59 @@ label {
     transition: transform 3s ease-in-out;
 }
 
-#favorite-label:hover {
+#favorite-label-night {
+    border: 3px solid white;
+}
+
+#favorite-label-night:focus {
+    background: unset;
+}
+
+input[type="checkbox"]:checked+#favorite-checkbox {
+    border: 6px solid blue;
+}
+
+#favorite-label:hover,
+#favorite-label:focus,
+#favorite-label-night:hover,
+#favorite-label-night:focus {
     transform: rotate(360deg);
     background: radial-gradient(circle, #FFA500, #FFFF00);
   }
 
-.shelf-form {
-    margin-top: 2rem;
-}
+  #favorite-checkbox:active + label {
+    background: greenyellow;
+    background-color: aqua;
+  }
+
+  #favorite-checkbox:checked + label
+  #favorite-checkbox:checked + label#favorite-label-night
+  label[for="favorite-checkbox"]
+  .favorite-star {    
+    background: greenyellow;
+    background-color: aqua;
+  }
+
+  input[type="checkbox"]#favorite-checkbox {
+    opacity: 0;
+  }
+
+  #StarIcon {
+    filter: invert(1);
+  }
+  #favorite-label-night:focus {
+    background: yellowgreen;
+  }
 
 .productText {
-    padding-top: 1rem;
+    padding-top: 5px;
 }
+
+.shelf-form.popup-form {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 0 1rem;
+  }
 
 .night-edit {
     color: rgba(255, 245, 232, 0.9);
@@ -87,4 +130,14 @@ label {
     background: radial-gradient(circle at 15% 35%, rgba(255,220,203,1) 0%, rgb(238, 133, 85) 13%, rgb(113, 210, 110) 95%);
 }
 
+@media screen and (min-width: 400px) {
+.shelf-form.popup-form {
+    margin-top: 2rem;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+}
+.productText {
+    padding-top: 1rem;
+}
+}
 

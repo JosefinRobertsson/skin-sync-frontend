@@ -117,6 +117,9 @@ const ProductStatistics = ({ chosenDate }) => {
         product.usageHistory.forEach((usageDate) => {
           const { weekNumber, dayOfWeek } = getWeekAndDay(usageDate);
 
+          const usageStartDate = new Date(product.usageHistory[0]);
+          const usageStartDateFormatted = usageStartDate.toLocaleDateString('en-GB');
+
           const formattedProduct = {
             weekNumber,
             dayOfWeek,
@@ -128,6 +131,7 @@ const ProductStatistics = ({ chosenDate }) => {
             productRoutine: product.routine,
             productUsage: usageDate,
             usageCount: product.usageHistory.length,
+            usageStart: usageStartDateFormatted,
             archived: product.archived,
             favorite: product.favorite
           };

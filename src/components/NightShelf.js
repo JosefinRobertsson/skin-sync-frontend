@@ -256,7 +256,7 @@ const NightShelf = ({
           ))}
       </div>
       <a href="https://www.flaticon.com/" target="_blank" className="icon-info" rel="noreferrer">
-        <span>All product icons from Flaticon</span>
+        <span>All icons from Flaticon</span>
       </a>
       <p>{nightProductCount} products</p>
       <p>Click a product to edit</p>
@@ -294,7 +294,7 @@ const NightShelf = ({
               value={nightCategory}
               onChange={(e) => setNightCategory(e.target.value)}
               required>
-              <option value="">Select a category</option>
+              <option value="" disabled selected>Select a category</option>
               {categories.map((category) => (
                 <option key={category} value={category}>
                   {category}

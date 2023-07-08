@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { StatisticsBackButton } from '../styles/StyledButtons.js';
+import StarIconFilled from '../images/star-full.png';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -54,6 +55,20 @@ const ProductWindow = styled.div`
 
 const ImgContainer = styled.div`
 height: 50%;
+position: relative;
+${(props) => props.isFavorite
+    && `
+&::before {
+    content: '';
+    height: 20%;
+  left: -10%;
+  aspect-ratio: 1/1;
+  background-image: url(${StarIconFilled});
+  background-size: 100% 100%;
+  position: absolute;
+  z-index: 999;
+}
+`}
 `;
 
 export const PopUp = ({ data, setSelectedProduct, getImagePath, setShowPopUp }) => {
@@ -65,7 +80,7 @@ export const PopUp = ({ data, setSelectedProduct, getImagePath, setShowPopUp }) 
   return (
     <Wrapper>
       <ProductWindow routine={data.productRoutine}>
-        <ImgContainer>
+        <ImgContainer isFavorite={data && data.favorite}>
           <img
             src={getImagePath(data.productCategory)}
             alt={data.productCategory} />
@@ -74,6 +89,7 @@ export const PopUp = ({ data, setSelectedProduct, getImagePath, setShowPopUp }) 
         {data.productBrand.length > 0 && (<h4>{data.productBrand}</h4>)}
         <hr className="popup-divider night-popup" />
         <p>Times used in total: <span className="usagenumber">{data.usageCount}</span></p>
+        <p>First time used: <span className="usagenumber">{data.usageStart}</span></p>
         {data.archived && <span className="usagenumber">Archived</span>}
         <StatisticsBackButton onClick={handleBackButtonClick}>Back</StatisticsBackButton>
       </ProductWindow>

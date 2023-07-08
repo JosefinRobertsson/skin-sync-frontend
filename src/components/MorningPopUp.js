@@ -20,11 +20,11 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  z-index: 5;
+  z-index: 25;
 `;
 
 const ProductWindow = styled.div`
-  width:300px;
+  width: 280px;
   height: fit-content;
   border-radius: 1rem;
   padding: 0.5rem 1rem 1.5rem 1rem;
@@ -38,9 +38,28 @@ const ProductWindow = styled.div`
   `;
 
 const ImgContainer = styled.div`
+position: relative;
+${(props) => props.isFavorite
+    && `
+&::before {
+    content: '';
+    height: 20%;
+  left: -10%;
+  aspect-ratio: 1/1;
+  background-image: url(${StarIconFilled});
+  background-size: 100% 100%;
+  position: absolute;
+  z-index: 999;
+}
+`}
 img {
-height: 100px;
-filter: invert(1);
+height: 60px;
+filter: invert(0.95);
+}
+@media screen and (min-width: 400px) {
+  img {
+  height: 100px;
+  }
 }
 `;
 
@@ -161,10 +180,54 @@ const MorningPopUp = ({
     }
   };
 
+  // Keyboard Archived
+  const handleCheckboxKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      setArchived(!archived);
+    }
+  };
+    // Keyboard Favorite
+  const handleFavoriteCheckbox = (event) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      setFavorite(!favorite);
+    }
+  };
+
+  const handleCheckboxFocus = (event) => {
+    const label = event.target.nextElementSibling;
+    label.classList.add('focused');
+    label.style.background = '#ea9350';
+    label.style.color = 'black';
+  };
+
+  const handleCheckboxBlur = (event) => {
+    const label = event.target.nextElementSibling;
+    label.classList.remove('focused');
+    label.style.background = '';
+    label.style.color = '';
+  };
+
+  const handleFavFocus = (event) => {
+    const checkbox = event.target;
+    const label = checkbox.nextElementSibling;
+    label.classList.add('focused');
+    label.style.background = 'rgb(113, 210, 110)';
+  };
+
+  const handleFavBlur = (event) => {
+    const checkbox = event.target;
+    const label = checkbox.nextElementSibling;
+    label.classList.remove('focused');
+    label.style.background = '';
+    label.style.color = '';
+  };
+
   return (
     <Wrapper>
       <ProductWindow>
-        <ImgContainer>
+        <ImgContainer isFavorite={product && product.favorite}>
           <img src={getImagePath(product.category)} alt="product icon" />
         </ImgContainer>
         <div className="productText">
@@ -207,7 +270,7 @@ const MorningPopUp = ({
                 value={morningCategory}
                 onChange={(e) => setMorningCategory(e.target.value)}
                 required>
-                <option value="">Select a category</option>
+                <option value="" disabled selected>Select a category</option>
                 {categories.map((category) => (
                   <option key={category} value={category}>
                     {category}
@@ -216,9 +279,13 @@ const MorningPopUp = ({
               </select>
               <input
                 type="checkbox"
+                onFocus={handleCheckboxFocus}
+                onBlur={handleCheckboxBlur}
                 id={`archived-${product._id}`}
                 checked={archived}
-                onChange={() => setArchived(!archived)} />
+                onChange={() => setArchived(!archived)}
+                onKeyDown={(event) => handleCheckboxKeyDown(event)}
+                tabIndex={0} />
               <label
                 id="archive-label"
                 htmlFor={`archived-${product._id}`}
@@ -232,15 +299,19 @@ const MorningPopUp = ({
                   type="checkbox"
                   id={`favorite-${product._id}`}
                   checked={favorite}
-                  onChange={() => setFavorite(!favorite)} />
+                  onFocus={handleFavFocus}
+                  onBlur={handleFavBlur}
+                  onChange={() => setFavorite(!favorite)}
+                  onKeyDown={(event) => handleFavoriteCheckbox(event)}
+                  tabIndex={0} />
                 <label
                   id="favorite-label"
                   htmlFor={`favorite-${product._id}`}
                   className={favorite ? 'favorite-star' : 'neutral-star'}>
                   {favorite ? (
-                    <img id="StarIconFull" src={StarIconFilled} height="30px" alt="star checked" />
+                    <img id="StarIconFull1" src={StarIconFilled} height="30px" alt="star checked" />
                   ) : (
-                    <img id="StarIcon" src={StarIconEmpty} height="30px" alt="star unchecked" />
+                    <img id="StarIcon1" src={StarIconEmpty} height="30px" alt="star unchecked" />
                   )}
                 </label>
                 <SaveButton

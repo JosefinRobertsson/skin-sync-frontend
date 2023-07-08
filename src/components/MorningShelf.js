@@ -67,28 +67,6 @@ const MorningShelf = ({ morningProducts, getMorningProducts, fetchSkincareProduc
     };
     fetchCategories();
   }, []);
-  /*
-  const getMorningProducts = () => {
-    const accessToken = localStorage.getItem('accessToken');
-    fetch('http://localhost:8080/productShelf/morning', {
-    // fetch('https://skinsync-mgydyyeela-no.a.run.app/productShelf/morning', {
-      headers: {
-        Authorization: accessToken
-      }
-    })
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error(`Error: ${res.status}`);
-        }
-        return res.json();
-      })
-      .then((data) => {
-        setMorningProducts(data.response);
-      })
-      .catch((error) => {
-        console.error('An error occurred:', error);
-      });
-  }; */
 
   useEffect(() => {
     getMorningProducts();
@@ -250,7 +228,7 @@ const MorningShelf = ({ morningProducts, getMorningProducts, fetchSkincareProduc
           ))}
       </div>
       <a href="https://www.flaticon.com/" target="_blank" className="icon-info" rel="noreferrer">
-        <span>All product icons from Flaticon</span>
+        <span>All icons from Flaticon</span>
       </a>
       <p>{morningProductCount} products</p>
       <p>Click a product to edit</p>
@@ -288,7 +266,7 @@ const MorningShelf = ({ morningProducts, getMorningProducts, fetchSkincareProduc
               value={morningCategory}
               onChange={(e) => setMorningCategory(e.target.value)}
               required>
-              <option value="">Select a category</option>
+              <option value="" disabled selected>Select a category</option>
               {categories.map((category) => (
                 <option key={category} value={category}>
                   {category}
