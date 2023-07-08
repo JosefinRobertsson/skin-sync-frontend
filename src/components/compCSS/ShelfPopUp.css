@@ -75,29 +75,12 @@ label {
     background: unset;
 }
 
-input[type="checkbox"]:checked+#favorite-checkbox {
-    border: 6px solid blue;
-}
-
 #favorite-label:hover,
 #favorite-label:focus,
 #favorite-label-night:hover,
 #favorite-label-night:focus {
     transform: rotate(360deg);
     background: radial-gradient(circle, #FFA500, #FFFF00);
-  }
-
-  #favorite-checkbox:active + label {
-    background: greenyellow;
-    background-color: aqua;
-  }
-
-  #favorite-checkbox:checked + label
-  #favorite-checkbox:checked + label#favorite-label-night
-  label[for="favorite-checkbox"]
-  .favorite-star {    
-    background: greenyellow;
-    background-color: aqua;
   }
 
   input[type="checkbox"]#favorite-checkbox {
@@ -107,9 +90,7 @@ input[type="checkbox"]:checked+#favorite-checkbox {
   #StarIcon {
     filter: invert(1);
   }
-  #favorite-label-night:focus {
-    background: yellowgreen;
-  }
+
 
 .productText {
     padding-top: 5px;

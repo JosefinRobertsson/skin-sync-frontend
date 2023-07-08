@@ -28,8 +28,8 @@ legend.login-legend,
 
 label[for="register-radio"]:hover,
 label[for="login-radio"]:hover {
-  /*background: #ea9350;*/
- /* background-color: rgba(232, 140, 93, 0.85); */
+  background: #ea9350;
+ background-color: rgba(232, 140, 93, 0.85); 
   transition: all 0.3s ease;
 }
 
@@ -37,11 +37,11 @@ label[for="register-radio"]:hover,
 label[for="register-radio"]:focus {
   color: #051306;
 }
-/*
+
 label[for="register-radio"]:focus,
 label[for="login-radio"]:focus {
   background-color: rgba(232, 140, 93, 0.85); 
-} */
+} 
 
 .login-legend {
   margin: 0;

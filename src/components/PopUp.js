@@ -90,7 +90,7 @@ export const PopUp = ({ data, setSelectedProduct, getImagePath, setShowPopUp }) 
         <hr className="popup-divider night-popup" />
         <p>Times used in total: <span className="usagenumber">{data.usageCount}</span></p>
         <p>First time used: <span className="usagenumber">{data.usageStart}</span></p>
-        {data.archived && <span className="usagenumber">Archived</span>}
+        {data.archived && <span className="usagenumber archivedLabel">Archived</span>}
         <StatisticsBackButton onClick={handleBackButtonClick}>Back</StatisticsBackButton>
       </ProductWindow>
     </Wrapper>

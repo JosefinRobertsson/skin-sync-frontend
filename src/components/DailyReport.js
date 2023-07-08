@@ -105,7 +105,21 @@ const DailyReport = () => {
               setWaterAmount(event.target.value);
             }} />
           <span>{getLabel(waterAmount)}</span>
+        </div>
 
+        <div>
+          <label htmlFor="exercisedRange">Exercise</label>
+          <input
+            type="range"
+            id="exercisedRange"
+            min={0}
+            max={100}
+            step={1}
+            value={exercised}
+            onChange={(event) => {
+              setExercised(event.target.value)
+            }} />
+          <span>{getLabel(exercised, 'exercisedRange')}</span>
         </div>
 
         <div>
@@ -139,49 +153,35 @@ const DailyReport = () => {
         </div>
 
         <div>
-          <label htmlFor="acneRange">Skin issues</label>
+          <label htmlFor="greasyFoodRange">Fastfood</label>
           <input
             type="range"
-            id="acneRange"
+            id="greasyFoodRange"
             min={0}
             max={100}
             step={1}
-            value={acne}
+            value={greasyFood}
             onChange={(event) => {
-              setAcne(event.target.value)
+              setGreasyFood(event.target.value)
             }} />
-          <span>{getLabel(acne, 'acneRange')}</span>
+          <span>{getLabel(greasyFood, 'greasyFoodRange')}</span>
         </div>
 
         <div>
-          <label htmlFor="exercisedRange">Exercise</label>
+          <label htmlFor="dairyRange">Dairy</label>
           <input
             type="range"
-            id="exercisedRange"
+            id="dairyRange"
             min={0}
             max={100}
             step={1}
-            value={exercised}
+            value={dairy}
             onChange={(event) => {
-              setExercised(event.target.value)
+              setDairy(event.target.value)
             }} />
-          <span>{getLabel(exercised, 'exercisedRange')}</span>
+          <span>{getLabel(dairy, 'dairyRange')}</span>
         </div>
 
-        <div>
-          <label htmlFor="sugarRange">Sugar</label>
-          <input
-            type="range"
-            id="sugarRange"
-            min={0}
-            max={100}
-            step={1}
-            value={sugar}
-            onChange={(event) => {
-              setSugar(event.target.value)
-            }} />
-          <span>{getLabel(sugar, 'sugarRange')}</span>
-        </div>
         <div>
           <label htmlFor="alcoholRange">Alcohol</label>
           <input
@@ -198,34 +198,35 @@ const DailyReport = () => {
         </div>
 
         <div>
-          <label htmlFor="dairyRange">Dairy</label>
+          <label htmlFor="sugarRange">Sugar</label>
           <input
             type="range"
-            id="dairyRange"
+            id="sugarRange"
             min={0}
             max={100}
             step={1}
-            value={dairy}
+            value={sugar}
             onChange={(event) => {
-              setDairy(event.target.value)
+              setSugar(event.target.value)
             }} />
-          <span>{getLabel(dairy, 'dairyRange')}</span>
+          <span>{getLabel(sugar, 'sugarRange')}</span>
+        </div>
 
-        </div>
         <div>
-          <label htmlFor="greasyFoodRange">Fastfood</label>
+          <label htmlFor="acneRange">Skin issues</label>
           <input
             type="range"
-            id="greasyFoodRange"
+            id="acneRange"
             min={0}
             max={100}
             step={1}
-            value={greasyFood}
+            value={acne}
             onChange={(event) => {
-              setGreasyFood(event.target.value)
+              setAcne(event.target.value)
             }} />
-          <span>{getLabel(greasyFood, 'greasyFoodRange')}</span>
+          <span>{getLabel(acne, 'acneRange')}</span>
         </div>
+
         <p>You can change your answers during the day,
         it won&apos;t affect your statistics
         </p>

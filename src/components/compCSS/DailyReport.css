@@ -24,12 +24,13 @@
     border-radius: 50%;
     width: 340px;
     aspect-ratio: 1/1;
+    box-shadow: 20px 8px 5px 20px rgba(13, 13, 13, 0.527);
     filter: brightness(0.8);
 }
 
 .ball2 {
     transform: rotate(-30deg);
-    box-shadow: 20px 8px 5px 20px rgba(13, 13, 13, 0.527);
+
 }
 
 .ball3 {
@@ -38,7 +39,6 @@
     background-position: 80%;
     width: 250px;
     transform: rotate(40deg);
-    box-shadow: 20px 8px 5px 20px rgba(13, 13, 13, 0.527);
 }
 
 .ball4 {
@@ -48,6 +48,7 @@
     width: 150px;
     z-index: -2;
         box-shadow: 20px 8px 5px 10px rgba(13, 13, 13, 0.527);
+        filter: brightness(0.7);
 }
 
 
@@ -90,7 +91,6 @@ form div {
 input[type="range"] {
     width: 98%;
     margin-top: 1rem;
-  
 }
 
 input[type='range'] {
@@ -100,6 +100,15 @@ input[type='range'] {
 	border-radius: 4px;
     background: linear-gradient(278deg, rgba(250,255,103,0.8) 8%, rgba(251,211,57,0.8) 26%, rgba(222,157,16,0.8) 59%, rgba(49,190,44,0.8) 98%);
     cursor: pointer;
+}
+
+input[type='range']#greasyFoodRange,
+#dairyRange, #alcoholRange, #sugarRange {
+    background: linear-gradient(278deg, rgba(250,255,103,0.8) 8%, rgba(251,211,57,0.8) 26%, rgba(222, 16, 219, 0.8) 59%, rgba(105, 33, 123, 0.8) 98%);
+}
+
+input[type='range']#acneRange {
+    background: linear-gradient(278deg, rgba(237, 237, 226, 0.8) 8%, rgba(186, 183, 172, 0.8) 26%, rgba(62, 61, 59, 0.8) 59%, rgba(25, 23, 25, 0.8) 98%);
 }
 
 

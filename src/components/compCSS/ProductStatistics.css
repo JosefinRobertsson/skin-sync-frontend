@@ -157,9 +157,14 @@ margin: 0;
 }
 
 .archived-product {
-
-    border: rgb(210, 31, 31) 2px solid;
+    border: 2px solid;
+    border-image: linear-gradient(to right, rgba(51,48,43,1) 0%, rgba(180,145,72,1) 35%, rgba(253,202,91,1)) 1;
+    border-radius: 6px;
     text-decoration: line-through;
+}
+
+.usagenumber.archivedLabel {
+    color: rgb(253, 201, 88);
 }
 
 

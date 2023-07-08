@@ -326,7 +326,7 @@ const MorningPopUp = ({
                   onClick={() => handleDeleteProduct(product._id)}
                   clicked={clickCount > 0}
                   ref={buttonRef}>
-                  {clickCount === 0 ? 'Delete' : 'Sure?'}
+                  {clickCount === 0 ? 'Delete' : 'Delete product?'}
                 </DeleteProductButton>
               </div>
             </div>

@@ -40,6 +40,9 @@ export const UserFormButton = styled(BaseButton)`
  &:hover {
   color: rgba(255, 244, 233, 0.9);
  }
+ &:focus {
+  color: rgba(255, 244, 233, 0.9);
+ }
 `;
 
 export const HideFormButton = styled(BaseButton)`

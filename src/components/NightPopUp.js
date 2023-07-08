@@ -294,7 +294,7 @@ const NightPopUp = ({
                 id="archive-label-night"
                 htmlFor={`archived-${product._id}`}
                 className={archived ? 'archived' : ''}>
-                {!archived ? 'Archive product? Yes' : 'Product archived. Undo'}
+                {!archived ? 'Archive product?' : 'Product archived. Undo'}
               </label>
             </div>
             <div className="popUpButtonContainer">
