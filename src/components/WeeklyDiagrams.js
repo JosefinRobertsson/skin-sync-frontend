@@ -4,6 +4,8 @@ import { v4 as uuid } from 'uuid';
 import moment from 'moment';
 import './compCSS/WeeklyDiagrams.css';
 import './compCSS/DailyDiagrams.css'
+import DietIcon from '../images/food.png';
+import HabitsIcon from '../images/bicycle.png';
 
 const CustomYAxisTick = ({ x, y, payload }) => {
   const value = payload.value === 100 ? '100%' : `${payload.value}%`;
@@ -53,19 +55,19 @@ const WeeklyDiagrams = ({ chosenDate, reportData }) => {
       });
 
       const dietAverage = {
-        greasyFood: average.greasyFood,
-        dairy: average.dairy,
-        alcohol: average.alcohol,
-        sugar: average.sugar,
-        acne: average.acne
+        greasyFood: average.greasyFood.toFixed(1),
+        dairy: average.dairy.toFixed(1),
+        alcohol: average.alcohol.toFixed(1),
+        sugar: average.sugar.toFixed(1),
+        acne: average.acne.toFixed(1)
       };
 
       const habitsAverage = {
-        exercised: average.exercised,
-        sleepHours: average.sleepHours,
-        stress: average.stress,
-        waterAmount: average.waterAmount,
-        acne: average.acne
+        exercised: average.exercised.toFixed(1),
+        sleepHours: average.sleepHours.toFixed(1),
+        stress: average.stress.toFixed(1),
+        waterAmount: average.waterAmount.toFixed(1),
+        acne: average.acne.toFixed(1)
       };
 
       const weeklyDietArray = [
@@ -158,7 +160,10 @@ const WeeklyDiagrams = ({ chosenDate, reportData }) => {
         <div>
           <div className="weekly-bars-container">
             <div className="diagram-wrapper">
-              <h2>Diet week {chosenWeek}</h2>
+              <div className="diagram-header">
+                <h2>Diet week {chosenWeek}</h2>
+                <img src={DietIcon} alt="diet symbol fruit" className="diet-img" />
+              </div>
               <ResponsiveContainer height={340} className="diet-bars">
                 <BarChart
                   barSize={28}
@@ -166,7 +171,7 @@ const WeeklyDiagrams = ({ chosenDate, reportData }) => {
                   height={300}
                   data={dietData}
                   margin={{
-                    top: 5,
+                    top: 15,
                     right: 35,
                     left: -5,
                     bottom: 20
@@ -214,7 +219,10 @@ const WeeklyDiagrams = ({ chosenDate, reportData }) => {
             </div>
 
             <div className="diagram-wrapper">
-              <h2>Habits week {chosenWeek}</h2>
+              <div className="diagram-header">
+                <h2>Habits week {chosenWeek}</h2>
+                <img src={HabitsIcon} alt="habits symbol bicycle" />
+              </div>
               <ResponsiveContainer height={340} className="habits-bars">
                 <BarChart
                   barSize={28}
@@ -222,7 +230,7 @@ const WeeklyDiagrams = ({ chosenDate, reportData }) => {
                   height={300}
                   data={habitsData}
                   margin={{
-                    top: 5,
+                    top: 15,
                     right: 35,
                     left: -5,
                     bottom: 20

@@ -23,7 +23,8 @@ const CalendarComponent = ({ chosenDate, setChosenDate }) => {
       <div className="calendar-container">
         <Calendar onChange={handleDateChange} value={chosenDate} />
         <div className="stats-description">
-          <p>Click a date to see the average of the statistics you logged that week, and
+          <p>Click a date in the calendar
+            to see the average of the statistics you logged that week, and
         all the products you used each day.
         Click a product to see the total number of times you used it.
         You can also see what data you logged today.

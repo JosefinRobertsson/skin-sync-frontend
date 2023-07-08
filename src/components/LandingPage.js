@@ -169,7 +169,7 @@ const LandingPage = ({ username, setUsername }) => {
           <div className="description" style={{ display: showForm ? 'none' : 'flex' }}>
             <div className="description-container">
               <p>
-                SkinSync is here to help you understand the effectiveness of your skincare products.
+                SkinSync is here to help you determine the effectiveness of your skincare products.
                 By keeping track of all the droplets in daily life that pool up to affect your skin,
                 you can take them into account to
                 better assess wether or not a skincare product is right for you.

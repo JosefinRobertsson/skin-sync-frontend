@@ -38,7 +38,7 @@ export const UserFormButton = styled(BaseButton)`
  margin-bottom: 15%;
  color:  #ea9350;
  &:hover {
-  color: #051306;
+  color: rgba(255, 244, 233, 0.9);
  }
 `;
 
@@ -84,7 +84,8 @@ margin: 10px 0 6px 0;
 `;
 
 export const ArchiveButton = styled(BaseButton)`
-margin-top: 30px;
+margin: 30px 0 40px 0;
+font-size: 1.5rem;
 `;
 
 export const FavoriteButton = styled(BaseButton)`
@@ -95,13 +96,4 @@ display: flex;
 justify-content: center;
 align-items: center;
 background: radial-gradient(circle at 15% 35%, rgba(255,220,203,1) 0%, rgb(238, 133, 85) 13%, rgb(113, 210, 110) 95%);
-/*
-::before {
-    content: url('../../images/star.png');
-    vertical-align: middle;
-    margin-right: 5px;
-    height: 30px;
-    aspect-ratio: 1/1;
-    z-index: 1;
-  }*/
 `;

@@ -42,7 +42,7 @@
     padding: 0.6rem 1rem 1rem 1rem;
     width: 90%;
     text-align: center;
-    border: 1px solid #313131;
+    border:rgba(255, 255, 255, 0.85) 1px solid;
     border-radius: 5px;
     background-color: rgba(255, 255, 255, 0.75);
     box-shadow: 1px 1px 8px 4px rgba(5, 19, 6, 0.3);

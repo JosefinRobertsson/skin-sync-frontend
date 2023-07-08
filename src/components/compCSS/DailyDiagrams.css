@@ -46,7 +46,6 @@ h1 {
 } 
 
 .diagram-wrapper {
-   /* border: 1px solid yellow; */
    border: rgba(255, 255, 255, 0.85) 1px solid;
     border-radius: 6px;
     height: fit-content;

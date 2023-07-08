@@ -5,6 +5,8 @@ import axios from 'axios';
 import { v4 as uuid } from 'uuid';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Cell } from 'recharts';
 import './compCSS/DailyDiagrams.css'
+import DietIcon from '../images/food.png';
+import HabitsIcon from '../images/bicycle.png';
 
 const CustomYAxisTick = ({ x, y, payload }) => {
   const value = payload.value === 100 ? '100%' : `${payload.value}%`;
@@ -141,7 +143,10 @@ const DailyDiagrams = ({ reportData, setReportData }) => {
           <h1>Your latest log</h1>
           <div className="daily-bars-container">
             <div className="diagram-wrapper">
-              <h2>Diet today</h2>
+              <div className="diagram-header">
+                <h2>Diet today</h2>
+                <img src={DietIcon} alt="diet symbol fruit" className="diet-img" />
+              </div>
               <ResponsiveContainer height={340} className="diet-bars">
                 <BarChart
                   barSize={28}
@@ -149,7 +154,7 @@ const DailyDiagrams = ({ reportData, setReportData }) => {
                   height={300}
                   data={dataChartOne}
                   margin={{
-                    top: 10,
+                    top: 15,
                     right: 35,
                     left: -5,
                     bottom: 20
@@ -197,7 +202,10 @@ const DailyDiagrams = ({ reportData, setReportData }) => {
             </div>
 
             <div className="diagram-wrapper">
-              <h2>Habits today</h2>
+              <div className="diagram-header">
+                <h2>Habits today</h2>
+                <img src={HabitsIcon} alt="habits symbol bicycle" />
+              </div>
               <ResponsiveContainer height={340} className="habits-bars">
                 <BarChart
                   barSize={28}
@@ -205,7 +213,7 @@ const DailyDiagrams = ({ reportData, setReportData }) => {
                   height={300}
                   data={dataChartTwo}
                   margin={{
-                    top: 5,
+                    top: 15,
                     right: 35,
                     left: -5,
                     bottom: 20

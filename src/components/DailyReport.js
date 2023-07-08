@@ -90,6 +90,7 @@ const DailyReport = () => {
       </Slide>
       <div className="ball2" />
       <div className="ball3" />
+      <div className="ball4" />
       <form id="form-report" onSubmit={handleSubmit}>
         <div>
           <label htmlFor="waterRange" className="label-report">Water</label>

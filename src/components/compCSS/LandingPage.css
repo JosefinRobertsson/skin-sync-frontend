@@ -29,7 +29,7 @@ legend.login-legend,
 label[for="register-radio"]:hover,
 label[for="login-radio"]:hover {
   /*background: #ea9350;*/
-  background-color: rgba(232, 140, 93, 0.85);
+ /* background-color: rgba(232, 140, 93, 0.85); */
   transition: all 0.3s ease;
 }
 
@@ -37,12 +37,11 @@ label[for="register-radio"]:hover,
 label[for="register-radio"]:focus {
   color: #051306;
 }
-
+/*
 label[for="register-radio"]:focus,
 label[for="login-radio"]:focus {
-  background-color: rgba(232, 140, 93, 0.85);
-
-}
+  background-color: rgba(232, 140, 93, 0.85); 
+} */
 
 .login-legend {
   margin: 0;
@@ -68,9 +67,21 @@ label[for="login-radio"]:focus {
   justify-content: center;
   height: 100vh;
   width: 100%;
+  position: relative;
+}
+
+.background-landing::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background-image: url('../../images/pexels-felipe-helfstein-14705286.jpg');
-    background-size: cover;
-    background-repeat: no-repeat; 
+  background-size: cover;
+  background-repeat: no-repeat;
+  filter: brightness(0.8);
+  z-index: -1;
 }
 
 #form-login {
@@ -112,7 +123,7 @@ fieldset {
   padding: 0.6rem 1rem 1rem 1rem;
   width: 90%;
   text-align: center;
-  border: 1px solid #313131;
+  border:rgba(255, 255, 255, 0.85) 1px solid;
   border-radius: 5px;
   background-color: rgba(255, 255, 255, 0.75);
   box-shadow: 1px 1px 8px 4px rgba(5, 19, 6, 0.3);
@@ -162,6 +173,7 @@ form input {
   .description-container {
     width: 60%;
   }
+}
 
   @media (min-width: 1024px) {
     .landing-h1 {
@@ -171,5 +183,7 @@ form input {
       width: 40%;
       margin-top: -35%;
     }
-}
+    .description-container p {
+      font-size: 1.2rem;
+    }
 }

@@ -8,8 +8,6 @@
   width: 100%;
   padding: 0 2rem 0 2rem;
   color: wheat;
-  /*
-background: radial-gradient(circle, rgb(13, 50, 16) 0%, rgb(11, 41, 13) 75%, rgb(3, 13, 4) 99%); */
 }
 
 .link-container {
@@ -59,6 +57,7 @@ background: radial-gradient(circle, rgb(13, 50, 16) 0%, rgb(11, 41, 13) 75%, rgb
 .uv-index-box {
   display: flex;
   flex-direction: column;
+  text-align: center;
 }
 
 .ball {
@@ -85,65 +84,3 @@ background: radial-gradient(circle, rgb(13, 50, 16) 0%, rgb(11, 41, 13) 75%, rgb
   }
 }
 
-
-/*
-  .background-img {
-    position: absolute;
-    background-image: url('../../images/pexels-felipe-helfstein-14705286.jpg');
-    background-size: cover;
-    background-repeat: no-repeat; 
-    background-position: 83%;
-    width: 10%;
-    height: 100%;
-  }*/
-
-/*
-.uv-index-box {
-
-  background: rgba(255, 255, 255, 0.29);
-  border-radius: 16px;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(8.2px);
-  -webkit-backdrop-filter: blur(8.2px);
-  border-radius: 40px;
-  width: 50%;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  box-shadow: 0px 8px 16px 0px rgba(81, 48, 2, 0.2);
-  margin: 0 auto; 
-}
-
-
-.uv-index-box h2 {
-text-align:center;
-font-size: 16px;
-  color: #2a152a3c;
-
-}
-
-.uv-index-box h1 {
-  text-align:center;
-  margin-bottom: -40px;
-  font-size: 35px;
-  color: #DB5A4F;
-
-  }
-
-  .uv-index-box h6 {
-    margin-bottom: -100px;
-    margin-top: 20px;
-    text-align:center;
-    font-size: 18px;
-    color: #2a152a4f;
-      font-family: 'Poppins', sans-serif;
-      font-weight:600
-    }
-
-    @media (min-width: 1024px) {
-      .welcomeh1  {
-          font-size: 4rem;
-      }
-    }*/

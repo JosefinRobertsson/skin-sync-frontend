@@ -11,7 +11,8 @@
 }
 
 .ball2,
-.ball3 {
+.ball3,
+.ball4 {
     position: absolute;
     top: -10%;
     left: 50%;
@@ -26,12 +27,29 @@
     filter: brightness(0.8);
 }
 
+.ball2 {
+    transform: rotate(-30deg);
+    box-shadow: 20px 8px 5px 20px rgba(13, 13, 13, 0.527);
+}
+
 .ball3 {
+    top: 40%;
+    left: -5%;
+    background-position: 80%;
+    width: 250px;
+    transform: rotate(40deg);
+    box-shadow: 20px 8px 5px 20px rgba(13, 13, 13, 0.527);
+}
+
+.ball4 {
     top: 60%;
     left: 35%;
     background-position: 80%;
     width: 150px;
+    z-index: -2;
+        box-shadow: 20px 8px 5px 10px rgba(13, 13, 13, 0.527);
 }
+
 
 .dailyreportbody h1 {
    padding: 2rem 2rem 0 2rem;
@@ -80,7 +98,7 @@ input[type='range'] {
 	height: 5px;
 	background: grey;
 	border-radius: 4px;
-    background: linear-gradient(278deg, rgba(250,255,103,1) 8%, rgba(251,211,57,1) 26%, rgba(222,157,16,1) 59%, rgba(49,190,44,1) 98%);
+    background: linear-gradient(278deg, rgba(250,255,103,0.8) 8%, rgba(251,211,57,0.8) 26%, rgba(222,157,16,0.8) 59%, rgba(49,190,44,0.8) 98%);
     cursor: pointer;
 }
 

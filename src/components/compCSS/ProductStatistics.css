@@ -1,5 +1,8 @@
 .productsWrapper {
     padding: 1rem 19px 90px 19px;
+    border: 1px solid rgba(255, 255, 255, 0.75);
+    border-radius: 6px;
+    padding-bottom: 50px;
 }
 
 h2 {
@@ -154,8 +157,9 @@ margin: 0;
 }
 
 .archived-product {
-    color: red;
-    border: red 2px solid;
+
+    border: rgb(210, 31, 31) 2px solid;
+    text-decoration: line-through;
 }
 
 
