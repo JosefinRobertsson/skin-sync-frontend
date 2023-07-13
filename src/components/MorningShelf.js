@@ -53,7 +53,7 @@ const MorningShelf = ({ morningProducts, getMorningProducts, fetchSkincareProduc
       console.log('fetching categories2');
       try {
         const accessToken = localStorage.getItem('accessToken');
-        const response = await axios.get('https://skinsync-server.onrender.com/categories', {
+        const response = await fetch('https://skinsync-server.onrender.com/categories', {
           headers: {
             Authorization: accessToken
           }
