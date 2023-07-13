@@ -47,6 +47,10 @@ h2 {
   -ms-overflow-style: none;
 }
 
+.loading {
+  color: white;
+}
+
 code {
   font-family: 'Poppins', sans-serif;
   ;
