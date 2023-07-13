@@ -50,9 +50,9 @@ export const App = () => {
   }, []);
 
   // Update morning shelf from Archive
-  const getMorningProducts = () => {
+  const getMorningProducts = async () => {
     const accessToken = localStorage.getItem('accessToken');
-    axios.get('/productShelf/morning', {
+    await axios.get('/productShelf/morning', {
       headers: {
         Authorization: accessToken
       }

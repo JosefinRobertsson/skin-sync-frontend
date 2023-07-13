@@ -59,7 +59,7 @@ const MorningShelf = ({ morningProducts, getMorningProducts, fetchSkincareProduc
         if (!response.ok) {
           throw new Error(`Error: ${response.status}`);
         }
-        const data = await response.data;
+        const { data } = response;
         setCategories(data.categories);
       } catch (error) {
         console.error('An error occurred:', error);
