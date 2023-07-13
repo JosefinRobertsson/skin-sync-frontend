@@ -67,7 +67,7 @@ const NightShelf = ({
         if (!response.ok) {
           throw new Error(`Error: ${response.status}`);
         }
-        const data = await response.json();
+        const data = await response.data;
         setCategories(data.categories);
       } catch (error) {
         console.error('An error occurred:', error);
