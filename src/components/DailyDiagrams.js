@@ -55,8 +55,7 @@ const DailyDiagrams = ({ reportData, setReportData }) => {
   );
 
   if (!isDataAvailable) {
-    // Render a loading state or return early
-    return <div>Loading...</div>;
+    return <p className="loading">Loading, please wait...</p>;
   }
 
   const dataChartOne = [

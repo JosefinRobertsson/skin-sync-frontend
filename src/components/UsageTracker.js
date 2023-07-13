@@ -283,7 +283,7 @@ const UsageTracker = () => {
   };
 
   if (isLoading) {
-    return <p>Loading, please wait...</p>;
+    return <p className="loading">Loading, please wait...</p>;
   }
   if (error) {
     return <p>{error}</p>;

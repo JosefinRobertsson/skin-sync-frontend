@@ -8,8 +8,10 @@ import './compCSS/UserPage.css';
 const UserPage = () => {
   const [uvIndex, setUvIndex] = useState(null);
   const [username, setUsername] = useState('');
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
     const storedUsername = localStorage.getItem('username');
     if (storedUsername) {
       setUsername(storedUsername);
@@ -31,9 +33,13 @@ const UserPage = () => {
         console.error('Error fetching UV index:', error);
       }
     };
-
+    setLoading(false);
     fetchUVIndex();
   }, []);
+
+  if (loading) {
+    return <p className="loading">Loading, please wait...</p>;
+  }
 
   return (
     <div className="userpage-wrapper">
