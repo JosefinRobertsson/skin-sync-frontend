@@ -58,9 +58,6 @@ const ProductStatistics = ({ chosenDate }) => {
   const [showPopUp, setShowPopUp] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
 
-  // axios.defaults.baseURL = ' https://skinsync-mgydyyeela-no.a.run.app';
-  axios.defaults.baseURL = 'http://localhost:8080';
-
   useEffect(() => {
     const fetchSkincareProducts = async () => {
       setLoading(true);

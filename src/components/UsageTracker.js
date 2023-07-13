@@ -56,12 +56,8 @@ const getImagePath = (category) => {
 const UsageTracker = () => {
   const [morningProducts, setMorningProducts] = useState([]);
   const [nightProducts, setNightProducts] = useState([]);
-  // const [initialProducts, setInitialProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
-  // const [lastVisited, setLastVisited] = useState(null);
-  axios.defaults.baseURL = 'http://localhost:8080';
-  // axios.defaults.baseURL = ' https://skinsync-mgydyyeela-no.a.run.app';
 
   useEffect(() => {
     const fetchSkincareProducts = async () => {

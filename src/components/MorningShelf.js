@@ -6,6 +6,7 @@
 import React, { useState, useEffect } from 'react';
 import confetti from 'canvas-confetti';
 import { v4 as uuidv4 } from 'uuid';
+import axios from 'axios';
 import { ProductFormButton, SaveButton, BackButton } from '../styles/StyledButtons';
 import MorningPopUp from './MorningPopUp.js';
 import './compCSS/Shelves.css';
@@ -50,8 +51,7 @@ const MorningShelf = ({ morningProducts, getMorningProducts, fetchSkincareProduc
     const fetchCategories = async () => {
       try {
         const accessToken = localStorage.getItem('accessToken');
-        const response = await fetch('http://localhost:8080/categories', {
-        // const response = await fetch('https://skinsync-mgydyyeela-no.a.run.app/categories', {
+        const response = await axios.get('/categories', {
           headers: {
             Authorization: accessToken
           }
@@ -91,9 +91,7 @@ const MorningShelf = ({ morningProducts, getMorningProducts, fetchSkincareProduc
       })
     };
 
-    // let requestUrl = 'https://skinsync-mgydyyeela-no.a.run.app/productShelf';
-
-    fetch('http://localhost:8080/productShelf', options)
+    axios.get('/productShelf', options)
       .then((response) => response.json())
       .then((data) => {
         if (data.success) {

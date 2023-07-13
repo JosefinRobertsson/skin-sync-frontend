@@ -34,8 +34,7 @@ export const App = () => {
   const [archivedProducts, setArchivedProducts] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  // axios.defaults.baseURL = ' https://skinsync-mgydyyeela-no.a.run.app';
-  axios.defaults.baseURL = 'http://localhost:8080'
+  axios.defaults.baseURL = 'https://skinsync-server.onrender.com'
 
   useEffect(() => {
     const handlePageShow = (event) => {

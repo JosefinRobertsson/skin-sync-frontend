@@ -112,7 +112,7 @@ const MorningPopUp = ({
       })
     };
 
-    fetch(`http://localhost:8080/productShelf/${product._id}`, options)
+    fetch(`https://skinsync-server.onrender.com/productShelf/${product._id}`, options)
       .then((response) => response.json())
       .then((data) => {
         if (data.success) {
@@ -137,7 +137,7 @@ const MorningPopUp = ({
       setClickCount(1);
     } else {
       const accessToken = localStorage.getItem('accessToken');
-      fetch(`http://localhost:8080/productShelf/${productId}`, {
+      fetch(`https://skinsync-server.onrender.com/productShelf/${productId}`, {
         method: 'DELETE',
         headers: {
           Authorization: accessToken

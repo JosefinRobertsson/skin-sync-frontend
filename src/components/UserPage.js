@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Zoom } from 'react-awesome-reveal';
 import { BaseLink } from '../styles/StyledLinks';
-// import { DailyLink, ShelfLink, StatisticsLink } from '../styles/StyledLinks';
 import './compCSS/UserPage.css';
 
 const UserPage = () => {
@@ -21,8 +20,7 @@ const UserPage = () => {
     const fetchUVIndex = async () => {
       try {
         const accessToken = localStorage.getItem('accessToken');
-        const response = await axios.get('http://localhost:8080/userPage', {
-          // const response = await axios.get(' https://skinsync-mgydyyeela-no.a.run.app/userPage', {
+        const response = await axios.get('/userPage', {
           headers: {
             Authorization: accessToken
           }
@@ -30,7 +28,7 @@ const UserPage = () => {
         const { uvIndex } = response.data;
         setUvIndex(uvIndex);
       } catch (error) {
-        // console.error('Error fetching UV index:', error);
+        console.error('Error fetching UV index:', error);
       }
     };
 

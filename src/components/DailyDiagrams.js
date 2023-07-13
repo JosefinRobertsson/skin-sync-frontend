@@ -31,8 +31,7 @@ const DailyDiagrams = ({ reportData, setReportData }) => {
             Authorization: accessToken
           }
         };
-        const reportResponse = await axios.get('http://localhost:8080/dailyReport', config);
-        // const reportResponse = await axios.get('https://skinsync-mgydyyeela-no.a.run.app/dailyReport', config);
+        const reportResponse = await axios.get('/dailyReport', config);
         if (reportResponse.data.success) {
           setReportData(reportResponse.data.response);
         } else {

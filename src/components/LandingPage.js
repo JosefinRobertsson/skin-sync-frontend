@@ -55,10 +55,9 @@ const LandingPage = ({ username, setUsername }) => {
 
   const auth = (event) => {
     event.preventDefault();
-    const url = isLogin ? 'http://localhost:8080/login' : 'http://localhost:8080/register';
-    // const url = isLogin ? ' https://skinsync-mgydyyeela-no.a.run.app/login' : ' https://skinsync-mgydyyeela-no.a.run.app/register';
+    const endpoint = isLogin ? '/login' : '/register';
     axios
-      .post(url, {
+      .post(endpoint, {
         username,
         password
       })

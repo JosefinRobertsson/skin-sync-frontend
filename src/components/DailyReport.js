@@ -56,8 +56,7 @@ const DailyReport = () => {
 
       })
     };
-    fetch('http://localhost:8080/dailyReport', options)
-    // fetch('https://skinsync-mgydyyeela-no.a.run.app/dailyReport', options)
+    fetch('https://skinsync-server.onrender.com/dailyReport', options)
       .then((response) => response.json())
       .then((data) => {
         if (data.success) {
