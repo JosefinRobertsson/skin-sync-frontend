@@ -34,7 +34,8 @@ export const App = () => {
   const [archivedProducts, setArchivedProducts] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  axios.defaults.baseURL = 'https://skinsync-server.onrender.com'
+  axios.defaults.baseURL = 'https://skinsync-server.onrender.com';
+  // axios.defaults.baseURL = 'http://localhost:8080'
 
   useEffect(() => {
     const handlePageShow = (event) => {
@@ -50,19 +51,25 @@ export const App = () => {
   }, []);
 
   // Update morning shelf from Archive
-  const getMorningProducts = async () => {
-    try {
-      const accessToken = localStorage.getItem('accessToken');
-      const response = await axios.get('/productShelf/morning', {
-        headers: {
-          Authorization: accessToken
+  const getMorningProducts = () => {
+    const accessToken = localStorage.getItem('accessToken');
+    fetch('http://localhost:8080/productShelf/morning', {
+      headers: {
+        Authorization: accessToken
+      }
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`Error: ${res.status}`);
         }
+        return res.json();
+      })
+      .then((data) => {
+        setMorningProducts(data.response);
+      })
+      .catch((error) => {
+        console.error('An error occurred:', error);
       });
-      const { data } = response;
-      setMorningProducts(data.response);
-    } catch (error) {
-      console.error('An error occurred:', error);
-    }
   };
 
   // Update Archive from other components

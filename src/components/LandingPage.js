@@ -102,8 +102,8 @@ const LandingPage = ({ username, setUsername }) => {
 
   if (loading) {
     return <p className="loading">Loading... SkinSync is hosted
-      on a free web service provider.
-      Please allow it some time to bringitself to life...
+      on a free web service provider, Render.
+      Please allow it some time to bring itself to life...
       </p>;
   }
 
