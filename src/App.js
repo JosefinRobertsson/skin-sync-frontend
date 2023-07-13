@@ -52,7 +52,7 @@ export const App = () => {
   // Update morning shelf from Archive
   const getMorningProducts = () => {
     const accessToken = localStorage.getItem('accessToken');
-    fetch('http://localhost:8080/productShelf/morning', {
+    fetch('https://skinsync-server.onrender.com/productShelf/morning', {
       headers: {
         Authorization: accessToken
       }

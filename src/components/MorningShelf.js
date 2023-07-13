@@ -195,8 +195,6 @@ const MorningShelf = ({ morningProducts, getMorningProducts, fetchSkincareProduc
 
   const morningProductCount = morningProducts.filter((product) => !product.archived).length;
 
-  console.log('morningProducts', morningProducts);
-
   return (
     <div className="shelvesWrapper">
       <h1>Product Shelves</h1>
