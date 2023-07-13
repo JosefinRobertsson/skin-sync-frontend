@@ -6,7 +6,6 @@
 import React, { useState, useEffect } from 'react';
 import confetti from 'canvas-confetti';
 import { v4 as uuidv4 } from 'uuid';
-import axios from 'axios';
 import { ProductFormButton, SaveButton, BackButton } from '../styles/StyledButtons';
 import MorningPopUp from './MorningPopUp.js';
 import './compCSS/Shelves.css';
@@ -48,22 +47,19 @@ const MorningShelf = ({ morningProducts, getMorningProducts, fetchSkincareProduc
 
   // Gets the categories for the dropdown menu
   useEffect(() => {
-    console.log('fetching categories');
     const fetchCategories = async () => {
-      console.log('fetching categories2');
       try {
         const accessToken = localStorage.getItem('accessToken');
+        // const response = await fetch('http://localhost:8080/categories', {
         const response = await fetch('https://skinsync-server.onrender.com/categories', {
           headers: {
             Authorization: accessToken
           }
         });
-        console.log('response', response);
         if (!response.ok) {
           throw new Error(`Error: ${response.status}`);
         }
         const data = await response.json();
-        console.log('fetched categories', data.categories);
         setCategories(data.categories);
       } catch (error) {
         console.error('An error occurred:', error);
@@ -95,7 +91,8 @@ const MorningShelf = ({ morningProducts, getMorningProducts, fetchSkincareProduc
       })
     };
 
-    axios.post('/productShelf', options)
+    // fetch('http://localhost:8080/productShelf', options)
+    fetch('https://skinsync-server.onrender.com/productShelf', options)
       .then((response) => response.json())
       .then((data) => {
         if (data.success) {
@@ -199,7 +196,7 @@ const MorningShelf = ({ morningProducts, getMorningProducts, fetchSkincareProduc
 
   const morningProductCount = morningProducts.filter((product) => !product.archived).length;
 
-  console.log('categories', categories);
+  console.log('morningProducts', morningProducts);
 
   return (
     <div className="shelvesWrapper">
