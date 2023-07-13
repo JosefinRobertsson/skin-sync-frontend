@@ -52,18 +52,13 @@ export const App = () => {
   // Update morning shelf from Archive
   const getMorningProducts = () => {
     const accessToken = localStorage.getItem('accessToken');
-    fetch('https://skinsync-server.onrender.com/productShelf/morning', {
+    axios.get('/productShelf/morning', {
       headers: {
         Authorization: accessToken
       }
     })
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error(`Error: ${res.status}`);
-        }
-        return res.json();
-      })
-      .then((data) => {
+      .then((response) => {
+        const { data } = response;
         setMorningProducts(data.response);
       })
       .catch((error) => {
