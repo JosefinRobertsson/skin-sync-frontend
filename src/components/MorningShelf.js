@@ -56,9 +56,6 @@ const MorningShelf = ({ morningProducts, getMorningProducts, fetchSkincareProduc
             Authorization: accessToken
           }
         });
-        if (!response.ok) {
-          throw new Error(`Error: ${response.status}`);
-        }
         const { data } = response;
         setCategories(data.categories);
       } catch (error) {
