@@ -51,7 +51,7 @@ const MorningShelf = ({ morningProducts, getMorningProducts, fetchSkincareProduc
     const fetchCategories = async () => {
       try {
         const accessToken = localStorage.getItem('accessToken');
-        const response = await axios.get('/categories', {
+        const response = await axios.get('https://skinsync-server.onrender.com/categories', {
           headers: {
             Authorization: accessToken
           }
@@ -59,7 +59,7 @@ const MorningShelf = ({ morningProducts, getMorningProducts, fetchSkincareProduc
         const { data } = response;
         setCategories(data.categories);
       } catch (error) {
-        console.error('An error occurred:', error);
+        console.error('An error occurred:', error.response || error.message);
       }
     };
     fetchCategories();
