@@ -6,7 +6,6 @@
 import React, { useState, useEffect } from 'react';
 import confetti from 'canvas-confetti';
 import { v4 as uuidv4 } from 'uuid';
-import axios from 'axios';
 import { ProductFormButton, SaveButton, BackButton, ArchiveButton } from '../styles/StyledButtons';
 import NightPopUp from './NightPopUp.js';
 import Archive from './Archive.js';
@@ -57,10 +56,10 @@ const NightShelf = ({
   // Gets the categories for the dropdown menu
   useEffect(() => {
     const fetchCategories = async () => {
-      console.log('fetching NIGHT categories');
       try {
         const accessToken = localStorage.getItem('accessToken');
-        const response = await axios.get('/categories', {
+        // const response = await fetch('http://localhost:8080/categories', {
+        const response = await fetch('https://skinsync-server.onrender.com/categories', {
           headers: {
             Authorization: accessToken
           }
@@ -68,7 +67,7 @@ const NightShelf = ({
         if (!response.ok) {
           throw new Error(`Error: ${response.status}`);
         }
-        const data = await response.data;
+        const data = await response.json();
         setCategories(data.categories);
       } catch (error) {
         console.error('An error occurred:', error);
@@ -78,9 +77,9 @@ const NightShelf = ({
   }, []);
 
   const getNightProducts = () => {
-    console.log('fetching night products');
     const accessToken = localStorage.getItem('accessToken');
-    axios.get('/productShelf/night', {
+    // fetch('http://localhost:8080/productShelf/night', {
+    fetch('https://skinsync-server.onrender.com/productShelf/night', {
       headers: {
         Authorization: accessToken
       }
@@ -122,7 +121,7 @@ const NightShelf = ({
       })
     };
 
-    axios.post('/productShelf', options)
+    fetch('https://skinsync-server.onrender.com/productShelf', options)
       .then((response) => response.json())
       .then((data) => {
         if (data.success) {
