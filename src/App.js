@@ -51,19 +51,18 @@ export const App = () => {
 
   // Update morning shelf from Archive
   const getMorningProducts = async () => {
-    const accessToken = localStorage.getItem('accessToken');
-    await axios.get('/productShelf/morning', {
-      headers: {
-        Authorization: accessToken
-      }
-    })
-      .then((response) => {
-        const { data } = response;
-        setMorningProducts(data.response);
-      })
-      .catch((error) => {
-        console.error('An error occurred:', error);
+    try {
+      const accessToken = localStorage.getItem('accessToken');
+      const response = await axios.get('/productShelf/morning', {
+        headers: {
+          Authorization: accessToken
+        }
       });
+      const { data } = response;
+      setMorningProducts(data.response);
+    } catch (error) {
+      console.error('An error occurred:', error);
+    }
   };
 
   // Update Archive from other components

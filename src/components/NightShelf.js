@@ -57,6 +57,7 @@ const NightShelf = ({
   // Gets the categories for the dropdown menu
   useEffect(() => {
     const fetchCategories = async () => {
+      console.log('fetching NIGHT categories');
       try {
         const accessToken = localStorage.getItem('accessToken');
         const response = await axios.get('/categories', {
@@ -77,6 +78,7 @@ const NightShelf = ({
   }, []);
 
   const getNightProducts = () => {
+    console.log('fetching night products');
     const accessToken = localStorage.getItem('accessToken');
     axios.get('/productShelf/night', {
       headers: {
