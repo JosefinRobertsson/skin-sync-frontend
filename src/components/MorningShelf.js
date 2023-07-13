@@ -48,7 +48,9 @@ const MorningShelf = ({ morningProducts, getMorningProducts, fetchSkincareProduc
 
   // Gets the categories for the dropdown menu
   useEffect(() => {
+    console.log('fetching categories');
     const fetchCategories = async () => {
+      console.log('fetching categories2');
       try {
         const accessToken = localStorage.getItem('accessToken');
         const response = await axios.get('https://skinsync-server.onrender.com/categories', {
@@ -193,6 +195,8 @@ const MorningShelf = ({ morningProducts, getMorningProducts, fetchSkincareProduc
   }
 
   const morningProductCount = morningProducts.filter((product) => !product.archived).length;
+
+  console.log('categories', categories);
 
   return (
     <div className="shelvesWrapper">
