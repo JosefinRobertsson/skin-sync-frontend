@@ -48,6 +48,7 @@ const MorningShelf = ({ morningProducts, getMorningProducts, fetchSkincareProduc
   // Gets the categories for the dropdown menu
   useEffect(() => {
     const fetchCategories = async () => {
+      console.log('fetching morning categories');
       try {
         const accessToken = localStorage.getItem('accessToken');
         // const response = await fetch('http://localhost:8080/categories', {

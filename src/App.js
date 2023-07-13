@@ -52,6 +52,7 @@ export const App = () => {
 
   // Update morning shelf from Archive
   const getMorningProducts = () => {
+    console.log('fetching morning products');
     const accessToken = localStorage.getItem('accessToken');
     fetch('http://localhost:8080/productShelf/morning', {
       headers: {
@@ -74,6 +75,7 @@ export const App = () => {
 
   // Update Archive from other components
   const fetchSkincareProducts = async () => {
+    console.log('fetching skincare products');
     console.log('fetching skincare products');
     setLoading(true);
     let morningResponse;
