@@ -120,7 +120,7 @@ const NightShelf = ({
       })
     };
 
-    axios.get('/productShelf', options)
+    axios.post('/productShelf', options)
       .then((response) => response.json())
       .then((data) => {
         if (data.success) {

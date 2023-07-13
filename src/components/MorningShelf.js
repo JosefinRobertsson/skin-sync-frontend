@@ -56,8 +56,10 @@ const MorningShelf = ({ morningProducts, getMorningProducts, fetchSkincareProduc
             Authorization: accessToken
           }
         });
-        const { data } = response;
-        setCategories(data.categories);
+        console.log('response', response);
+        const { fetchedCategories } = response.data;
+        setCategories(fetchedCategories);
+        console.log('fetched categories', fetchedCategories);
       } catch (error) {
         console.error('An error occurred:', error.response || error.message);
       }
